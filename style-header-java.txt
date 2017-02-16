@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// Hash library provides facilities for hash code computations.
-// Copyright (C) 2016 Dmitry Shapovalov.
+// Hash library provides facilities for the hash computations.
+// Copyright (C) 2017 Dmitry Shapovalov.
 //
 // This file is part of Hash library.
 //
