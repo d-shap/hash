@@ -49,8 +49,7 @@ public final class HashHelper {
             MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
             messageDigest.reset();
             messageDigest.update(bytes);
-            byte[] currentHash = messageDigest.digest();
-            return new Hash(messageDigest, currentHash);
+            return new Hash(messageDigest);
         } catch (GeneralSecurityException ex) {
             throw new HashException(ex);
         }
@@ -82,8 +81,7 @@ public final class HashHelper {
                 stream.close();
             }
 
-            byte[] currentHash = messageDigest.digest();
-            return new Hash(messageDigest, currentHash);
+            return new Hash(messageDigest);
         } catch (GeneralSecurityException ex) {
             throw new HashException(ex);
         } catch (IOException ex) {

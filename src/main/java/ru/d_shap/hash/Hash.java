@@ -33,11 +33,10 @@ public final class Hash {
 
     private byte[] _currentHash;
 
-    Hash(final MessageDigest messageDigest, final byte[] currentHash) {
+    Hash(final MessageDigest messageDigest) {
         super();
         _messageDigest = messageDigest;
-        _currentHash = new byte[currentHash.length];
-        System.arraycopy(currentHash, 0, _currentHash, 0, currentHash.length);
+        _currentHash = _messageDigest.digest();
     }
 
     /**
