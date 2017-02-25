@@ -25,7 +25,7 @@ import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 
 /**
- * factory.
+ * Class to perform hash computations.
  *
  * @author Dmitry Shapovalov
  */
@@ -45,12 +45,23 @@ public final class HashHelper {
      * @return hash object.
      */
     public static Hash getHash(final byte[] bytes, final String algorithm) {
+        MessageDigest messageDigest = createMessageDigest(algorithm);
+        updateMessageDigest(messageDigest, bytes);
+        return new Hash(messageDigest);
+    }
+
+    /**
+     * Create hash for the specified string.
+     *
+     * @param str       the specified string.
+     * @param encoding  the encoding of the string.
+     * @param algorithm hash algorithm.
+     * @return hash object.
+     */
+    public static Hash getHash(final String str, final String encoding, final String algorithm) {
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
-            messageDigest.reset();
-            messageDigest.update(bytes);
-            return new Hash(messageDigest);
-        } catch (GeneralSecurityException ex) {
+            return getHash(str.getBytes(encoding), algorithm);
+        } catch (IOException ex) {
             throw new HashException(ex);
         }
     }
@@ -63,10 +74,27 @@ public final class HashHelper {
      * @return hash object.
      */
     public static Hash getHash(final InputStream stream, final String algorithm) {
+        MessageDigest messageDigest = createMessageDigest(algorithm);
+        updateMessageDigest(messageDigest, stream);
+        return new Hash(messageDigest);
+    }
+
+    private static MessageDigest createMessageDigest(final String algorithm) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
             messageDigest.reset();
+            return messageDigest;
+        } catch (GeneralSecurityException ex) {
+            throw new HashException(ex);
+        }
+    }
 
+    private static void updateMessageDigest(final MessageDigest messageDigest, final byte[] bytes) {
+        messageDigest.update(bytes);
+    }
+
+    private static void updateMessageDigest(final MessageDigest messageDigest, final InputStream stream) {
+        try {
             try {
                 byte[] buffer = new byte[INPUT_STREAM_BUFFER_SIZE];
                 int read;
@@ -80,10 +108,6 @@ public final class HashHelper {
             } finally {
                 stream.close();
             }
-
-            return new Hash(messageDigest);
-        } catch (GeneralSecurityException ex) {
-            throw new HashException(ex);
         } catch (IOException ex) {
             throw new HashException(ex);
         }
