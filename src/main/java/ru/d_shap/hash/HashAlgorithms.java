@@ -20,7 +20,7 @@
 package ru.d_shap.hash;
 
 /**
- * Constants with hash algorithm names.
+ * Hash algorithm names.
  *
  * @author Dmitry Shapovalov
  */
