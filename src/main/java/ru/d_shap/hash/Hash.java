@@ -19,6 +19,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
@@ -40,7 +41,7 @@ public final class Hash {
     }
 
     /**
-     * Add salt to the current hash.
+     * Add the salt to the current hash.
      *
      * @param salt the salt.
      */
@@ -49,6 +50,20 @@ public final class Hash {
         _messageDigest.update(_currentHash);
         _messageDigest.update(salt);
         _currentHash = _messageDigest.digest();
+    }
+
+    /**
+     * Add the salt to the current hash.
+     *
+     * @param salt     the salt.
+     * @param encoding the encoding of the salt.
+     */
+    public void addSalt(final String salt, final String encoding) {
+        try {
+            addSalt(salt.getBytes(encoding));
+        } catch (IOException ex) {
+            throw new HashException(ex);
+        }
     }
 
     /**
@@ -66,9 +81,9 @@ public final class Hash {
      * Check if the current hash bytes are equal to the specified bytes.
      *
      * @param hash the specified bytes.
-     * @return true  if the current hash bytes are equal to the specified bytes.
+     * @return true if the current hash bytes are equal to the specified bytes.
      */
-    public boolean isValid(final byte[] hash) {
+    public boolean matches(final byte[] hash) {
         return Arrays.equals(_currentHash, hash);
     }
 
