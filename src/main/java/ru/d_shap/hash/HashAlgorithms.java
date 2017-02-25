@@ -32,6 +32,8 @@ public final class HashAlgorithms {
 
     public static final String SHA256 = "SHA-256";
 
+    public static final String SHA512 = "SHA-512";
+
     public static final String GOST3411 = "GOST3411";
 
     private HashAlgorithms() {
