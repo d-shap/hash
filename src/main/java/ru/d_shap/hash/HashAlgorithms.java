@@ -20,7 +20,7 @@
 package ru.d_shap.hash;
 
 /**
- * Hash algorithm names.
+ * Hash algorithms.
  *
  * @author Dmitry Shapovalov
  */
