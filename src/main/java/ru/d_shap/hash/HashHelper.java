@@ -38,11 +38,11 @@ public final class HashHelper {
     }
 
     /**
-     * Create hash for the specified bytes.
+     * Create the hash object for the specified bytes.
      *
      * @param bytes     the specified bytes.
-     * @param algorithm hash algorithm.
-     * @return hash object.
+     * @param algorithm the hash algorithm.
+     * @return the hash object.
      */
     public static Hash getHash(final byte[] bytes, final String algorithm) {
         MessageDigest messageDigest = createMessageDigest(algorithm);
@@ -51,12 +51,12 @@ public final class HashHelper {
     }
 
     /**
-     * Create hash for the specified string.
+     * Create the hash object for the specified string.
      *
      * @param str       the specified string.
      * @param encoding  the encoding of the string.
-     * @param algorithm hash algorithm.
-     * @return hash object.
+     * @param algorithm the hash algorithm.
+     * @return the hash object.
      */
     public static Hash getHash(final String str, final String encoding, final String algorithm) {
         try {
@@ -67,11 +67,11 @@ public final class HashHelper {
     }
 
     /**
-     * Create hash for the specified stream.
+     * Create the hash object for the specified stream of bytes.
      *
-     * @param stream    the specified stream.
-     * @param algorithm hash algorithm.
-     * @return hash object.
+     * @param stream    the specified stream of bytes.
+     * @param algorithm the hash algorithm.
+     * @return the hash object.
      */
     public static Hash getHash(final InputStream stream, final String algorithm) {
         MessageDigest messageDigest = createMessageDigest(algorithm);
@@ -111,6 +111,88 @@ public final class HashHelper {
         } catch (IOException ex) {
             throw new HashException(ex);
         }
+    }
+
+    /**
+     * Add the salt bytes to the result array of bytes before the hash bytes.
+     *
+     * @param hash the hash bytes.
+     * @param salt the salt bytes.
+     * @return the result array of bytes.
+     */
+    public static byte[] addSaltToTheBeginning(final byte[] hash, final byte[] salt) {
+        byte[] result = new byte[hash.length + salt.length];
+        System.arraycopy(salt, 0, result, 0, salt.length);
+        System.arraycopy(hash, 0, result, salt.length, hash.length);
+        return result;
+    }
+
+    /**
+     * Add the salt bytes to the result array of bytes after the hash bytes.
+     *
+     * @param hash the hash bytes.
+     * @param salt the salt bytes.
+     * @return the result array of bytes.
+     */
+    public static byte[] addSaltToTheEnd(final byte[] hash, final byte[] salt) {
+        byte[] result = new byte[hash.length + salt.length];
+        System.arraycopy(hash, 0, result, 0, hash.length);
+        System.arraycopy(salt, 0, result, hash.length, salt.length);
+        return result;
+    }
+
+    /**
+     * Get the salt bytes from the beginning of the array of bytes.
+     *
+     * @param bytes      the array of bytes.
+     * @param saltLength the number of the salt bytes.
+     * @return the salt bytes.
+     */
+    public static byte[] getSaltFromTheBeginning(final byte[] bytes, final int saltLength) {
+        byte[] salt = new byte[saltLength];
+        System.arraycopy(bytes, 0, salt, 0, saltLength);
+        return salt;
+    }
+
+    /**
+     * Get the salt bytes from the end of the array of bytes.
+     *
+     * @param bytes      the array of bytes.
+     * @param saltLength the number of the salt bytes.
+     * @return the salt bytes.
+     */
+    public static byte[] getSaltFromTheEnd(final byte[] bytes, final int saltLength) {
+        byte[] salt = new byte[saltLength];
+        System.arraycopy(bytes, bytes.length - saltLength, salt, 0, saltLength);
+        return salt;
+    }
+
+    /**
+     * Get the hash bytes from the beginning of the array of bytes.
+     *
+     * @param bytes      the array of bytes.
+     * @param saltLength the number of the salt bytes.
+     * @return the hash bytes.
+     */
+    public static byte[] getHashFromTheBeginning(final byte[] bytes, final int saltLength) {
+        int hashLength = bytes.length - saltLength;
+        byte[] hash = new byte[hashLength];
+        System.arraycopy(bytes, 0, hash, 0, hashLength);
+        return hash;
+    }
+
+    /**
+     * Get the hash bytes from the end of the array of bytes.
+     *
+     * @param bytes      the array of bytes.
+     * @param saltLength the number of the salt bytes.
+     * @return the hash bytes.
+     */
+    public static byte[] getHashFromTheEnd(final byte[] bytes, final int saltLength) {
+        int hashLength = bytes.length - saltLength;
+        byte[] hash = new byte[hashLength];
+        System.arraycopy(bytes, saltLength, hash, 0, hashLength);
+        return hash;
     }
 
 }
