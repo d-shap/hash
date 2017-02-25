@@ -19,6 +19,10 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash;
 
+import org.junit.Test;
+
+import ru.d_shap.assertions.Assertions;
+
 /**
  * Tests for {@link HashAlgorithms}.
  *
@@ -31,6 +35,14 @@ public final class HashAlgorithmsTest {
      */
     public HashAlgorithmsTest() {
         super();
+    }
+
+    /**
+     * {@link HashAlgorithms} class test.
+     */
+    @Test
+    public void constructorTest() {
+        Assertions.assertThat(HashAlgorithms.class).hasOnePrivateConstructor();
     }
 
 }
