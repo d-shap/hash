@@ -55,8 +55,8 @@ public final class Hash {
     /**
      * Add the salt to the current hash.
      *
-     * @param salt     the salt.
-     * @param encoding the encoding of the salt.
+     * @param salt     the string with salt.
+     * @param encoding the encoding of the string.
      */
     public void addSalt(final String salt, final String encoding) {
         try {
@@ -69,7 +69,7 @@ public final class Hash {
     /**
      * Get the current hash bytes.
      *
-     * @return the hash.
+     * @return the hash bytes.
      */
     public byte[] getBytes() {
         byte[] result = new byte[_currentHash.length];
