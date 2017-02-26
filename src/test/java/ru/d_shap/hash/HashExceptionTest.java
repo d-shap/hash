@@ -19,6 +19,13 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import org.junit.Test;
+
+import ru.d_shap.assertions.Assertions;
+
 /**
  * Tests for {@link HashException}.
  *
@@ -31,6 +38,30 @@ public final class HashExceptionTest {
      */
     public HashExceptionTest() {
         super();
+    }
+
+    /**
+     * {@link HashException} class test.
+     */
+    @Test
+    public void errorCauseTest() {
+        Assertions.assertThat(new HashException(new GeneralSecurityException())).isCauseInstanceOf(GeneralSecurityException.class);
+        Assertions.assertThat(new HashException(new GeneralSecurityException())).isCauseInstanceOf(Exception.class);
+
+        Assertions.assertThat(new HashException(new IOException())).isCauseInstanceOf(IOException.class);
+        Assertions.assertThat(new HashException(new IOException())).isCauseInstanceOf(Exception.class);
+    }
+
+    /**
+     * {@link HashException} class test.
+     */
+    @Test
+    public void errorMessageTest() {
+        Assertions.assertThat(new HashException(new GeneralSecurityException())).hasMessage("java.security.GeneralSecurityException");
+        Assertions.assertThat(new HashException(new GeneralSecurityException("Security exception message"))).hasMessage("java.security.GeneralSecurityException: Security exception message");
+
+        Assertions.assertThat(new HashException(new IOException())).hasMessage("java.io.IOException");
+        Assertions.assertThat(new HashException(new IOException("IO exception message"))).hasMessage("java.io.IOException: IO exception message");
     }
 
 }
