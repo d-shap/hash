@@ -106,6 +106,9 @@ public final class Hash {
      * @return true if the current hash bytes are equal to the specified bytes.
      */
     public boolean matches(final int... hash) {
+        if (hash == null) {
+            return false;
+        }
         byte[] bytes = new byte[hash.length];
         for (int i = 0; i < hash.length; i++) {
             bytes[i] = (byte) hash[i];
