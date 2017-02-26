@@ -43,11 +43,22 @@ public final class HashTest {
     @Test
     public void getHashLengthTest() {
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD2).getLength()).isEqualTo(16);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD2).addSalt(new byte[]{1, 2, 3}).getLength()).isEqualTo(16);
+
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).getLength()).isEqualTo(16);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new byte[]{1, 2, 3}).getLength()).isEqualTo(16);
+
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA1).getLength()).isEqualTo(20);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA1).addSalt(new byte[]{1, 2, 3}).getLength()).isEqualTo(20);
+
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA256).getLength()).isEqualTo(32);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA256).addSalt(new byte[]{1, 2, 3}).getLength()).isEqualTo(32);
+
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA384).getLength()).isEqualTo(48);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA384).addSalt(new byte[]{1, 2, 3}).getLength()).isEqualTo(48);
+
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA512).getLength()).isEqualTo(64);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.SHA512).addSalt(new byte[]{1, 2, 3}).getLength()).isEqualTo(64);
     }
 
     /**
