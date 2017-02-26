@@ -63,8 +63,16 @@ public final class HashTest {
     /**
      * {@link Hash} class test.
      */
+    @Test(expected = NullPointerException.class)
+    public void addNullByteArraySaltFailTest() {
+        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null);
+    }
+
+    /**
+     * {@link Hash} class test.
+     */
     @Test
-    public void addStringSalt() {
+    public void addStringSaltTest() {
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "UTF-8").getBytes()).containsExactlyInOrder(18, -111, 64, 32, 30, -51, 42, -70, 95, -77, 69, -34, 100, 100, 27, -115);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("abc", "UTF-8").getBytes()).containsExactlyInOrder(97, 97, -128, 25, -70, -31, -76, -59, -121, 90, 86, -81, -84, 11, -124, -55);
@@ -73,14 +81,25 @@ public final class HashTest {
     /**
      * {@link Hash} class test.
      */
-    @Test
-    public void addStringSaltWithWrongEncodingFailTest() {
-        try {
-            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
-            Assertions.fail("Hash test fail");
-        } catch (HashException ex) {
-            Assertions.assertThat(ex).hasMessage("java.io.UnsupportedEncodingException: wrong encoding");
-        }
+    @Test(expected = NullPointerException.class)
+    public void addNullStringSaltFailTest() {
+        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null, "UTF-8");
+    }
+
+    /**
+     * {@link Hash} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullEncodingStringSaltFailTest() {
+        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", null);
+    }
+
+    /**
+     * {@link Hash} class test.
+     */
+    @Test(expected = HashException.class)
+    public void addWrongEncodingStringSaltFailTest() {
+        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
     }
 
     /**
