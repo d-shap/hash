@@ -45,7 +45,7 @@ public final class Hash {
      *
      * @return the hash length.
      */
-    public int getHashLength() {
+    public int getLength() {
         return _currentHash.length;
     }
 
@@ -95,8 +95,22 @@ public final class Hash {
      * @param hash the specified bytes.
      * @return true if the current hash bytes are equal to the specified bytes.
      */
-    public boolean matches(final byte[] hash) {
+    public boolean matches(final byte... hash) {
         return Arrays.equals(_currentHash, hash);
+    }
+
+    /**
+     * Check if the current hash bytes are equal to the specified bytes.
+     *
+     * @param hash the specified bytes.
+     * @return true if the current hash bytes are equal to the specified bytes.
+     */
+    public boolean matches(final int... hash) {
+        byte[] bytes = new byte[hash.length];
+        for (int i = 0; i < hash.length; i++) {
+            bytes[i] = (byte) hash[i];
+        }
+        return matches(bytes);
     }
 
 }
