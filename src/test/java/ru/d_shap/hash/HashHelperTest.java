@@ -44,6 +44,14 @@ public final class HashHelperTest {
      * {@link HashHelper} class test.
      */
     @Test
+    public void constructorTest() {
+        Assertions.assertThat(HashHelper.class).hasOnePrivateConstructor();
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
     public void getByteArrayHashTest() {
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
         Assertions.assertThat(HashHelper.getHash(new byte[]{15, 38, -17, 105}, HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-101, 7, -89, 24, -27, 126, 87, -96, 29, 71, -91, 47, -77, 123, 22, 28);
