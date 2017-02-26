@@ -195,4 +195,12 @@ public final class HashHelper {
         return hash;
     }
 
+    static byte[] toByteArray(final int[] arr) {
+        byte[] bytes = new byte[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            bytes[i] = (byte) arr[i];
+        }
+        return bytes;
+    }
+
 }

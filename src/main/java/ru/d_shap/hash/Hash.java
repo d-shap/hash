@@ -70,11 +70,7 @@ public final class Hash {
      * @return current object for the chain call.
      */
     public Hash addSalt(final int... salt) {
-        byte[] bytes = new byte[salt.length];
-        for (int i = 0; i < salt.length; i++) {
-            bytes[i] = (byte) salt[i];
-        }
-        return addSalt(bytes);
+        return addSalt(HashHelper.toByteArray(salt));
     }
 
     /**
@@ -123,11 +119,7 @@ public final class Hash {
         if (hash == null) {
             return false;
         }
-        byte[] bytes = new byte[hash.length];
-        for (int i = 0; i < hash.length; i++) {
-            bytes[i] = (byte) hash[i];
-        }
-        return matches(bytes);
+        return matches(HashHelper.toByteArray(hash));
     }
 
 }
