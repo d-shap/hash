@@ -161,7 +161,7 @@ public final class HashHelper {
             case AT_THE_END:
                 return getSaltBytesFromTheEnd(bytes, saltLength);
             default:
-                return null;
+                return new byte[0];
         }
     }
 
