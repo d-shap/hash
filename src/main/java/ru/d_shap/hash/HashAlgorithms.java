@@ -26,11 +26,15 @@ package ru.d_shap.hash;
  */
 public final class HashAlgorithms {
 
+    public static final String MD2 = "MD2";
+
     public static final String MD5 = "MD5";
 
     public static final String SHA1 = "SHA-1";
 
     public static final String SHA256 = "SHA-256";
+
+    public static final String SHA384 = "SHA-384";
 
     public static final String SHA512 = "SHA-512";
 
