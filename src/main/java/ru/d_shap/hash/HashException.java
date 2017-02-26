@@ -36,7 +36,7 @@ public class HashException extends RuntimeException {
      *
      * @param ex the exception cause.
      */
-    public HashException(final GeneralSecurityException ex) {
+    HashException(final GeneralSecurityException ex) {
         super(ex);
     }
 
@@ -45,7 +45,7 @@ public class HashException extends RuntimeException {
      *
      * @param ex the exception cause.
      */
-    public HashException(final IOException ex) {
+    HashException(final IOException ex) {
         super(ex);
     }
 
