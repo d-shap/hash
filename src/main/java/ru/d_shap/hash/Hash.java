@@ -55,12 +55,26 @@ public final class Hash {
      * @param salt the salt.
      * @return current object for the chain call.
      */
-    public Hash addSalt(final byte[] salt) {
+    public Hash addSalt(final byte... salt) {
         _messageDigest.reset();
         _messageDigest.update(_currentHash);
         _messageDigest.update(salt);
         _currentHash = _messageDigest.digest();
         return this;
+    }
+
+    /**
+     * Add the salt to the current hash.
+     *
+     * @param salt the salt.
+     * @return current object for the chain call.
+     */
+    public Hash addSalt(final int... salt) {
+        byte[] bytes = new byte[salt.length];
+        for (int i = 0; i < salt.length; i++) {
+            bytes[i] = (byte) salt[i];
+        }
+        return addSalt(bytes);
     }
 
     /**
