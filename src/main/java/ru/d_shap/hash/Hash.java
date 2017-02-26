@@ -55,22 +55,12 @@ public final class Hash {
      * @param salt the salt.
      * @return current object for the chain call.
      */
-    public Hash addSalt(final byte... salt) {
+    public Hash addSalt(final byte[] salt) {
         _messageDigest.reset();
         _messageDigest.update(_currentHash);
         _messageDigest.update(salt);
         _currentHash = _messageDigest.digest();
         return this;
-    }
-
-    /**
-     * Add the salt to the current hash.
-     *
-     * @param salt the salt.
-     * @return current object for the chain call.
-     */
-    public Hash addSalt(final int... salt) {
-        return addSalt(HashHelper.toByteArray(salt));
     }
 
     /**
@@ -105,21 +95,8 @@ public final class Hash {
      * @param hash the specified bytes.
      * @return true if the current hash bytes are equal to the specified bytes.
      */
-    public boolean matches(final byte... hash) {
+    public boolean matches(final byte[] hash) {
         return Arrays.equals(_currentHash, hash);
-    }
-
-    /**
-     * Check if the current hash bytes are equal to the specified bytes.
-     *
-     * @param hash the specified bytes.
-     * @return true if the current hash bytes are equal to the specified bytes.
-     */
-    public boolean matches(final int... hash) {
-        if (hash == null) {
-            return false;
-        }
-        return matches(HashHelper.toByteArray(hash));
     }
 
 }
