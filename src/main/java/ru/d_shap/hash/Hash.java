@@ -41,15 +41,26 @@ public final class Hash {
     }
 
     /**
+     * Get the hash length.
+     *
+     * @return the hash length.
+     */
+    public int getHashLength() {
+        return _currentHash.length;
+    }
+
+    /**
      * Add the salt to the current hash.
      *
      * @param salt the salt.
+     * @return current object for the chain call.
      */
-    public void addSalt(final byte[] salt) {
+    public Hash addSalt(final byte[] salt) {
         _messageDigest.reset();
         _messageDigest.update(_currentHash);
         _messageDigest.update(salt);
         _currentHash = _messageDigest.digest();
+        return this;
     }
 
     /**
@@ -57,10 +68,11 @@ public final class Hash {
      *
      * @param salt     the string with salt.
      * @param encoding the encoding of the string.
+     * @return current object for the chain call.
      */
-    public void addSalt(final String salt, final String encoding) {
+    public Hash addSalt(final String salt, final String encoding) {
         try {
-            addSalt(salt.getBytes(encoding));
+            return addSalt(salt.getBytes(encoding));
         } catch (IOException ex) {
             throw new HashException(ex);
         }
