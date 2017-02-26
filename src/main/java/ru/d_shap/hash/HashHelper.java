@@ -114,27 +114,32 @@ public final class HashHelper {
     }
 
     /**
-     * Add the salt bytes to the result array of bytes before the hash bytes.
+     * Store the salt bytes in the result array of bytes along with the hash bytes.
      *
-     * @param hash the hash bytes.
-     * @param salt the salt bytes.
+     * @param hash          the hash bytes.
+     * @param salt          the salt bytes.
+     * @param saltStoreType how to store the salt bytes.
      * @return the result array of bytes.
      */
-    public static byte[] addSaltToTheBeginning(final byte[] hash, final byte[] salt) {
+    public static byte[] addSaltBytes(final byte[] hash, final byte[] salt, final SaltStoreType saltStoreType) {
+        switch (saltStoreType) {
+            case AT_THE_BEGINNING:
+                return addSaltBytesToTheBeginning(hash, salt);
+            case AT_THE_END:
+                return addSaltBytesToTheEnd(hash, salt);
+            default:
+                return hash;
+        }
+    }
+
+    private static byte[] addSaltBytesToTheBeginning(final byte[] hash, final byte[] salt) {
         byte[] result = new byte[hash.length + salt.length];
         System.arraycopy(salt, 0, result, 0, salt.length);
         System.arraycopy(hash, 0, result, salt.length, hash.length);
         return result;
     }
 
-    /**
-     * Add the salt bytes to the result array of bytes after the hash bytes.
-     *
-     * @param hash the hash bytes.
-     * @param salt the salt bytes.
-     * @return the result array of bytes.
-     */
-    public static byte[] addSaltToTheEnd(final byte[] hash, final byte[] salt) {
+    private static byte[] addSaltBytesToTheEnd(final byte[] hash, final byte[] salt) {
         byte[] result = new byte[hash.length + salt.length];
         System.arraycopy(hash, 0, result, 0, hash.length);
         System.arraycopy(salt, 0, result, hash.length, salt.length);
@@ -142,53 +147,63 @@ public final class HashHelper {
     }
 
     /**
-     * Get the salt bytes from the beginning of the array of bytes.
+     * Get the salt bytes from the the array of bytes.
      *
-     * @param bytes      the array of bytes.
-     * @param saltLength the number of the salt bytes.
+     * @param bytes         the array of bytes.
+     * @param saltStoreType how the salt bytes are stored.
+     * @param saltLength    the number of the salt bytes.
      * @return the salt bytes.
      */
-    public static byte[] getSaltFromTheBeginning(final byte[] bytes, final int saltLength) {
+    public static byte[] getSaltBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
+        switch (saltStoreType) {
+            case AT_THE_BEGINNING:
+                return getSaltBytesFromTheBeginning(bytes, saltLength);
+            case AT_THE_END:
+                return getSaltBytesFromTheEnd(bytes, saltLength);
+            default:
+                return null;
+        }
+    }
+
+    private static byte[] getSaltBytesFromTheBeginning(final byte[] bytes, final int saltLength) {
         byte[] salt = new byte[saltLength];
         System.arraycopy(bytes, 0, salt, 0, saltLength);
         return salt;
     }
 
-    /**
-     * Get the salt bytes from the end of the array of bytes.
-     *
-     * @param bytes      the array of bytes.
-     * @param saltLength the number of the salt bytes.
-     * @return the salt bytes.
-     */
-    public static byte[] getSaltFromTheEnd(final byte[] bytes, final int saltLength) {
+    private static byte[] getSaltBytesFromTheEnd(final byte[] bytes, final int saltLength) {
         byte[] salt = new byte[saltLength];
         System.arraycopy(bytes, bytes.length - saltLength, salt, 0, saltLength);
         return salt;
     }
 
     /**
-     * Get the hash bytes from the beginning of the array of bytes.
+     * Get the hash bytes from the the array of bytes.
      *
-     * @param bytes      the array of bytes.
-     * @param saltLength the number of the salt bytes.
+     * @param bytes         the array of bytes.
+     * @param saltStoreType how the salt bytes are stored.
+     * @param saltLength    the number of the salt bytes.
      * @return the hash bytes.
      */
-    public static byte[] getHashFromTheBeginning(final byte[] bytes, final int saltLength) {
+    public static byte[] getHashBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
+        switch (saltStoreType) {
+            case AT_THE_BEGINNING:
+                return getHashBytesFromTheBeginning(bytes, saltLength);
+            case AT_THE_END:
+                return getHashBytesFromTheEnd(bytes, saltLength);
+            default:
+                return bytes;
+        }
+    }
+
+    private static byte[] getHashBytesFromTheBeginning(final byte[] bytes, final int saltLength) {
         int hashLength = bytes.length - saltLength;
         byte[] hash = new byte[hashLength];
         System.arraycopy(bytes, 0, hash, 0, hashLength);
         return hash;
     }
 
-    /**
-     * Get the hash bytes from the end of the array of bytes.
-     *
-     * @param bytes      the array of bytes.
-     * @param saltLength the number of the salt bytes.
-     * @return the hash bytes.
-     */
-    public static byte[] getHashFromTheEnd(final byte[] bytes, final int saltLength) {
+    private static byte[] getHashBytesFromTheEnd(final byte[] bytes, final int saltLength) {
         int hashLength = bytes.length - saltLength;
         byte[] hash = new byte[hashLength];
         System.arraycopy(bytes, saltLength, hash, 0, hashLength);
