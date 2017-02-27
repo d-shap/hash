@@ -177,7 +177,33 @@ public final class HashHelperTest {
      */
     @Test
     public void addSaltBytesTest() {
+        Assertions.assertThat(HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, SaltStoreType.DO_NOT_STORE)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, SaltStoreType.AT_THE_BEGINNING)).containsExactlyInOrder(10, 11, 12, 1, 2, 3);
+        Assertions.assertThat(HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, SaltStoreType.AT_THE_END)).containsExactlyInOrder(1, 2, 3, 10, 11, 12);
+    }
 
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullHashSaltBytesFailTest() {
+        HashHelper.addSaltBytes(null, new byte[]{10, 11, 12}, SaltStoreType.AT_THE_BEGINNING);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullSaltBytesFailTest() {
+        HashHelper.addSaltBytes(new byte[]{1, 2, 3}, null, SaltStoreType.AT_THE_BEGINNING);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullSaltStoreTypeSaltBytesFailTest() {
+        HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, null);
     }
 
     /**
