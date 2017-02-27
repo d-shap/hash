@@ -137,7 +137,7 @@ public final class HashHelperTest {
     @Test
     public void getStreamHashTest() {
         Assertions.assertThat(HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
-        Assertions.assertThat(HashHelper.getHash(new ByteArrayInputStream(new byte[]{15, 38, -17, 105}), HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-101, 7, -89, 24, -27, 126, 87, -96, 29, 71, -91, 47, -77, 123, 22, 28);
+        Assertions.assertThat(HashHelper.getHash(new ByteArrayInputStream(new byte[]{15, 38, -17, 0, 105}), HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-81, 85, 33, 121, -50, -12, 26, 12, 7, -71, -104, -96, -63, 15, 73, 98);
     }
 
     /**
