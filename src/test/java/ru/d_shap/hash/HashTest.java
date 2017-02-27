@@ -69,6 +69,7 @@ public final class HashTest {
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new byte[]{49, 50, 51}).getBytes()).containsExactlyInOrder(18, -111, 64, 32, 30, -51, 42, -70, 95, -77, 69, -34, 100, 100, 27, -115);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new byte[]{97, 98, 99}).getBytes()).containsExactlyInOrder(97, 97, -128, 25, -70, -31, -76, -59, -121, 90, 86, -81, -84, 11, -124, -55);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new byte[]{97, 98, 99}).addSalt(new byte[]{1, 1, 1}).getBytes()).containsExactlyInOrder(106, 108, -115, 27, 79, 7, 56, 73, 97, -101, -124, -70, -121, 17, -45, 116);
     }
 
     /**
@@ -87,6 +88,7 @@ public final class HashTest {
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "UTF-8").getBytes()).containsExactlyInOrder(18, -111, 64, 32, 30, -51, 42, -70, 95, -77, 69, -34, 100, 100, 27, -115);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("abc", "UTF-8").getBytes()).containsExactlyInOrder(97, 97, -128, 25, -70, -31, -76, -59, -121, 90, 86, -81, -84, 11, -124, -55);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("abc", "UTF-8").addSalt("def", "UTF-8").getBytes()).containsExactlyInOrder(77, 15, 33, 109, -7, -43, -34, 2, -34, 26, -3, -2, 113, 2, 60, 24);
     }
 
     /**
