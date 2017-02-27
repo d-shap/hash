@@ -188,9 +188,9 @@ public final class HashHelper {
     public static byte[] getHashBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
         switch (saltStoreType) {
             case AT_THE_BEGINNING:
-                return getHashBytesFromTheBeginning(bytes, saltLength);
-            case AT_THE_END:
                 return getHashBytesFromTheEnd(bytes, saltLength);
+            case AT_THE_END:
+                return getHashBytesFromTheBeginning(bytes, saltLength);
             default:
                 return bytes;
         }
