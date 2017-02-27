@@ -122,30 +122,7 @@ public final class HashHelper {
      * @return the result array of bytes.
      */
     public static byte[] addSaltBytes(final byte[] hash, final byte[] salt, final SaltStoreType saltStoreType) {
-        if (saltStoreType == SaltStoreType.DO_NOT_STORE) {
-            return hash;
-        } else if (saltStoreType == SaltStoreType.AT_THE_BEGINNING) {
-            return addSaltBytesToTheBeginning(hash, salt);
-        }
-        if (saltStoreType == SaltStoreType.AT_THE_END) {
-            return addSaltBytesToTheEnd(hash, salt);
-        } else {
-            throw new NullPointerException();
-        }
-    }
-
-    private static byte[] addSaltBytesToTheBeginning(final byte[] hash, final byte[] salt) {
-        byte[] result = new byte[hash.length + salt.length];
-        System.arraycopy(salt, 0, result, 0, salt.length);
-        System.arraycopy(hash, 0, result, salt.length, hash.length);
-        return result;
-    }
-
-    private static byte[] addSaltBytesToTheEnd(final byte[] hash, final byte[] salt) {
-        byte[] result = new byte[hash.length + salt.length];
-        System.arraycopy(hash, 0, result, 0, hash.length);
-        System.arraycopy(salt, 0, result, hash.length, salt.length);
-        return result;
+        return saltStoreType.addSaltBytes(hash, salt);
     }
 
     /**
@@ -157,27 +134,7 @@ public final class HashHelper {
      * @return the salt bytes.
      */
     public static byte[] getSaltBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
-        if (saltStoreType == SaltStoreType.DO_NOT_STORE) {
-            return new byte[0];
-        } else if (saltStoreType == SaltStoreType.AT_THE_BEGINNING) {
-            return getSaltBytesFromTheBeginning(bytes, saltLength);
-        } else if (saltStoreType == SaltStoreType.AT_THE_END) {
-            return getSaltBytesFromTheEnd(bytes, saltLength);
-        } else {
-            throw new NullPointerException();
-        }
-    }
-
-    private static byte[] getSaltBytesFromTheBeginning(final byte[] bytes, final int saltLength) {
-        byte[] salt = new byte[saltLength];
-        System.arraycopy(bytes, 0, salt, 0, saltLength);
-        return salt;
-    }
-
-    private static byte[] getSaltBytesFromTheEnd(final byte[] bytes, final int saltLength) {
-        byte[] salt = new byte[saltLength];
-        System.arraycopy(bytes, bytes.length - saltLength, salt, 0, saltLength);
-        return salt;
+        return saltStoreType.getSaltBytes(bytes, saltLength);
     }
 
     /**
@@ -189,29 +146,7 @@ public final class HashHelper {
      * @return the hash bytes.
      */
     public static byte[] getHashBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
-        if (saltStoreType == SaltStoreType.DO_NOT_STORE) {
-            return bytes;
-        } else if (saltStoreType == SaltStoreType.AT_THE_BEGINNING) {
-            return getHashBytesFromTheEnd(bytes, saltLength);
-        } else if (saltStoreType == SaltStoreType.AT_THE_END) {
-            return getHashBytesFromTheBeginning(bytes, saltLength);
-        } else {
-            throw new NullPointerException();
-        }
-    }
-
-    private static byte[] getHashBytesFromTheBeginning(final byte[] bytes, final int saltLength) {
-        int hashLength = bytes.length - saltLength;
-        byte[] hash = new byte[hashLength];
-        System.arraycopy(bytes, 0, hash, 0, hashLength);
-        return hash;
-    }
-
-    private static byte[] getHashBytesFromTheEnd(final byte[] bytes, final int saltLength) {
-        int hashLength = bytes.length - saltLength;
-        byte[] hash = new byte[hashLength];
-        System.arraycopy(bytes, saltLength, hash, 0, hashLength);
-        return hash;
+        return saltStoreType.getHashBytes(bytes, saltLength);
     }
 
 }
