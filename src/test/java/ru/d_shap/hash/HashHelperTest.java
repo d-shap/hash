@@ -211,7 +211,37 @@ public final class HashHelperTest {
      */
     @Test
     public void getSaltBytesTest() {
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 3)).containsExactlyInOrder();
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 0)).containsExactlyInOrder();
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, -1)).containsExactlyInOrder();
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 3)).containsExactlyInOrder(10, 11, 12);
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 0)).containsExactlyInOrder();
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 3)).containsExactlyInOrder(10, 11, 12);
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 0)).containsExactlyInOrder();
+    }
 
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getNullArraySaltBytesFailTest() {
+        HashHelper.getSaltBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getNullSaltStoreTypeSaltBytesFailTest() {
+        HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NegativeArraySizeException.class)
+    public void getNegativeLengthSaltBytesFailTest() {
+        HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
     }
 
     /**
@@ -219,7 +249,37 @@ public final class HashHelperTest {
      */
     @Test
     public void getHashBytesTest() {
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 3)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 0)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, -1)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 3)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 0)).containsExactlyInOrder(10, 11, 12, 1, 2, 3);
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 3)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 0)).containsExactlyInOrder(1, 2, 3, 10, 11, 12);
+    }
 
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getNullArrayHashBytesFailTest() {
+        HashHelper.getHashBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getNullSaltStoreTypeHashBytesFailTest() {
+        HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void getNegativeLengthHashBytesFailTest() {
+        HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
     }
 
     /**
