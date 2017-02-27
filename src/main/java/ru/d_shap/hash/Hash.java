@@ -56,7 +56,6 @@ public final class Hash {
      * @return current object for the chain call.
      */
     public Hash addSalt(final byte[] salt) {
-        _messageDigest.reset();
         _messageDigest.update(_currentHash);
         _messageDigest.update(salt);
         _currentHash = _messageDigest.digest();
