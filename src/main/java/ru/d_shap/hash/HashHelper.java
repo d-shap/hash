@@ -81,8 +81,7 @@ public final class HashHelper {
 
     private static MessageDigest createMessageDigest(final String algorithm) {
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
-            return messageDigest;
+            return MessageDigest.getInstance(algorithm);
         } catch (GeneralSecurityException ex) {
             throw new HashException(ex);
         }
