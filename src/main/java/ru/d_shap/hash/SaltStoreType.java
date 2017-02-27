@@ -36,7 +36,8 @@ public enum SaltStoreType {
 
         @Override
         byte[] getSaltBytes(final byte[] bytes, final int saltLength) {
-            return new byte[0];
+            int length = bytes.length;
+            return new byte[bytes.length - length];
         }
 
         @Override
