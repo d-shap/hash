@@ -29,7 +29,9 @@ public enum SaltStoreType {
     DO_NOT_STORE {
         @Override
         byte[] addSaltBytes(final byte[] hash, final byte[] salt) {
-            return hash;
+            byte[] result = new byte[hash.length];
+            System.arraycopy(hash, 0, result, 0, hash.length);
+            return result;
         }
 
         @Override
@@ -39,7 +41,9 @@ public enum SaltStoreType {
 
         @Override
         byte[] getHashBytes(final byte[] bytes, final int saltLength) {
-            return bytes;
+            byte[] result = new byte[bytes.length];
+            System.arraycopy(bytes, 0, result, 0, bytes.length);
+            return result;
         }
     },
 
