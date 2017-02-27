@@ -20,6 +20,7 @@
 package ru.d_shap.hash;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.junit.Test;
@@ -76,6 +77,14 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
+    @Test(expected = HashException.class)
+    public void getWrongAlgorithmByteArrayHashFailTest() {
+        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, "wrong algorithm");
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
     @Test
     public void getStringHashTest() {
         Assertions.assertThat(HashHelper.getHash("12345", "UTF-8", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
@@ -117,6 +126,14 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
+    @Test(expected = HashException.class)
+    public void getWrongAlgorithmStringHashFailTest() {
+        HashHelper.getHash("12345", "UTF-8", "wrong algorithm");
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
     @Test
     public void getStreamHashTest() {
         Assertions.assertThat(HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
@@ -134,9 +151,25 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
+    @Test(expected = HashException.class)
+    public void getErrorStreamHashFailTest() {
+        HashHelper.getHash(new ErrorInputStream(), HashAlgorithms.MD5);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
     @Test(expected = NullPointerException.class)
     public void getNullAlgorithmStreamHashFailTest() {
         HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), null);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = HashException.class)
+    public void getWrongAlgorithmStreamHashFailTest() {
+        HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), "wrong algorithm");
     }
 
     /**
@@ -160,6 +193,24 @@ public final class HashHelperTest {
      */
     @Test
     public void getHashBytesTest() {
+
+    }
+
+    /**
+     * Input stream implementation, that throws exceptions.
+     *
+     * @author Dmitry Shapovalov
+     */
+    private static final class ErrorInputStream extends InputStream {
+
+        ErrorInputStream() {
+            super();
+        }
+
+        @Override
+        public int read() throws IOException {
+            throw new IOException("read exception");
+        }
 
     }
 
