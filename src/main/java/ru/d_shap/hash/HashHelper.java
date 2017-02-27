@@ -122,13 +122,15 @@ public final class HashHelper {
      * @return the result array of bytes.
      */
     public static byte[] addSaltBytes(final byte[] hash, final byte[] salt, final SaltStoreType saltStoreType) {
-        switch (saltStoreType) {
-            case AT_THE_BEGINNING:
-                return addSaltBytesToTheBeginning(hash, salt);
-            case AT_THE_END:
-                return addSaltBytesToTheEnd(hash, salt);
-            default:
-                return hash;
+        if (saltStoreType == SaltStoreType.DO_NOT_STORE) {
+            return hash;
+        } else if (saltStoreType == SaltStoreType.AT_THE_BEGINNING) {
+            return addSaltBytesToTheBeginning(hash, salt);
+        }
+        if (saltStoreType == SaltStoreType.AT_THE_END) {
+            return addSaltBytesToTheEnd(hash, salt);
+        } else {
+            throw new NullPointerException();
         }
     }
 
@@ -155,13 +157,14 @@ public final class HashHelper {
      * @return the salt bytes.
      */
     public static byte[] getSaltBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
-        switch (saltStoreType) {
-            case AT_THE_BEGINNING:
-                return getSaltBytesFromTheBeginning(bytes, saltLength);
-            case AT_THE_END:
-                return getSaltBytesFromTheEnd(bytes, saltLength);
-            default:
-                return new byte[0];
+        if (saltStoreType == SaltStoreType.DO_NOT_STORE) {
+            return new byte[0];
+        } else if (saltStoreType == SaltStoreType.AT_THE_BEGINNING) {
+            return getSaltBytesFromTheBeginning(bytes, saltLength);
+        } else if (saltStoreType == SaltStoreType.AT_THE_END) {
+            return getSaltBytesFromTheEnd(bytes, saltLength);
+        } else {
+            throw new NullPointerException();
         }
     }
 
@@ -186,13 +189,14 @@ public final class HashHelper {
      * @return the hash bytes.
      */
     public static byte[] getHashBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
-        switch (saltStoreType) {
-            case AT_THE_BEGINNING:
-                return getHashBytesFromTheEnd(bytes, saltLength);
-            case AT_THE_END:
-                return getHashBytesFromTheBeginning(bytes, saltLength);
-            default:
-                return bytes;
+        if (saltStoreType == SaltStoreType.DO_NOT_STORE) {
+            return bytes;
+        } else if (saltStoreType == SaltStoreType.AT_THE_BEGINNING) {
+            return getHashBytesFromTheEnd(bytes, saltLength);
+        } else if (saltStoreType == SaltStoreType.AT_THE_END) {
+            return getHashBytesFromTheBeginning(bytes, saltLength);
+        } else {
+            throw new NullPointerException();
         }
     }
 
