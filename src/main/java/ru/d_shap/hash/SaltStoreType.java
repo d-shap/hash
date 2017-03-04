@@ -98,10 +98,31 @@ public enum SaltStoreType {
         }
     };
 
+    /**
+     * Add the salt bytes to the result array of bytes.
+     *
+     * @param hash the hash bytes.
+     * @param salt the salt bytes.
+     * @return the result array of bytes.
+     */
     public abstract byte[] addSaltBytes(byte[] hash, byte[] salt);
 
+    /**
+     * Get the salt bytes from the array of bytes.
+     *
+     * @param bytes      the array of bytes.
+     * @param saltLength the salt length.
+     * @return the salt bytes.
+     */
     public abstract byte[] getSaltBytes(byte[] bytes, int saltLength);
 
+    /**
+     * Get the hash bytes from the array of bytes.
+     *
+     * @param bytes      the array of bytes.
+     * @param saltLength the salt length.
+     * @return the hash bytes.
+     */
     public abstract byte[] getHashBytes(byte[] bytes, int saltLength);
 
 }

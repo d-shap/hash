@@ -40,6 +40,13 @@ public enum SaltOrder {
         }
     };
 
+    /**
+     * Add the salt to the hash in the specified order.
+     *
+     * @param hash       the hash.
+     * @param storedSalt the stored salt.
+     * @param fixedSalt  the fixed salt.
+     */
     public abstract void addSalt(Hash hash, byte[] storedSalt, byte[] fixedSalt);
 
 }
