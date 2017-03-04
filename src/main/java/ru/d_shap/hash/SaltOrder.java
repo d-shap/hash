@@ -28,18 +28,18 @@ public enum SaltOrder {
 
     STORED_SALT_FIRST {
         @Override
-        void addSalt(final Hash hash, final byte[] storedSalt, final byte[] fixedSalt) {
+        public void addSalt(final Hash hash, final byte[] storedSalt, final byte[] fixedSalt) {
             hash.addSalt(storedSalt).addSalt(fixedSalt);
         }
     },
 
     FIXED_SALT_FIRST {
         @Override
-        void addSalt(final Hash hash, final byte[] storedSalt, final byte[] fixedSalt) {
+        public void addSalt(final Hash hash, final byte[] storedSalt, final byte[] fixedSalt) {
             hash.addSalt(fixedSalt).addSalt(storedSalt);
         }
     };
 
-    abstract void addSalt(Hash hash, byte[] storedSalt, byte[] fixedSalt);
+    public abstract void addSalt(Hash hash, byte[] storedSalt, byte[] fixedSalt);
 
 }

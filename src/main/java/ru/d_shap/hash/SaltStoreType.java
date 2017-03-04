@@ -28,20 +28,20 @@ public enum SaltStoreType {
 
     DO_NOT_STORE {
         @Override
-        byte[] addSaltBytes(final byte[] hash, final byte[] salt) {
+        public byte[] addSaltBytes(final byte[] hash, final byte[] salt) {
             byte[] result = new byte[hash.length];
             System.arraycopy(hash, 0, result, 0, hash.length);
             return result;
         }
 
         @Override
-        byte[] getSaltBytes(final byte[] bytes, final int saltLength) {
+        public byte[] getSaltBytes(final byte[] bytes, final int saltLength) {
             int length = bytes.length;
             return new byte[bytes.length - length];
         }
 
         @Override
-        byte[] getHashBytes(final byte[] bytes, final int saltLength) {
+        public byte[] getHashBytes(final byte[] bytes, final int saltLength) {
             byte[] result = new byte[bytes.length];
             System.arraycopy(bytes, 0, result, 0, bytes.length);
             return result;
@@ -50,7 +50,7 @@ public enum SaltStoreType {
 
     AT_THE_BEGINNING {
         @Override
-        byte[] addSaltBytes(final byte[] hash, final byte[] salt) {
+        public byte[] addSaltBytes(final byte[] hash, final byte[] salt) {
             byte[] result = new byte[hash.length + salt.length];
             System.arraycopy(salt, 0, result, 0, salt.length);
             System.arraycopy(hash, 0, result, salt.length, hash.length);
@@ -58,14 +58,14 @@ public enum SaltStoreType {
         }
 
         @Override
-        byte[] getSaltBytes(final byte[] bytes, final int saltLength) {
+        public byte[] getSaltBytes(final byte[] bytes, final int saltLength) {
             byte[] salt = new byte[saltLength];
             System.arraycopy(bytes, 0, salt, 0, saltLength);
             return salt;
         }
 
         @Override
-        byte[] getHashBytes(final byte[] bytes, final int saltLength) {
+        public byte[] getHashBytes(final byte[] bytes, final int saltLength) {
             int hashLength = bytes.length - saltLength;
             byte[] hash = new byte[hashLength];
             System.arraycopy(bytes, saltLength, hash, 0, hashLength);
@@ -75,7 +75,7 @@ public enum SaltStoreType {
 
     AT_THE_END {
         @Override
-        byte[] addSaltBytes(final byte[] hash, final byte[] salt) {
+        public byte[] addSaltBytes(final byte[] hash, final byte[] salt) {
             byte[] result = new byte[hash.length + salt.length];
             System.arraycopy(hash, 0, result, 0, hash.length);
             System.arraycopy(salt, 0, result, hash.length, salt.length);
@@ -83,14 +83,14 @@ public enum SaltStoreType {
         }
 
         @Override
-        byte[] getSaltBytes(final byte[] bytes, final int saltLength) {
+        public byte[] getSaltBytes(final byte[] bytes, final int saltLength) {
             byte[] salt = new byte[saltLength];
             System.arraycopy(bytes, bytes.length - saltLength, salt, 0, saltLength);
             return salt;
         }
 
         @Override
-        byte[] getHashBytes(final byte[] bytes, final int saltLength) {
+        public byte[] getHashBytes(final byte[] bytes, final int saltLength) {
             int hashLength = bytes.length - saltLength;
             byte[] hash = new byte[hashLength];
             System.arraycopy(bytes, 0, hash, 0, hashLength);
@@ -98,10 +98,10 @@ public enum SaltStoreType {
         }
     };
 
-    abstract byte[] addSaltBytes(byte[] hash, byte[] salt);
+    public abstract byte[] addSaltBytes(byte[] hash, byte[] salt);
 
-    abstract byte[] getSaltBytes(byte[] bytes, int saltLength);
+    public abstract byte[] getSaltBytes(byte[] bytes, int saltLength);
 
-    abstract byte[] getHashBytes(byte[] bytes, int saltLength);
+    public abstract byte[] getHashBytes(byte[] bytes, int saltLength);
 
 }
