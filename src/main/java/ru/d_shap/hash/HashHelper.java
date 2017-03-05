@@ -112,6 +112,18 @@ public final class HashHelper {
     }
 
     /**
+     * Add the specified salt to the specified hash in the specified order.
+     *
+     * @param hash       the hash object.
+     * @param storedSalt the stored salt.
+     * @param fixedSalt  the fixed salt.
+     * @param saltOrder  the stored and the fixed salt order.
+     */
+    public void addSalt(final Hash hash, final byte[] storedSalt, final byte[] fixedSalt, final SaltOrder saltOrder) {
+        saltOrder.addSalt(hash, fixedSalt, fixedSalt);
+    }
+
+    /**
      * Store the salt bytes in the result array of bytes along with the hash bytes.
      *
      * @param hash          the hash bytes.
