@@ -176,6 +176,78 @@ public final class HashHelperTest {
      * {@link HashHelper} class test.
      */
     @Test
+    public void addStoredSaltFirstTest() {
+        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+        SaltOrder.STORED_SALT_FIRST.addSalt(hash, new byte[]{10, 11}, new byte[]{20, 21});
+        Assertions.assertThat(hash.getBytes()).containsExactlyInOrder(-122, 12, -120, 10, -103, 109, 69, 100, 64, 125, 79, 99, 25, -37, -87, -127);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullHashStoredSaltFirstFailTest() {
+        SaltOrder.STORED_SALT_FIRST.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21});
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullStoredSaltFirstFailTest() {
+        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+        SaltOrder.STORED_SALT_FIRST.addSalt(hash, null, new byte[]{20, 21});
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullFixedSaltStoredSaltFirstFailTest() {
+        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+        SaltOrder.STORED_SALT_FIRST.addSalt(hash, new byte[]{10, 11}, null);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
+    public void addFixedSaltFirstTest() {
+        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+        SaltOrder.FIXED_SALT_FIRST.addSalt(hash, new byte[]{10, 11}, new byte[]{20, 21});
+        Assertions.assertThat(hash.getBytes()).containsExactlyInOrder(124, -1, -105, -22, 35, 1, 122, 57, 121, -46, 112, -40, -7, 90, -120, 23);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullHashFixedSaltFirstFailTest() {
+        SaltOrder.FIXED_SALT_FIRST.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21});
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullStoredSaltFixedSaltFirstFailTest() {
+        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+        SaltOrder.FIXED_SALT_FIRST.addSalt(hash, null, new byte[]{20, 21});
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void addNullFixedSaltFirstFailTest() {
+        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+        SaltOrder.FIXED_SALT_FIRST.addSalt(hash, new byte[]{10, 11}, null);
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
     public void addSaltBytesTest() {
         Assertions.assertThat(HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, SaltStoreType.DO_NOT_STORE)).containsExactlyInOrder(1, 2, 3);
         Assertions.assertThat(HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, SaltStoreType.AT_THE_BEGINNING)).containsExactlyInOrder(10, 11, 12, 1, 2, 3);
