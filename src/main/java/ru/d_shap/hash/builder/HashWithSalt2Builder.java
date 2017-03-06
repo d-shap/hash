@@ -19,6 +19,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash.builder;
 
+import ru.d_shap.hash.Hash;
+import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltOrder;
 import ru.d_shap.hash.SaltStoreType;
 
@@ -95,6 +97,15 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
     public final T setFixedSalt(final byte[] fixedSalt) {
         _fixedSalt = fixedSalt;
         return (T) this;
+    }
+
+    final Hash addSalt(final Hash hash) {
+        HashHelper.addSalt(hash, _storedSalt, _fixedSalt, _saltOrder);
+        return hash;
+    }
+
+    final byte[] addSaltBytes(final Hash hash) {
+        return HashHelper.addSaltBytes(hash.getBytes(), _storedSalt, _saltStoreType);
     }
 
     /**
