@@ -29,7 +29,7 @@ import ru.d_shap.hash.SaltStoreType;
  * @param <T> type for the chain call.
  * @author Dmitry Shapovalov
  */
-abstract class AbstractHashWithSaltBuilder<T extends AbstractHashWithSaltBuilder> extends AbstractHashBuilder<T> {
+public abstract class HashWithSaltBuilder<T extends HashWithSaltBuilder> extends AbstractHashBuilder<T> {
 
     private byte[] _salt;
 
@@ -37,7 +37,7 @@ abstract class AbstractHashWithSaltBuilder<T extends AbstractHashWithSaltBuilder
 
     private int _storedSaltLenght;
 
-    AbstractHashWithSaltBuilder() {
+    HashWithSaltBuilder() {
         super();
         _salt = null;
         _saltStoreType = SaltStoreType.DO_NOT_STORE;
