@@ -20,6 +20,8 @@
 package ru.d_shap.hash.builder;
 
 import ru.d_shap.hash.Hash;
+import ru.d_shap.hash.HashHelper;
+import ru.d_shap.hash.SaltStoreType;
 
 /**
  * Base class for all hash builder classes.
@@ -97,6 +99,14 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
 
     final boolean matches(final Hash hash) {
         return hash.matches(_storedHash);
+    }
+
+    final byte[] getHashFromStoredHash(final SaltStoreType saltStoreType, final int saltLength) {
+        return HashHelper.getHashBytes(_storedHash, saltStoreType, saltLength);
+    }
+
+    final byte[] getSaltFromStoredHash(final SaltStoreType saltStoreType, final int saltLength) {
+        return HashHelper.getSaltBytes(_storedHash, saltStoreType, saltLength);
     }
 
     /**
