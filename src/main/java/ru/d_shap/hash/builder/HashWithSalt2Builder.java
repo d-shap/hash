@@ -30,7 +30,7 @@ import ru.d_shap.hash.SaltStoreType;
  * @param <T> type for the chain call.
  * @author Dmitry Shapovalov
  */
-public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> extends HashBuilder<T> {
+public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> extends AbstractHashBuilder<T> {
 
     private byte[] _storedSalt;
 
