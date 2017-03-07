@@ -74,7 +74,8 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      */
     @SuppressWarnings("unchecked")
     public final T setStoredSalt(final byte[] storedSalt) {
-        _storedSalt = storedSalt;
+        _storedSalt = new byte[storedSalt.length];
+        System.arraycopy(storedSalt, 0, _storedSalt, 0, storedSalt.length);
         return (T) this;
     }
 
@@ -84,7 +85,13 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      * @return the fixed salt.
      */
     public final byte[] getFixedSalt() {
-        return _fixedSalt;
+        if (_fixedSalt == null) {
+            return null;
+        } else {
+            byte[] result = new byte[_fixedSalt.length];
+            System.arraycopy(_fixedSalt, 0, result, 0, _fixedSalt.length);
+            return result;
+        }
     }
 
     /**
@@ -95,12 +102,18 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      */
     @SuppressWarnings("unchecked")
     public final T setFixedSalt(final byte[] fixedSalt) {
-        _fixedSalt = fixedSalt;
+        _fixedSalt = new byte[fixedSalt.length];
+        System.arraycopy(fixedSalt, 0, _fixedSalt, 0, fixedSalt.length);
         return (T) this;
     }
 
     final Hash addSalt(final Hash hash) {
         HashHelper.addSalt(hash, _storedSalt, _fixedSalt, _saltOrder);
+        return hash;
+    }
+
+    final Hash addSalt(final Hash hash, final byte[] storedSalt) {
+        HashHelper.addSalt(hash, storedSalt, _fixedSalt, _saltOrder);
         return hash;
     }
 
