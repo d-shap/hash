@@ -19,6 +19,12 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash.builder;
 
+import org.junit.Test;
+
+import ru.d_shap.assertions.Assertions;
+import ru.d_shap.hash.HashAlgorithms;
+import ru.d_shap.hash.SaltStoreType;
+
 /**
  * Tests for {@link ByteArraySimpleHashBuilder}.
  *
@@ -31,6 +37,138 @@ public final class ByteArraySimpleHashBuilderTest {
      */
     public ByteArraySimpleHashBuilderTest() {
         super();
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void getAlgorithmTest() {
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getAlgorithm()).isNull();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).setAlgorithm("value").getAlgorithm()).isEqualTo("value");
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void setAlgorithmTest() {
+        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+        builder.setAlgorithm("value");
+        Assertions.assertThat(builder.getAlgorithm()).isEqualTo("value");
+        builder.setAlgorithm(HashAlgorithms.MD5);
+        Assertions.assertThat(builder.getAlgorithm()).isEqualTo(HashAlgorithms.MD5);
+        builder.setAlgorithm(null);
+        Assertions.assertThat(builder.getAlgorithm()).isNull();
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void getStoredHashTest() {
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getStoredHash()).isNotNull();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getStoredHash()).containsExactlyInOrder();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).setStoredHash(new byte[]{1, 2, 3}).getStoredHash()).containsExactlyInOrder(1, 2, 3);
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void setStoredHashTest() {
+        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+        builder.setStoredHash(new byte[]{1, 2, 3});
+        Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder(1, 2, 3);
+        builder.setStoredHash(new byte[]{10, 11});
+        Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder(10, 11);
+        builder.setStoredHash(new byte[]{});
+        Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder();
+        builder.setStoredHash(null);
+        Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder();
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void storedHashDifferentTest() {
+        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+        byte[] storedHash = new byte[]{1, 2, 3};
+        builder.setStoredHash(storedHash);
+        byte[] storedHash1 = builder.getStoredHash();
+        byte[] storedHash2 = builder.getStoredHash();
+        Assertions.assertThat(storedHash1).isNotSameAs(storedHash);
+        Assertions.assertThat(storedHash2).isNotSameAs(storedHash);
+        Assertions.assertThat(storedHash1).isNotSameAs(storedHash2);
+        Assertions.assertThat(storedHash1).containsExactlyInOrder(storedHash);
+        Assertions.assertThat(storedHash2).containsExactlyInOrder(storedHash);
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void getHashFromStoredHashTest() {
+        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+        byte[] storedHash = new byte[]{1, 2, 3};
+        builder.setStoredHash(storedHash);
+        Assertions.assertThat(builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 0)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 1)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(builder.getHashFromStoredHash(SaltStoreType.AT_THE_BEGINNING, 1)).containsExactlyInOrder(2, 3);
+        Assertions.assertThat(builder.getHashFromStoredHash(SaltStoreType.AT_THE_BEGINNING, 2)).containsExactlyInOrder(3);
+        Assertions.assertThat(builder.getHashFromStoredHash(SaltStoreType.AT_THE_END, 1)).containsExactlyInOrder(1, 2);
+        Assertions.assertThat(builder.getHashFromStoredHash(SaltStoreType.AT_THE_END, 2)).containsExactlyInOrder(1);
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getHashFromNullStoredHashFailTest() {
+        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+        builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void getSaltFromStoredHashTest() {
+        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+        byte[] storedHash = new byte[]{1, 2, 3};
+        builder.setStoredHash(storedHash);
+        Assertions.assertThat(builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 0)).containsExactlyInOrder();
+        Assertions.assertThat(builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 1)).containsExactlyInOrder();
+        Assertions.assertThat(builder.getSaltFromStoredHash(SaltStoreType.AT_THE_BEGINNING, 1)).containsExactlyInOrder(1);
+        Assertions.assertThat(builder.getSaltFromStoredHash(SaltStoreType.AT_THE_BEGINNING, 2)).containsExactlyInOrder(1, 2);
+        Assertions.assertThat(builder.getSaltFromStoredHash(SaltStoreType.AT_THE_END, 1)).containsExactlyInOrder(3);
+        Assertions.assertThat(builder.getSaltFromStoredHash(SaltStoreType.AT_THE_END, 2)).containsExactlyInOrder(2, 3);
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getSaltFromNullStoredHashFailTest() {
+        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+        builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void getHashTest() {
+
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void isHashValidTest() {
+
     }
 
 }
