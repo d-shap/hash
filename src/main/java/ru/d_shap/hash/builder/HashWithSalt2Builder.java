@@ -72,8 +72,12 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      * @return current object for the chain call.
      */
     public final HashWithSalt2Builder setStoredSalt(final byte[] storedSalt) {
-        _storedSalt = new byte[storedSalt.length];
-        System.arraycopy(storedSalt, 0, _storedSalt, 0, storedSalt.length);
+        if (storedSalt == null) {
+            _storedSalt = null;
+        } else {
+            _storedSalt = new byte[storedSalt.length];
+            System.arraycopy(storedSalt, 0, _storedSalt, 0, storedSalt.length);
+        }
         return this;
     }
 
@@ -99,8 +103,12 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      * @return current object for the chain call.
      */
     public final HashWithSalt2Builder setFixedSalt(final byte[] fixedSalt) {
-        _fixedSalt = new byte[fixedSalt.length];
-        System.arraycopy(fixedSalt, 0, _fixedSalt, 0, fixedSalt.length);
+        if (fixedSalt == null) {
+            _fixedSalt = null;
+        } else {
+            _fixedSalt = new byte[fixedSalt.length];
+            System.arraycopy(fixedSalt, 0, _fixedSalt, 0, fixedSalt.length);
+        }
         return this;
     }
 

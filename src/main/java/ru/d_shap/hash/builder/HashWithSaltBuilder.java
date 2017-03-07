@@ -65,8 +65,12 @@ public abstract class HashWithSaltBuilder extends AbstractHashBuilder<HashWithSa
      * @return current object for the chain call.
      */
     public final HashWithSaltBuilder setSalt(final byte[] salt) {
-        _salt = new byte[salt.length];
-        System.arraycopy(salt, 0, _salt, 0, salt.length);
+        if (salt == null) {
+            _salt = null;
+        } else {
+            _salt = new byte[salt.length];
+            System.arraycopy(salt, 0, _salt, 0, salt.length);
+        }
         return this;
     }
 

@@ -92,8 +92,12 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
      */
     @SuppressWarnings("unchecked")
     public final T setStoredHash(final byte[] storedHash) {
-        _storedHash = new byte[storedHash.length];
-        System.arraycopy(storedHash, 0, _storedHash, 0, storedHash.length);
+        if (storedHash == null) {
+            _storedHash = null;
+        } else {
+            _storedHash = new byte[storedHash.length];
+            System.arraycopy(storedHash, 0, _storedHash, 0, storedHash.length);
+        }
         return (T) this;
     }
 
