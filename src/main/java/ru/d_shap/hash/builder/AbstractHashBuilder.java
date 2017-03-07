@@ -76,7 +76,7 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
      */
     public final byte[] getStoredHash() {
         if (_storedHash == null) {
-            return null;
+            return new byte[0];
         } else {
             byte[] result = new byte[_storedHash.length];
             System.arraycopy(_storedHash, 0, result, 0, _storedHash.length);
