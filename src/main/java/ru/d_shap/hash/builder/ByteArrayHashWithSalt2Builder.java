@@ -39,8 +39,8 @@ final class ByteArrayHashWithSalt2Builder extends HashWithSalt2Builder {
 
     @Override
     public byte[] getHash() {
-        Hash hashObj = addSalt(HashHelper.getHash(_bytes, getAlgorithm()));
-        return addSaltBytes(hashObj);
+        Hash hash = addSalt(HashHelper.getHash(_bytes, getAlgorithm()));
+        return addSaltBytes(hash);
     }
 
     @Override

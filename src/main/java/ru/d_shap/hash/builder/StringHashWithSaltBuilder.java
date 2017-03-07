@@ -42,8 +42,8 @@ final class StringHashWithSaltBuilder extends HashWithSaltBuilder {
 
     @Override
     public byte[] getHash() {
-        Hash hashObj = addSalt(HashHelper.getHash(_str, _encoding, getAlgorithm()));
-        return addSaltBytes(hashObj);
+        Hash hash = addSalt(HashHelper.getHash(_str, _encoding, getAlgorithm()));
+        return addSaltBytes(hash);
     }
 
     @Override
