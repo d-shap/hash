@@ -117,7 +117,7 @@ public final class HashHelper {
      * @param hash       the hash object.
      * @param storedSalt the stored salt.
      * @param fixedSalt  the fixed salt.
-     * @param saltOrder  the stored and the fixed salt order.
+     * @param saltOrder  the stored salt and the fixed salt order.
      */
     public static void addSalt(final Hash hash, final byte[] storedSalt, final byte[] fixedSalt, final SaltOrder saltOrder) {
         saltOrder.addSalt(hash, storedSalt, fixedSalt);
