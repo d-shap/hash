@@ -29,13 +29,13 @@ import ru.d_shap.hash.SaltStoreType;
  * @param <T> type for the chain call.
  * @author Dmitry Shapovalov
  */
-abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
+abstract class HashBuilder<T extends HashBuilder> {
 
     private String _algorithm;
 
     private byte[] _storedHash;
 
-    AbstractHashBuilder() {
+    HashBuilder() {
         super();
         _algorithm = null;
         _storedHash = null;

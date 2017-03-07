@@ -25,7 +25,7 @@ package ru.d_shap.hash.builder;
  * @param <T> type for the chain call.
  * @author Dmitry Shapovalov
  */
-public abstract class SimpleHashBuilder<T extends SimpleHashBuilder> extends AbstractHashBuilder<T> {
+public abstract class SimpleHashBuilder<T extends SimpleHashBuilder> extends HashBuilder<T> {
 
     SimpleHashBuilder() {
         super();
