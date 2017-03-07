@@ -160,7 +160,25 @@ public final class ByteArraySimpleHashBuilderTest {
      */
     @Test
     public void getHashTest() {
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(-5, 68, -47, -78, 110, -128, -81, -117, -97, 32, -24, 49, 13, -1, 23, -107);
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(57, -70, 57, -105, -60, 60, -57, -126, -69, 114, 50, -3, -52, -45, -88, -40);
+    }
 
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getNullHashFailTest() {
+        new ByteArraySimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).getHash();
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void getNullAlgorithmHashFailTest() {
+        new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).getHash();
     }
 
     /**
@@ -168,7 +186,29 @@ public final class ByteArraySimpleHashBuilderTest {
      */
     @Test
     public void isHashValidTest() {
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 105}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-5, 68, -47, -78, 110, -128, -81, -117, -97, 32, -24, 49, 13, -1, 23, -107}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-5, 68, -47, -78, 110, -128, -81, -117, -97, 32, -24, 49, 13, -1, 22, -107}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{57, -70, 57, -105, -60, 60, -57, -126, -69, 114, 50, -3, -52, -45, -88, -40}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{57, -70, 57, -105, -60, 60, -57, -126, -69, 114, 50, 0, -52, -45, -88, -40}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).isHashValid()).isFalse();
+    }
 
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void isNullHashValidFailTest() {
+        new ByteArraySimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test(expected = NullPointerException.class)
+    public void isNullAlgorithmHashValidFailTest() {
+        new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
     }
 
 }
