@@ -27,10 +27,9 @@ import ru.d_shap.hash.SaltStoreType;
 /**
  * Base class for all hash with the stored salt and the fixed salt builder classes.
  *
- * @param <T> type for the chain call.
  * @author Dmitry Shapovalov
  */
-public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> extends AbstractHashBuilder<T> {
+public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithSalt2Builder> {
 
     private byte[] _storedSalt;
 
@@ -72,11 +71,10 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      * @param storedSalt the stored salt.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setStoredSalt(final byte[] storedSalt) {
+    public final HashWithSalt2Builder setStoredSalt(final byte[] storedSalt) {
         _storedSalt = new byte[storedSalt.length];
         System.arraycopy(storedSalt, 0, _storedSalt, 0, storedSalt.length);
-        return (T) this;
+        return this;
     }
 
     /**
@@ -100,11 +98,10 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      * @param fixedSalt the fixed salt.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setFixedSalt(final byte[] fixedSalt) {
+    public final HashWithSalt2Builder setFixedSalt(final byte[] fixedSalt) {
         _fixedSalt = new byte[fixedSalt.length];
         System.arraycopy(fixedSalt, 0, _fixedSalt, 0, fixedSalt.length);
-        return (T) this;
+        return this;
     }
 
     final Hash addSalt(final Hash hash) {
@@ -136,10 +133,9 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      * @param saltOrder the salt order.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setSaltOrder(final SaltOrder saltOrder) {
+    public final HashWithSalt2Builder setSaltOrder(final SaltOrder saltOrder) {
         _saltOrder = saltOrder;
-        return (T) this;
+        return this;
     }
 
     /**
@@ -157,10 +153,9 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      * @param saltStoreType the salt store type.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setSaltStoreType(final SaltStoreType saltStoreType) {
+    public final HashWithSalt2Builder setSaltStoreType(final SaltStoreType saltStoreType) {
         _saltStoreType = saltStoreType;
-        return (T) this;
+        return this;
     }
 
     /**
@@ -178,10 +173,9 @@ public abstract class HashWithSalt2Builder<T extends HashWithSalt2Builder> exten
      * @param storedSaltLenght the stored salt length.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setStoredSaltLenght(final int storedSaltLenght) {
+    public final HashWithSalt2Builder setStoredSaltLenght(final int storedSaltLenght) {
         _storedSaltLenght = storedSaltLenght;
-        return (T) this;
+        return this;
     }
 
 }

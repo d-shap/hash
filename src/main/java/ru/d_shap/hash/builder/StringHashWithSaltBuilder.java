@@ -28,7 +28,7 @@ import ru.d_shap.hash.SaltStoreType;
  *
  * @author Dmitry Shapovalov
  */
-final class StringHashWithSaltBuilder extends HashWithSaltBuilder<StringHashWithSaltBuilder> {
+final class StringHashWithSaltBuilder extends HashWithSaltBuilder {
 
     private final String _str;
 

@@ -26,7 +26,7 @@ import ru.d_shap.hash.HashHelper;
  *
  * @author Dmitry Shapovalov
  */
-final class ByteArraySimpleHashBuilder extends SimpleHashBuilder<ByteArraySimpleHashBuilder> {
+final class ByteArraySimpleHashBuilder extends SimpleHashBuilder {
 
     private final byte[] _bytes;
 

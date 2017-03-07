@@ -26,7 +26,7 @@ import ru.d_shap.hash.HashHelper;
  *
  * @author Dmitry Shapovalov
  */
-final class StringSimpleHashBuilder extends SimpleHashBuilder<StringSimpleHashBuilder> {
+final class StringSimpleHashBuilder extends SimpleHashBuilder {
 
     private final String _str;
 

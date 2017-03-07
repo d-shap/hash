@@ -26,10 +26,9 @@ import ru.d_shap.hash.SaltStoreType;
 /**
  * Base class for all hash with the salt builder classes.
  *
- * @param <T> type for the chain call.
  * @author Dmitry Shapovalov
  */
-public abstract class HashWithSaltBuilder<T extends HashWithSaltBuilder> extends AbstractHashBuilder<T> {
+public abstract class HashWithSaltBuilder extends AbstractHashBuilder<HashWithSaltBuilder> {
 
     private byte[] _salt;
 
@@ -65,11 +64,10 @@ public abstract class HashWithSaltBuilder<T extends HashWithSaltBuilder> extends
      * @param salt the salt.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setSalt(final byte[] salt) {
+    public final HashWithSaltBuilder setSalt(final byte[] salt) {
         _salt = new byte[salt.length];
         System.arraycopy(salt, 0, _salt, 0, salt.length);
-        return (T) this;
+        return this;
     }
 
     final Hash addSalt(final Hash hash) {
@@ -96,10 +94,9 @@ public abstract class HashWithSaltBuilder<T extends HashWithSaltBuilder> extends
      * @param saltStoreType the salt store type.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setSaltStoreType(final SaltStoreType saltStoreType) {
+    public final HashWithSaltBuilder setSaltStoreType(final SaltStoreType saltStoreType) {
         _saltStoreType = saltStoreType;
-        return (T) this;
+        return this;
     }
 
     /**
@@ -117,10 +114,9 @@ public abstract class HashWithSaltBuilder<T extends HashWithSaltBuilder> extends
      * @param storedSaltLenght the stored salt length.
      * @return current object for the chain call.
      */
-    @SuppressWarnings("unchecked")
-    public final T setStoredSaltLenght(final int storedSaltLenght) {
+    public final HashWithSaltBuilder setStoredSaltLenght(final int storedSaltLenght) {
         _storedSaltLenght = storedSaltLenght;
-        return (T) this;
+        return this;
     }
 
 }

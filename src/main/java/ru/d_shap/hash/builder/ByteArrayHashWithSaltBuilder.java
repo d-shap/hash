@@ -28,7 +28,7 @@ import ru.d_shap.hash.SaltStoreType;
  *
  * @author Dmitry Shapovalov
  */
-final class ByteArrayHashWithSaltBuilder extends HashWithSaltBuilder<ByteArrayHashWithSaltBuilder> {
+final class ByteArrayHashWithSaltBuilder extends HashWithSaltBuilder {
 
     private final byte[] _bytes;
 

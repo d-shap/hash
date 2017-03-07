@@ -28,7 +28,7 @@ import ru.d_shap.hash.HashHelper;
  *
  * @author Dmitry Shapovalov
  */
-final class InputStreamSimpleHashBuilder extends SimpleHashBuilder<StringSimpleHashBuilder> {
+final class InputStreamSimpleHashBuilder extends SimpleHashBuilder {
 
     private final InputStream _stream;
 

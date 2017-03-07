@@ -30,7 +30,7 @@ import ru.d_shap.hash.SaltStoreType;
  *
  * @author Dmitry Shapovalov
  */
-final class InputStreamHashWithSalt2Builder extends HashWithSalt2Builder<InputStreamHashWithSalt2Builder> {
+final class InputStreamHashWithSalt2Builder extends HashWithSalt2Builder {
 
     private final InputStream _stream;
 
