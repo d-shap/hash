@@ -75,9 +75,9 @@ public final class SaltStoreTypeTest {
     /**
      * {@link SaltStoreType} class test.
      */
-    @Test(expected = NullPointerException.class)
-    public void getNullHashSaltBytesDoNotStoreFailTest() {
-        SaltStoreType.DO_NOT_STORE.getSaltBytes(null, 3);
+    @Test
+    public void getNullHashSaltBytesDoNotStoreTest() {
+        Assertions.assertThat(SaltStoreType.DO_NOT_STORE.getSaltBytes(null, 3)).containsExactlyInOrder();
     }
 
     /**
