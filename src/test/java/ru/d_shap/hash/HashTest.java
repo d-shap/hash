@@ -75,9 +75,14 @@ public final class HashTest {
     /**
      * {@link Hash} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullByteArraySaltFailTest() {
-        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null);
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt byte array is null");
+        }
     }
 
     /**
@@ -94,17 +99,27 @@ public final class HashTest {
     /**
      * {@link Hash} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullStringSaltFailTest() {
-        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null, "UTF-8");
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null, "UTF-8");
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt string is null");
+        }
     }
 
     /**
      * {@link Hash} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullEncodingStringSaltFailTest() {
-        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", null);
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt string encoding is null");
+        }
     }
 
     /**
@@ -112,7 +127,12 @@ public final class HashTest {
      */
     @Test
     public void addWrongEncodingStringSaltFailTest() {
-        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong salt string encoding: wrong encoding");
+        }
     }
 
     /**
@@ -138,9 +158,21 @@ public final class HashTest {
     public void matchesTest() {
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).matches(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104})).isTrue();
 
-        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).matches(null)).isFalse();
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).matches(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32})).isFalse();
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).matches(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 105})).isFalse();
+    }
+
+    /**
+     * {@link Hash} class test.
+     */
+    @Test
+    public void nullHashMatchesFailTest() {
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).matches(null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash byte array is null");
+        }
     }
 
 }
