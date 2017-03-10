@@ -86,9 +86,8 @@ public final class HashHelper {
      * @param stream    the specified stream of bytes.
      * @param algorithm the hash algorithm.
      * @return the hash object.
-     * @throws IOException IO exception.
      */
-    public static Hash getHash(final InputStream stream, final String algorithm) throws IOException {
+    public static Hash getHash(final InputStream stream, final String algorithm) {
         if (stream == null) {
             throw new WrongArgumentException("Source stream is null");
         }
@@ -112,19 +111,23 @@ public final class HashHelper {
         messageDigest.update(bytes);
     }
 
-    private static void updateMessageDigest(final MessageDigest messageDigest, final InputStream stream) throws IOException {
+    private static void updateMessageDigest(final MessageDigest messageDigest, final InputStream stream) {
         try {
-            byte[] buffer = new byte[INPUT_STREAM_BUFFER_SIZE];
-            int read;
-            while (true) {
-                read = stream.read(buffer);
-                if (read <= 0) {
-                    break;
+            try {
+                byte[] buffer = new byte[INPUT_STREAM_BUFFER_SIZE];
+                int read;
+                while (true) {
+                    read = stream.read(buffer);
+                    if (read <= 0) {
+                        break;
+                    }
+                    messageDigest.update(buffer, 0, read);
                 }
-                messageDigest.update(buffer, 0, read);
+            } finally {
+                stream.close();
             }
-        } finally {
-            stream.close();
+        } catch (IOException ex) {
+            throw new RuntimeIOException(ex);
         }
     }
 
