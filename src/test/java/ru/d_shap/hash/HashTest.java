@@ -79,7 +79,7 @@ public final class HashTest {
     public void addNullByteArraySaltFailTest() {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null);
-            Assertions.fail("HashHelper test fail");
+            Assertions.fail("Hash test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
@@ -103,7 +103,7 @@ public final class HashTest {
     public void addNullStringSaltFailTest() {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null, "UTF-8");
-            Assertions.fail("HashHelper test fail");
+            Assertions.fail("Hash test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt string is null");
         }
@@ -116,7 +116,7 @@ public final class HashTest {
     public void addNullEncodingStringSaltFailTest() {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", null);
-            Assertions.fail("HashHelper test fail");
+            Assertions.fail("Hash test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt string encoding is null");
         }
@@ -129,7 +129,7 @@ public final class HashTest {
     public void addWrongEncodingStringSaltFailTest() {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
-            Assertions.fail("HashHelper test fail");
+            Assertions.fail("Hash test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong salt string encoding: wrong encoding");
         }
@@ -169,7 +169,7 @@ public final class HashTest {
     public void nullHashMatchesFailTest() {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).matches(null);
-            Assertions.fail("HashHelper test fail");
+            Assertions.fail("Hash test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
         }
