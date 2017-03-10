@@ -70,7 +70,7 @@ public final class SaltOrderTest {
     /**
      * {@link SaltOrder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test(expected = WrongArgumentException.class)
     public void storedSaltFirstNullStoredSaltFailTest() {
         Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
         byte[] fixedSalt = new byte[]{21, 22};
@@ -80,7 +80,7 @@ public final class SaltOrderTest {
     /**
      * {@link SaltOrder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test(expected = WrongArgumentException.class)
     public void storedSaltFirstNullFixedSaltFailTest() {
         Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
         byte[] storedSalt = new byte[]{10, 11};
@@ -112,7 +112,7 @@ public final class SaltOrderTest {
     /**
      * {@link SaltOrder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test(expected = WrongArgumentException.class)
     public void fixedSaltFirstNullStoredSaltFailTest() {
         Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
         byte[] fixedSalt = new byte[]{21, 22};
@@ -122,7 +122,7 @@ public final class SaltOrderTest {
     /**
      * {@link SaltOrder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test(expected = WrongArgumentException.class)
     public void fixedSaltFirstNullFixedSaltFailTest() {
         Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
         byte[] storedSalt = new byte[]{10, 11};
