@@ -24,6 +24,7 @@ import org.junit.Test;
 import ru.d_shap.assertions.Assertions;
 import ru.d_shap.hash.HashAlgorithms;
 import ru.d_shap.hash.SaltStoreType;
+import ru.d_shap.hash.WrongArgumentException;
 
 /**
  * Tests for {@link StringSimpleHashBuilder}.
@@ -44,7 +45,7 @@ public final class StringSimpleHashBuilderTest {
      */
     @Test
     public void getAlgorithmTest() {
-        Assertions.assertThat(new StringSimpleHashBuilder(null, null).getAlgorithm()).isNull();
+        Assertions.assertThat(new StringSimpleHashBuilder(null, null).getAlgorithm()).isEqualTo(HashAlgorithms.MD5);
         Assertions.assertThat(new StringSimpleHashBuilder(null, null).setAlgorithm("value").getAlgorithm()).isEqualTo("value");
     }
 
@@ -67,8 +68,7 @@ public final class StringSimpleHashBuilderTest {
      */
     @Test
     public void getStoredHashTest() {
-        Assertions.assertThat(new StringSimpleHashBuilder(null, null).getStoredHash()).isNotNull();
-        Assertions.assertThat(new StringSimpleHashBuilder(null, null).getStoredHash()).containsExactlyInOrder();
+        Assertions.assertThat(new StringSimpleHashBuilder(null, null).getStoredHash()).isNull();
         Assertions.assertThat(new StringSimpleHashBuilder(null, null).setStoredHash(new byte[]{1, 2, 3}).getStoredHash()).containsExactlyInOrder(1, 2, 3);
     }
 
@@ -85,7 +85,7 @@ public final class StringSimpleHashBuilderTest {
         builder.setStoredHash(new byte[]{});
         Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder();
         builder.setStoredHash(null);
-        Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder();
+        Assertions.assertThat(builder.getStoredHash()).isNull();
     }
 
     /**
@@ -124,10 +124,15 @@ public final class StringSimpleHashBuilderTest {
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getHashFromNullStoredHashFailTest() {
-        StringSimpleHashBuilder builder = new StringSimpleHashBuilder(null, null);
-        builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+        try {
+            StringSimpleHashBuilder builder = new StringSimpleHashBuilder(null, null);
+            builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Byte array is null");
+        }
     }
 
     /**
@@ -149,10 +154,15 @@ public final class StringSimpleHashBuilderTest {
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getSaltFromNullStoredHashFailTest() {
-        StringSimpleHashBuilder builder = new StringSimpleHashBuilder(null, null);
-        builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+        try {
+            StringSimpleHashBuilder builder = new StringSimpleHashBuilder(null, null);
+            builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Byte array is null");
+        }
     }
 
     /**
@@ -160,6 +170,7 @@ public final class StringSimpleHashBuilderTest {
      */
     @Test
     public void getHashTest() {
+        Assertions.assertThat(new StringSimpleHashBuilder("12345", "UTF-8").getHash()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
         Assertions.assertThat(new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
         Assertions.assertThat(new StringSimpleHashBuilder("12346", "UTF-8").setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(-93, 89, 0, 35, -33, 102, -84, -110, -82, 53, -29, 49, 96, 38, -47, 125);
         Assertions.assertThat(new StringSimpleHashBuilder("22345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(9, 35, 105, 104, -2, 23, -98, -70, -103, 89, -18, 8, -69, 91, -8, 15);
@@ -168,25 +179,53 @@ public final class StringSimpleHashBuilderTest {
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullHashFailTest() {
-        new StringSimpleHashBuilder(null, "UTF-8").setAlgorithm(HashAlgorithms.MD5).getHash();
+        try {
+            new StringSimpleHashBuilder(null, "UTF-8").setAlgorithm(HashAlgorithms.MD5).getHash();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source string is null");
+        }
     }
 
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullEncodingHashFailTest() {
-        new StringSimpleHashBuilder("12345", null).setAlgorithm(HashAlgorithms.MD5).getHash();
+        try {
+            new StringSimpleHashBuilder("12345", null).setAlgorithm(HashAlgorithms.MD5).getHash();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+        }
     }
 
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
+    public void getWrongEncodingHashFailTest() {
+        try {
+            new StringSimpleHashBuilder("12345", "wrong encoding").setAlgorithm(HashAlgorithms.MD5).getHash();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+        }
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
     public void getNullAlgorithmHashFailTest() {
-        new StringSimpleHashBuilder("12345", "UTF-8").getHash();
+        try {
+            new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm(null).getHash();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
     }
 
     /**
@@ -194,37 +233,82 @@ public final class StringSimpleHashBuilderTest {
      */
     @Test
     public void isHashValidTest() {
+        Assertions.assertThat(new StringSimpleHashBuilder("12345", "UTF-8").setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid()).isTrue();
         Assertions.assertThat(new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid()).isTrue();
         Assertions.assertThat(new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 124}).isHashValid()).isFalse();
+
+        Assertions.assertThat(new StringSimpleHashBuilder("12346", "UTF-8").setStoredHash(new byte[]{-93, 89, 0, 35, -33, 102, -84, -110, -82, 53, -29, 49, 96, 38, -47, 125}).isHashValid()).isTrue();
         Assertions.assertThat(new StringSimpleHashBuilder("12346", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-93, 89, 0, 35, -33, 102, -84, -110, -82, 53, -29, 49, 96, 38, -47, 125}).isHashValid()).isTrue();
         Assertions.assertThat(new StringSimpleHashBuilder("12346", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-93, 89, 0, 35, -33, 102, -84, -110, -82, 53, -29, 49, 96, 38, -48, 125}).isHashValid()).isFalse();
+
+        Assertions.assertThat(new StringSimpleHashBuilder("22345", "UTF-8").setStoredHash(new byte[]{9, 35, 105, 104, -2, 23, -98, -70, -103, 89, -18, 8, -69, 91, -8, 15}).isHashValid()).isTrue();
         Assertions.assertThat(new StringSimpleHashBuilder("22345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{9, 35, 105, 104, -2, 23, -98, -70, -103, 89, -18, 8, -69, 91, -8, 15}).isHashValid()).isTrue();
         Assertions.assertThat(new StringSimpleHashBuilder("22345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{9, 35, 105, 104, -2, 23, -98, -70, -103, 89, -18, 0, -69, 91, -8, 15}).isHashValid()).isFalse();
-        Assertions.assertThat(new StringSimpleHashBuilder("22345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).isHashValid()).isFalse();
     }
 
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void isNullHashValidFailTest() {
-        new StringSimpleHashBuilder(null, "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid();
+        try {
+            new StringSimpleHashBuilder(null, "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source string is null");
+        }
     }
 
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void isNullEncodingHashValidFailTest() {
-        new StringSimpleHashBuilder("12345", null).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid();
+        try {
+            new StringSimpleHashBuilder("12345", null).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+        }
     }
 
     /**
      * {@link StringSimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
+    public void isWrongEncodingHashValidFailTest() {
+        try {
+            new StringSimpleHashBuilder("12345", "wrong encoding").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+        }
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
     public void isNullAlgorithmHashValidFailTest() {
-        new StringSimpleHashBuilder("12345", "UTF-8").setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid();
+        try {
+            new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm(null).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
+    public void isNullStoredHashValidFailTest() {
+        try {
+            new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(null).isHashValid();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash byte array is null");
+        }
     }
 
 }
