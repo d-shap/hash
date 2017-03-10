@@ -208,6 +208,19 @@ public final class InputStreamSimpleHashBuilderTest {
      * {@link InputStreamSimpleHashBuilder} class test.
      */
     @Test
+    public void getWrongAlgorithmHashFailTest() {
+        try {
+            new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm("wrong algorithm").getHash();
+            Assertions.fail("InputStreamSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
+    }
+
+    /**
+     * {@link InputStreamSimpleHashBuilder} class test.
+     */
+    @Test
     public void isHashValidTest() {
         Assertions.assertThat(new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid()).isTrue();
         Assertions.assertThat(new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid()).isTrue();
@@ -245,6 +258,19 @@ public final class InputStreamSimpleHashBuilderTest {
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
+    }
+
+    /**
+     * {@link InputStreamSimpleHashBuilder} class test.
+     */
+    @Test
+    public void isWrongAlgorithmHashValidFailTest() {
+        try {
+            new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm("wrong algorithm").setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("InputStreamSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
 
