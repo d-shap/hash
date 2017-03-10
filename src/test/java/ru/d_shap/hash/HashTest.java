@@ -110,7 +110,7 @@ public final class HashTest {
     /**
      * {@link Hash} class test.
      */
-    @Test(expected = HashException.class)
+    @Test
     public void addWrongEncodingStringSaltFailTest() {
         HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
     }

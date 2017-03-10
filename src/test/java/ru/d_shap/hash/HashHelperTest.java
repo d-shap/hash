@@ -77,7 +77,7 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = HashException.class)
+    @Test
     public void getWrongAlgorithmByteArrayHashFailTest() {
         HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, "wrong algorithm");
     }
@@ -110,7 +110,7 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = HashException.class)
+    @Test
     public void getWrongEncodingStringHashFailTest() {
         HashHelper.getHash("12345", "wrong encoding", HashAlgorithms.MD5);
     }
@@ -126,7 +126,7 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = HashException.class)
+    @Test
     public void getWrongAlgorithmStringHashFailTest() {
         HashHelper.getHash("12345", "UTF-8", "wrong algorithm");
     }
@@ -151,7 +151,7 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = HashException.class)
+    @Test
     public void getErrorStreamHashFailTest() {
         HashHelper.getHash(new ErrorInputStream(), HashAlgorithms.MD5);
     }
@@ -167,7 +167,7 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = HashException.class)
+    @Test
     public void getWrongAlgorithmStreamHashFailTest() {
         HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), "wrong algorithm");
     }
