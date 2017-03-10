@@ -20,6 +20,7 @@
 package ru.d_shap.hash.builder;
 
 import ru.d_shap.hash.Hash;
+import ru.d_shap.hash.HashAlgorithms;
 import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltStoreType;
 
@@ -37,7 +38,7 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
 
     AbstractHashBuilder() {
         super();
-        _algorithm = null;
+        _algorithm = HashAlgorithms.MD5;
         _storedHash = null;
     }
 
@@ -76,7 +77,7 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
      */
     public final byte[] getStoredHash() {
         if (_storedHash == null) {
-            return new byte[0];
+            return null;
         } else {
             byte[] result = new byte[_storedHash.length];
             System.arraycopy(_storedHash, 0, result, 0, _storedHash.length);

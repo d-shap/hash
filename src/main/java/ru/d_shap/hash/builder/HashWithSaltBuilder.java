@@ -50,7 +50,7 @@ public abstract class HashWithSaltBuilder extends AbstractHashBuilder<HashWithSa
      */
     public final byte[] getSalt() {
         if (_salt == null) {
-            return new byte[0];
+            return _salt;
         } else {
             byte[] result = new byte[_salt.length];
             System.arraycopy(_salt, 0, result, 0, _salt.length);

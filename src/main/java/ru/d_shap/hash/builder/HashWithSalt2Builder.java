@@ -57,7 +57,7 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      */
     public final byte[] getStoredSalt() {
         if (_storedSalt == null) {
-            return new byte[0];
+            return null;
         } else {
             byte[] result = new byte[_storedSalt.length];
             System.arraycopy(_storedSalt, 0, result, 0, _storedSalt.length);
@@ -88,7 +88,7 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      */
     public final byte[] getFixedSalt() {
         if (_fixedSalt == null) {
-            return new byte[0];
+            return null;
         } else {
             byte[] result = new byte[_fixedSalt.length];
             System.arraycopy(_fixedSalt, 0, result, 0, _fixedSalt.length);
