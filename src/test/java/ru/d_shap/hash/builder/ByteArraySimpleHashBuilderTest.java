@@ -24,6 +24,7 @@ import org.junit.Test;
 import ru.d_shap.assertions.Assertions;
 import ru.d_shap.hash.HashAlgorithms;
 import ru.d_shap.hash.SaltStoreType;
+import ru.d_shap.hash.WrongArgumentException;
 
 /**
  * Tests for {@link ByteArraySimpleHashBuilder}.
@@ -44,7 +45,7 @@ public final class ByteArraySimpleHashBuilderTest {
      */
     @Test
     public void getAlgorithmTest() {
-        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getAlgorithm()).isNull();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getAlgorithm()).isEqualTo(HashAlgorithms.MD5);
         Assertions.assertThat(new ByteArraySimpleHashBuilder(null).setAlgorithm("value").getAlgorithm()).isEqualTo("value");
     }
 
@@ -67,8 +68,7 @@ public final class ByteArraySimpleHashBuilderTest {
      */
     @Test
     public void getStoredHashTest() {
-        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getStoredHash()).isNotNull();
-        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getStoredHash()).containsExactlyInOrder();
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(null).getStoredHash()).isNull();
         Assertions.assertThat(new ByteArraySimpleHashBuilder(null).setStoredHash(new byte[]{1, 2, 3}).getStoredHash()).containsExactlyInOrder(1, 2, 3);
     }
 
@@ -85,7 +85,7 @@ public final class ByteArraySimpleHashBuilderTest {
         builder.setStoredHash(new byte[]{});
         Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder();
         builder.setStoredHash(null);
-        Assertions.assertThat(builder.getStoredHash()).containsExactlyInOrder();
+        Assertions.assertThat(builder.getStoredHash()).isNull();
     }
 
     /**
@@ -124,10 +124,15 @@ public final class ByteArraySimpleHashBuilderTest {
     /**
      * {@link ByteArraySimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getHashFromNullStoredHashFailTest() {
-        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
-        builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+        try {
+            ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+            builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+            Assertions.fail("ByteArraySimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Byte array is null");
+        }
     }
 
     /**
@@ -149,10 +154,15 @@ public final class ByteArraySimpleHashBuilderTest {
     /**
      * {@link ByteArraySimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getSaltFromNullStoredHashFailTest() {
-        ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
-        builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+        try {
+            ByteArraySimpleHashBuilder builder = new ByteArraySimpleHashBuilder(null);
+            builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
+            Assertions.fail("ByteArraySimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Byte array is null");
+        }
     }
 
     /**
@@ -160,6 +170,7 @@ public final class ByteArraySimpleHashBuilderTest {
      */
     @Test
     public void getHashTest() {
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).getHash()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(-5, 68, -47, -78, 110, -128, -81, -117, -97, 32, -24, 49, 13, -1, 23, -107);
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(57, -70, 57, -105, -60, 60, -57, -126, -69, 114, 50, -3, -52, -45, -88, -40);
@@ -168,17 +179,27 @@ public final class ByteArraySimpleHashBuilderTest {
     /**
      * {@link ByteArraySimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullHashFailTest() {
-        new ByteArraySimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).getHash();
+        try {
+            new ByteArraySimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).getHash();
+            Assertions.fail("ByteArraySimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source byte array is null");
+        }
     }
 
     /**
      * {@link ByteArraySimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullAlgorithmHashFailTest() {
-        new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).getHash();
+        try {
+            new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(null).getHash();
+            Assertions.fail("ByteArraySimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
     }
 
     /**
@@ -186,29 +207,56 @@ public final class ByteArraySimpleHashBuilderTest {
      */
     @Test
     public void isHashValidTest() {
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid()).isTrue();
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid()).isTrue();
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 105}).isHashValid()).isFalse();
+
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredHash(new byte[]{-5, 68, -47, -78, 110, -128, -81, -117, -97, 32, -24, 49, 13, -1, 23, -107}).isHashValid()).isTrue();
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-5, 68, -47, -78, 110, -128, -81, -117, -97, 32, -24, 49, 13, -1, 23, -107}).isHashValid()).isTrue();
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-5, 68, -47, -78, 110, -128, -81, -117, -97, 32, -24, 49, 13, -1, 22, -107}).isHashValid()).isFalse();
+
+        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setStoredHash(new byte[]{57, -70, 57, -105, -60, 60, -57, -126, -69, 114, 50, -3, -52, -45, -88, -40}).isHashValid()).isTrue();
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{57, -70, 57, -105, -60, 60, -57, -126, -69, 114, 50, -3, -52, -45, -88, -40}).isHashValid()).isTrue();
         Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{57, -70, 57, -105, -60, 60, -57, -126, -69, 114, 50, 0, -52, -45, -88, -40}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArraySimpleHashBuilder(new byte[]{2, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).isHashValid()).isFalse();
     }
 
     /**
      * {@link ByteArraySimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void isNullHashValidFailTest() {
-        new ByteArraySimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+        try {
+            new ByteArraySimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("ByteArraySimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source byte array is null");
+        }
     }
 
     /**
      * {@link ByteArraySimpleHashBuilder} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void isNullAlgorithmHashValidFailTest() {
-        new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+        try {
+            new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(null).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("ByteArraySimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
+    }
+
+    /**
+     * {@link ByteArraySimpleHashBuilder} class test.
+     */
+    @Test
+    public void isNullStoredHashValidFailTest() {
+        try {
+            new ByteArraySimpleHashBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setStoredHash(null).isHashValid();
+            Assertions.fail("ByteArraySimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash byte array is null");
+        }
     }
 
 }
