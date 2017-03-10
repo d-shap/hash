@@ -61,17 +61,27 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullByteArrayHashFailTest() {
-        HashHelper.getHash((byte[]) null, HashAlgorithms.MD5);
+        try {
+            HashHelper.getHash((byte[]) null, HashAlgorithms.MD5);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source byte array is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullAlgorithmByteArrayHashFailTest() {
-        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, null);
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
     }
 
     /**
@@ -79,7 +89,12 @@ public final class HashHelperTest {
      */
     @Test
     public void getWrongAlgorithmByteArrayHashFailTest() {
-        HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, "wrong algorithm");
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, "wrong algorithm");
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
     }
 
     /**
@@ -94,17 +109,27 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullStringHashFailTest() {
-        HashHelper.getHash(null, "UTF-8", HashAlgorithms.MD5);
+        try {
+            HashHelper.getHash(null, "UTF-8", HashAlgorithms.MD5);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source string is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullEncodingStringHashFailTest() {
-        HashHelper.getHash("12345", null, HashAlgorithms.MD5);
+        try {
+            HashHelper.getHash("12345", null, HashAlgorithms.MD5);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+        }
     }
 
     /**
@@ -112,15 +137,25 @@ public final class HashHelperTest {
      */
     @Test
     public void getWrongEncodingStringHashFailTest() {
-        HashHelper.getHash("12345", "wrong encoding", HashAlgorithms.MD5);
+        try {
+            HashHelper.getHash("12345", "wrong encoding", HashAlgorithms.MD5);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullAlgorithmStringHashFailTest() {
-        HashHelper.getHash("12345", "UTF-8", null);
+        try {
+            HashHelper.getHash("12345", "UTF-8", null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
     }
 
     /**
@@ -128,7 +163,12 @@ public final class HashHelperTest {
      */
     @Test
     public void getWrongAlgorithmStringHashFailTest() {
-        HashHelper.getHash("12345", "UTF-8", "wrong algorithm");
+        try {
+            HashHelper.getHash("12345", "UTF-8", "wrong algorithm");
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
     }
 
     /**
@@ -143,9 +183,14 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullStreamHashFailTest() {
-        HashHelper.getHash((InputStream) null, HashAlgorithms.MD5);
+        try {
+            HashHelper.getHash((InputStream) null, HashAlgorithms.MD5);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source stream is null");
+        }
     }
 
     /**
@@ -153,15 +198,25 @@ public final class HashHelperTest {
      */
     @Test
     public void getErrorStreamHashFailTest() {
-        HashHelper.getHash(new ErrorInputStream(), HashAlgorithms.MD5);
+        try {
+            HashHelper.getHash(new ErrorInputStream(), HashAlgorithms.MD5);
+            Assertions.fail("HashHelper test fail");
+        } catch (RuntimeIOException ex) {
+            Assertions.assertThat(ex).isCauseInstanceOf(IOException.class);
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullAlgorithmStreamHashFailTest() {
-        HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), null);
+        try {
+            HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
     }
 
     /**
@@ -169,7 +224,12 @@ public final class HashHelperTest {
      */
     @Test
     public void getWrongAlgorithmStreamHashFailTest() {
-        HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), "wrong algorithm");
+        try {
+            HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), "wrong algorithm");
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
     }
 
     /**
@@ -185,27 +245,42 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullHashStoredSaltFirstFailTest() {
-        HashHelper.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21}, SaltOrder.STORED_SALT_FIRST);
+        try {
+            HashHelper.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21}, SaltOrder.STORED_SALT_FIRST);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullStoredSaltFirstFailTest() {
-        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
-        HashHelper.addSalt(hash, null, new byte[]{20, 21}, SaltOrder.STORED_SALT_FIRST);
+        try {
+            Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+            HashHelper.addSalt(hash, null, new byte[]{20, 21}, SaltOrder.STORED_SALT_FIRST);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Stored salt is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullFixedSaltStoredSaltFirstFailTest() {
-        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
-        HashHelper.addSalt(hash, new byte[]{10, 11}, null, SaltOrder.STORED_SALT_FIRST);
+        try {
+            Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+            HashHelper.addSalt(hash, new byte[]{10, 11}, null, SaltOrder.STORED_SALT_FIRST);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Fixed salt is null");
+        }
     }
 
     /**
@@ -221,36 +296,56 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullHashFixedSaltFirstFailTest() {
-        HashHelper.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21}, SaltOrder.FIXED_SALT_FIRST);
+        try {
+            HashHelper.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21}, SaltOrder.FIXED_SALT_FIRST);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullStoredSaltFixedSaltFirstFailTest() {
-        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
-        HashHelper.addSalt(hash, null, new byte[]{20, 21}, SaltOrder.FIXED_SALT_FIRST);
+        try {
+            Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+            HashHelper.addSalt(hash, null, new byte[]{20, 21}, SaltOrder.FIXED_SALT_FIRST);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Stored salt is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullFixedSaltFirstFailTest() {
-        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
-        HashHelper.addSalt(hash, new byte[]{10, 11}, null, SaltOrder.FIXED_SALT_FIRST);
+        try {
+            Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+            HashHelper.addSalt(hash, new byte[]{10, 11}, null, SaltOrder.FIXED_SALT_FIRST);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Fixed salt is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullSaltOrderFailTest() {
-        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
-        HashHelper.addSalt(hash, new byte[]{10, 11}, new byte[]{20, 21}, null);
+        try {
+            Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
+            HashHelper.addSalt(hash, new byte[]{10, 11}, new byte[]{20, 21}, null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt order is null");
+        }
     }
 
     /**
@@ -266,63 +361,40 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void addNullHashSaltBytesFailTest() {
-        HashHelper.addSaltBytes(null, new byte[]{10, 11, 12}, SaltStoreType.AT_THE_BEGINNING);
-    }
-
-    /**
-     * {@link HashHelper} class test.
-     */
-    @Test(expected = NullPointerException.class)
-    public void addNullSaltBytesFailTest() {
-        HashHelper.addSaltBytes(new byte[]{1, 2, 3}, null, SaltStoreType.AT_THE_BEGINNING);
-    }
-
-    /**
-     * {@link HashHelper} class test.
-     */
-    @Test(expected = NullPointerException.class)
-    public void addNullSaltStoreTypeSaltBytesFailTest() {
-        HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, null);
+        try {
+            HashHelper.addSaltBytes(null, new byte[]{10, 11, 12}, SaltStoreType.AT_THE_BEGINNING);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash byte array is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
     @Test
-    public void getSaltBytesTest() {
-        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 3)).containsExactlyInOrder();
-        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 0)).containsExactlyInOrder();
-        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, -1)).containsExactlyInOrder();
-        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 3)).containsExactlyInOrder(10, 11, 12);
-        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 0)).containsExactlyInOrder();
-        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 3)).containsExactlyInOrder(10, 11, 12);
-        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 0)).containsExactlyInOrder();
+    public void addNullSaltBytesFailTest() {
+        try {
+            HashHelper.addSaltBytes(new byte[]{1, 2, 3}, null, SaltStoreType.AT_THE_BEGINNING);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt byte array is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
-    public void getNullArraySaltBytesFailTest() {
-        HashHelper.getSaltBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
-    }
-
-    /**
-     * {@link HashHelper} class test.
-     */
-    @Test(expected = NullPointerException.class)
-    public void getNullSaltStoreTypeSaltBytesFailTest() {
-        HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
-    }
-
-    /**
-     * {@link HashHelper} class test.
-     */
-    @Test(expected = NegativeArraySizeException.class)
-    public void getNegativeLengthSaltBytesFailTest() {
-        HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
+    @Test
+    public void addNullSaltStoreTypeSaltBytesFailTest() {
+        try {
+            HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, null);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt store type is null");
+        }
     }
 
     /**
@@ -330,9 +402,8 @@ public final class HashHelperTest {
      */
     @Test
     public void getHashBytesTest() {
-        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 3)).containsExactlyInOrder(1, 2, 3);
+        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 1)).containsExactlyInOrder(1, 2, 3);
         Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 0)).containsExactlyInOrder(1, 2, 3);
-        Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, -1)).containsExactlyInOrder(1, 2, 3);
         Assertions.assertThat(HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 3)).containsExactlyInOrder(1, 2, 3);
         Assertions.assertThat(HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 0)).containsExactlyInOrder(10, 11, 12, 1, 2, 3);
         Assertions.assertThat(HashHelper.getHashBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 3)).containsExactlyInOrder(1, 2, 3);
@@ -342,25 +413,118 @@ public final class HashHelperTest {
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullArrayHashBytesFailTest() {
-        HashHelper.getHashBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
+        try {
+            HashHelper.getHashBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Byte array is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void getNullSaltStoreTypeHashBytesFailTest() {
-        HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
+        try {
+            HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt store type is null");
+        }
     }
 
     /**
      * {@link HashHelper} class test.
      */
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test
     public void getNegativeLengthHashBytesFailTest() {
-        HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
+        try {
+            HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
+        }
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
+    public void getTooLargeLengthHashBytesFailTest() {
+        try {
+            HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 6);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
+        }
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
+    public void getSaltBytesTest() {
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 1)).containsExactlyInOrder();
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3}, SaltStoreType.DO_NOT_STORE, 0)).containsExactlyInOrder();
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 3)).containsExactlyInOrder(10, 11, 12);
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 0)).containsExactlyInOrder();
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 3)).containsExactlyInOrder(10, 11, 12);
+        Assertions.assertThat(HashHelper.getSaltBytes(new byte[]{1, 2, 3, 10, 11, 12}, SaltStoreType.AT_THE_END, 0)).containsExactlyInOrder();
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
+    public void getNullArraySaltBytesFailTest() {
+        try {
+            HashHelper.getSaltBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Byte array is null");
+        }
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
+    public void getNullSaltStoreTypeSaltBytesFailTest() {
+        try {
+            HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt store type is null");
+        }
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
+    public void getNegativeLengthSaltBytesFailTest() {
+        try {
+            HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
+        }
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
+    public void getTooLargeLengthSaltBytesFailTest() {
+        try {
+            HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 6);
+            Assertions.fail("HashHelper test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
+        }
     }
 
     /**
