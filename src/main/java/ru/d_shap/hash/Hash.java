@@ -19,7 +19,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
@@ -56,6 +56,9 @@ public final class Hash {
      * @return current object for the chain call.
      */
     public Hash addSalt(final byte[] salt) {
+        if (salt == null) {
+            throw new WrongArgumentException("Salt byte array is null");
+        }
         _messageDigest.update(_currentHash);
         _messageDigest.update(salt);
         _currentHash = _messageDigest.digest();
@@ -70,10 +73,17 @@ public final class Hash {
      * @return current object for the chain call.
      */
     public Hash addSalt(final String salt, final String encoding) {
+        if (salt == null) {
+            throw new WrongArgumentException("Salt string is null");
+        }
+        if (encoding == null) {
+            throw new WrongArgumentException("Salt string encoding is null");
+        }
         try {
-            return addSalt(salt.getBytes(encoding));
-        } catch (IOException ex) {
-            throw new HashException(ex);
+            byte[] saltBytes = salt.getBytes(encoding);
+            return addSalt(saltBytes);
+        } catch (UnsupportedEncodingException ex) {
+            throw new WrongArgumentException("Wrong salt string encoding: " + encoding);
         }
     }
 
@@ -95,6 +105,9 @@ public final class Hash {
      * @return true if the current hash bytes are equal to the specified bytes.
      */
     public boolean matches(final byte[] hash) {
+        if (hash == null) {
+            throw new WrongArgumentException("Hash byte array is null");
+        }
         return Arrays.equals(_currentHash, hash);
     }
 

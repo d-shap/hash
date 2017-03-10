@@ -19,34 +19,22 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 /**
- * Hash computation exception.
+ * Exception is thrown when the method argument is wrong - null, empty, etc.
  *
  * @author Dmitry Shapovalov
  */
-public class HashException extends RuntimeException {
+public class WrongArgumentException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Create new object.
      *
-     * @param ex the exception cause.
+     * @param message the exception message.
      */
-    HashException(final GeneralSecurityException ex) {
-        super(ex);
-    }
-
-    /**
-     * Create new object.
-     *
-     * @param ex the exception cause.
-     */
-    HashException(final IOException ex) {
-        super(ex);
+    WrongArgumentException(final String message) {
+        super(message);
     }
 
 }
