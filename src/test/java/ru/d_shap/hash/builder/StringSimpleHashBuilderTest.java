@@ -232,6 +232,19 @@ public final class StringSimpleHashBuilderTest {
      * {@link StringSimpleHashBuilder} class test.
      */
     @Test
+    public void getWrongAlgorithmHashFailTest() {
+        try {
+            new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm("wrong algorithm").getHash();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
     public void isHashValidTest() {
         Assertions.assertThat(new StringSimpleHashBuilder("12345", "UTF-8").setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid()).isTrue();
         Assertions.assertThat(new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid()).isTrue();
@@ -295,6 +308,19 @@ public final class StringSimpleHashBuilderTest {
             Assertions.fail("StringSimpleHashBuilder test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
+    public void isWrongAlgorithmHashValidFailTest() {
+        try {
+            new StringSimpleHashBuilder("12345", "UTF-8").setAlgorithm("wrong algorithm").setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
 
