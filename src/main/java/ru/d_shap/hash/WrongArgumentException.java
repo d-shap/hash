@@ -24,7 +24,7 @@ package ru.d_shap.hash;
  *
  * @author Dmitry Shapovalov
  */
-public class WrongArgumentException extends RuntimeException {
+public final class WrongArgumentException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class WrongArgumentException extends RuntimeException {
      *
      * @param message the exception message.
      */
-    WrongArgumentException(final String message) {
+    public WrongArgumentException(final String message) {
         super(message);
     }
 
