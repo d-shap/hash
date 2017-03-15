@@ -22,7 +22,9 @@ package ru.d_shap.hash.builder;
 import org.junit.Test;
 
 import ru.d_shap.assertions.Assertions;
+import ru.d_shap.hash.Hash;
 import ru.d_shap.hash.HashAlgorithms;
+import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltStoreType;
 import ru.d_shap.hash.WrongArgumentException;
 
@@ -103,6 +105,48 @@ public final class StringSimpleHashBuilderTest {
         Assertions.assertThat(storedHash1).isNotSameAs(storedHash2);
         Assertions.assertThat(storedHash1).containsExactlyInOrder(storedHash);
         Assertions.assertThat(storedHash2).containsExactlyInOrder(storedHash);
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
+    public void matchesTest() {
+        StringSimpleHashBuilder builder = new StringSimpleHashBuilder(null, null);
+        builder.setStoredHash(new byte[]{82, -119, -33, 115, 125, -11, 115, 38, -4, -35, 34, 89, 122, -5, 31, -84});
+        Hash hash = HashHelper.getHash(new byte[]{1, 2, 3}, HashAlgorithms.MD5);
+        Assertions.assertThat(builder.matches(hash)).isTrue();
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
+    public void nullHashMatchesFailTest() {
+        try {
+            StringSimpleHashBuilder builder = new StringSimpleHashBuilder(null, null);
+            builder.setStoredHash(new byte[]{82, -119, -33, 115, 125, -11, 115, 38, -4, -35, 34, 89, 122, -5, 31, -84});
+            builder.matches(null);
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash is null");
+        }
+    }
+
+    /**
+     * {@link StringSimpleHashBuilder} class test.
+     */
+    @Test
+    public void nullStoredHashMatchesFailTest() {
+        try {
+            StringSimpleHashBuilder builder = new StringSimpleHashBuilder(null, null);
+            builder.setStoredHash(null);
+            Hash hash = HashHelper.getHash(new byte[]{1, 2, 3}, HashAlgorithms.MD5);
+            Assertions.assertThat(builder.matches(hash)).isTrue();
+            Assertions.fail("StringSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Hash byte array is null");
+        }
     }
 
     /**
