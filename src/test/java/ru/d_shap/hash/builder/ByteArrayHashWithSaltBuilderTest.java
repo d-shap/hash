@@ -317,6 +317,19 @@ public final class ByteArrayHashWithSaltBuilderTest {
      * {@link ByteArrayHashWithSaltBuilder} class test.
      */
     @Test
+    public void getWrongAlgorithmHashFailTest() {
+        try {
+            new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm("wrong algorithm").setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
+            Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
+    }
+
+    /**
+     * {@link ByteArrayHashWithSaltBuilder} class test.
+     */
+    @Test
     public void getNullSaltStoreTypeHashFailTest() {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(null).getHash();
@@ -428,6 +441,19 @@ public final class ByteArrayHashWithSaltBuilderTest {
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
+    }
+
+    /**
+     * {@link ByteArrayHashWithSaltBuilder} class test.
+     */
+    @Test
+    public void isWrongAlgorithmHashValidFailTest() {
+        try {
+            new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm("wrong algorithm").setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
+            Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
 
