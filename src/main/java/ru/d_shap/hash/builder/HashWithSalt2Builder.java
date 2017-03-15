@@ -23,6 +23,7 @@ import ru.d_shap.hash.Hash;
 import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltOrder;
 import ru.d_shap.hash.SaltStoreType;
+import ru.d_shap.hash.WrongArgumentException;
 
 /**
  * Base class for all hash with the stored salt and the fixed salt builder classes.
@@ -123,6 +124,9 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
     }
 
     final byte[] addSaltBytes(final Hash hash) {
+        if (hash == null) {
+            throw new WrongArgumentException("Hash is null");
+        }
         return HashHelper.addSaltBytes(hash.getBytes(), _storedSalt, _saltStoreType);
     }
 
