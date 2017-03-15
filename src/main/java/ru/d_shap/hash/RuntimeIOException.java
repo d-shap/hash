@@ -33,7 +33,7 @@ public final class RuntimeIOException extends RuntimeException {
     /**
      * Create new object.
      *
-     * @param ex the IO exception.
+     * @param ex the cause of the exception.
      */
     public RuntimeIOException(final IOException ex) {
         super(ex);

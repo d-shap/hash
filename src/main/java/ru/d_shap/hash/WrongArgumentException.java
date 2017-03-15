@@ -37,4 +37,14 @@ public final class WrongArgumentException extends RuntimeException {
         super(message);
     }
 
+    /**
+     * Create new object.
+     *
+     * @param message the exception message.
+     * @param ex      the cause of the exception.
+     */
+    public WrongArgumentException(final String message, final Exception ex) {
+        super(message, ex);
+    }
+
 }
