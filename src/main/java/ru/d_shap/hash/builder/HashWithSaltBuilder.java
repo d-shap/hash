@@ -22,6 +22,7 @@ package ru.d_shap.hash.builder;
 import ru.d_shap.hash.Hash;
 import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltStoreType;
+import ru.d_shap.hash.WrongArgumentException;
 
 /**
  * Base class for all hash with the salt builder classes.
@@ -75,11 +76,17 @@ public abstract class HashWithSaltBuilder extends AbstractHashBuilder<HashWithSa
     }
 
     final Hash addSalt(final Hash hash) {
+        if (hash == null) {
+            throw new WrongArgumentException("Hash is null");
+        }
         hash.addSalt(_salt);
         return hash;
     }
 
     final byte[] addSaltBytes(final Hash hash) {
+        if (hash == null) {
+            throw new WrongArgumentException("Hash is null");
+        }
         return HashHelper.addSaltBytes(hash.getBytes(), _salt, _saltStoreType);
     }
 
