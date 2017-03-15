@@ -83,7 +83,7 @@ public final class Hash {
             byte[] saltBytes = salt.getBytes(encoding);
             return addSalt(saltBytes);
         } catch (UnsupportedEncodingException ex) {
-            throw new WrongArgumentException("Wrong salt string encoding: " + encoding);
+            throw new WrongArgumentException("Wrong salt string encoding: " + encoding, ex);
         }
     }
 

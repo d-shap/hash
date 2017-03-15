@@ -76,7 +76,7 @@ public final class HashHelper {
             byte[] strBytes = str.getBytes(encoding);
             return getHash(strBytes, algorithm);
         } catch (UnsupportedEncodingException ex) {
-            throw new WrongArgumentException("Wrong source string encoding: " + encoding);
+            throw new WrongArgumentException("Wrong source string encoding: " + encoding, ex);
         }
     }
 
@@ -103,7 +103,7 @@ public final class HashHelper {
         try {
             return MessageDigest.getInstance(algorithm);
         } catch (NoSuchAlgorithmException ex) {
-            throw new WrongArgumentException("Wrong algorithm name: " + algorithm);
+            throw new WrongArgumentException("Wrong algorithm name: " + algorithm, ex);
         }
     }
 
