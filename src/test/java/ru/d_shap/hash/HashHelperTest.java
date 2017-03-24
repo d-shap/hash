@@ -210,6 +210,16 @@ public final class HashHelperTest {
      * {@link HashHelper} class test.
      */
     @Test
+    public void closeStreamHashTest() {
+        CloseStream stream = new CloseStream();
+        HashHelper.getHash(stream, HashAlgorithms.MD5);
+        Assertions.assertThat(stream.isClosed()).isTrue();
+    }
+
+    /**
+     * {@link HashHelper} class test.
+     */
+    @Test
     public void getNullAlgorithmStreamHashFailTest() {
         try {
             HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), null);
@@ -541,6 +551,37 @@ public final class HashHelperTest {
         @Override
         public int read() throws IOException {
             throw new IOException("read exception");
+        }
+
+    }
+
+    /**
+     * Input stream to test close method.
+     *
+     * @author Dmitry Shapovalov
+     */
+    private static final class CloseStream extends InputStream {
+
+        private boolean _closed;
+
+        CloseStream() {
+            super();
+            _closed = false;
+        }
+
+        @Override
+        public int read() throws IOException {
+            return -1;
+        }
+
+        boolean isClosed() {
+            return _closed;
+        }
+
+        @Override
+        public void close() throws IOException {
+            super.close();
+            _closed = true;
         }
 
     }
