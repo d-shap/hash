@@ -48,9 +48,11 @@ final class ByteArrayHashWithSaltBuilder extends HashWithSaltBuilder {
         if (getSaltStoreType() == SaltStoreType.DO_NOT_STORE) {
             return matches(addSalt(HashHelper.getHash(_bytes, getAlgorithm())));
         } else {
-            byte[] storedHash = getHashFromStoredHash(getSaltStoreType(), getStoredSaltLenght());
-            byte[] storedSalt = getSaltFromStoredHash(getSaltStoreType(), getStoredSaltLenght());
-            return HashHelper.getHash(_bytes, getAlgorithm()).addSalt(storedSalt).matches(storedHash);
+            Hash hash = HashHelper.getHash(_bytes, getAlgorithm());
+            int storedSaltLength = getStoredSaltLength(hash.getLength());
+            byte[] storedHash = getHashFromStoredHash(getSaltStoreType(), storedSaltLength);
+            byte[] storedSalt = getSaltFromStoredHash(getSaltStoreType(), storedSaltLength);
+            return hash.addSalt(storedSalt).matches(storedHash);
         }
     }
 

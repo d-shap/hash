@@ -50,9 +50,11 @@ final class InputStreamHashWithSaltBuilder extends HashWithSaltBuilder {
         if (getSaltStoreType() == SaltStoreType.DO_NOT_STORE) {
             return matches(addSalt(HashHelper.getHash(_stream, getAlgorithm())));
         } else {
-            byte[] storedHash = getHashFromStoredHash(getSaltStoreType(), getStoredSaltLenght());
-            byte[] storedSalt = getSaltFromStoredHash(getSaltStoreType(), getStoredSaltLenght());
-            return HashHelper.getHash(_stream, getAlgorithm()).addSalt(storedSalt).matches(storedHash);
+            Hash hash = HashHelper.getHash(_stream, getAlgorithm());
+            int storedSaltLength = getStoredSaltLength(hash.getLength());
+            byte[] storedHash = getHashFromStoredHash(getSaltStoreType(), storedSaltLength);
+            byte[] storedSalt = getSaltFromStoredHash(getSaltStoreType(), storedSaltLength);
+            return hash.addSalt(storedSalt).matches(storedHash);
         }
     }
 
