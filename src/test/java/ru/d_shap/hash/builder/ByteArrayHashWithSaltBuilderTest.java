@@ -229,31 +229,6 @@ public final class ByteArrayHashWithSaltBuilderTest {
      * {@link ByteArrayHashWithSaltBuilder} class test.
      */
     @Test
-    public void getStoredSaltLenghtTest() {
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(null).getStoredSaltLenght()).isEqualTo(0);
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(null).setStoredSaltLenght(16).getStoredSaltLenght()).isEqualTo(16);
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(null).setStoredSaltLenght(32).getStoredSaltLenght()).isEqualTo(32);
-    }
-
-    /**
-     * {@link ByteArrayHashWithSaltBuilder} class test.
-     */
-    @Test
-    public void setStoredSaltLenghtTest() {
-        ByteArrayHashWithSaltBuilder builder = new ByteArrayHashWithSaltBuilder(null);
-        Assertions.assertThat(builder.getStoredSaltLenght()).isEqualTo(0);
-        builder.setStoredSaltLenght(15);
-        Assertions.assertThat(builder.getStoredSaltLenght()).isEqualTo(15);
-        builder.setStoredSaltLenght(0);
-        Assertions.assertThat(builder.getStoredSaltLenght()).isEqualTo(0);
-        builder.setStoredSaltLenght(-10);
-        Assertions.assertThat(builder.getStoredSaltLenght()).isEqualTo(-10);
-    }
-
-    /**
-     * {@link ByteArrayHashWithSaltBuilder} class test.
-     */
-    @Test
     public void getHashTest() {
         Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash()).containsExactlyInOrder(-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95);
         Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 4}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash()).containsExactlyInOrder(-68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125);
@@ -364,45 +339,45 @@ public final class ByteArrayHashWithSaltBuilderTest {
         Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59}).isHashValid()).isFalse();
         Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setSalt(new byte[]{1, 2, 4}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 58}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 2, -2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -96}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 2, -2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -96}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, -68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, -68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -126}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, -68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, -68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -126}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(2).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{2, 3, 38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(2).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{2, 2, 38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(2).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{2, 3, 38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -101}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{2, 3, 38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{2, 2, 38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{2, 3, 38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -101}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 2, -8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 43}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 2, -8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, -8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 43}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, 101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, 101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, 101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 58}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, 101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, 101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 4, 101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 58}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95, 1, 2, 3}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95, 1, 2, 2}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -96, 1, 2, 3}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95, 1, 2, 3}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95, 1, 2, 2}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -96, 1, 2, 3}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125, 1, 2, 4}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125, 1, 2, 3}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -126, 1, 2, 4}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125, 1, 2, 4}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -125, 1, 2, 3}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-68, -46, 106, 56, -92, 71, -121, -8, -111, -24, -113, 106, 67, 111, 98, -126, 1, 2, 4}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(2).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100, 2, 3}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(2).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100, 2, 2}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setStoredSaltLenght(2).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -101, 2, 3}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100, 2, 3}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -100, 2, 2}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{38, -19, 127, 116, -118, 11, -127, 102, -115, -2, -16, 53, 38, -22, -26, -101, 2, 3}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44, 1, 2, 3}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44, 1, 2, 2}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 43, 1, 2, 3}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44, 1, 2, 3}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 44, 1, 2, 2}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{-8, 125, 3, -95, 17, -82, 3, 100, -52, 60, -78, 67, -63, 33, 58, 43, 1, 2, 3}).isHashValid()).isFalse();
 
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59, 1, 2, 4}).isHashValid()).isTrue();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59, 1, 2, 3}).isHashValid()).isFalse();
-        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setStoredSaltLenght(3).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 58, 1, 2, 4}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59, 1, 2, 4}).isHashValid()).isTrue();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 59, 1, 2, 3}).isHashValid()).isFalse();
+        Assertions.assertThat(new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 6}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_END).setStoredHash(new byte[]{101, -59, 51, -74, 107, -56, -95, -20, 58, -53, 114, 33, -9, 18, 42, 58, 1, 2, 4}).isHashValid()).isFalse();
     }
 
     /**
@@ -480,6 +455,19 @@ public final class ByteArrayHashWithSaltBuilderTest {
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
         } catch (WrongArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
+        }
+    }
+
+    /**
+     * {@link ByteArrayHashWithSaltBuilder} class test.
+     */
+    @Test
+    public void isWrongStoredHashLengthHashValidTest() {
+        try {
+            new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, 4, 5, 6}).isHashValid();
+            Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
         }
     }
 
