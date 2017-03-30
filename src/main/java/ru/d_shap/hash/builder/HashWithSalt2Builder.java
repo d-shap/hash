@@ -40,15 +40,12 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
 
     private SaltStoreType _saltStoreType;
 
-    private int _storedSaltLenght;
-
     HashWithSalt2Builder() {
         super();
         _storedSalt = null;
         _fixedSalt = null;
         _saltOrder = SaltOrder.STORED_SALT_FIRST;
         _saltStoreType = SaltStoreType.DO_NOT_STORE;
-        _storedSaltLenght = 0;
     }
 
     /**
@@ -167,26 +164,6 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      */
     public final HashWithSalt2Builder setSaltStoreType(final SaltStoreType saltStoreType) {
         _saltStoreType = saltStoreType;
-        return this;
-    }
-
-    /**
-     * Get the stored salt length.
-     *
-     * @return the stored salt length.
-     */
-    public final int getStoredSaltLenght() {
-        return _storedSaltLenght;
-    }
-
-    /**
-     * Set the stored salt length.
-     *
-     * @param storedSaltLenght the stored salt length.
-     * @return current object for the chain call.
-     */
-    public final HashWithSalt2Builder setStoredSaltLenght(final int storedSaltLenght) {
-        _storedSaltLenght = storedSaltLenght;
         return this;
     }
 
