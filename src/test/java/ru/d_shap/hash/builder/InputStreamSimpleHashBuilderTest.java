@@ -113,6 +113,34 @@ public final class InputStreamSimpleHashBuilderTest {
      * {@link InputStreamSimpleHashBuilder} class test.
      */
     @Test
+    public void getStoredSaltLengthTest() {
+        InputStreamSimpleHashBuilder builder = new InputStreamSimpleHashBuilder(null);
+        builder.setStoredHash(new byte[]{1, 2, 3, 4, 5});
+        Assertions.assertThat(builder.getStoredSaltLength(0)).isEqualTo(5);
+        Assertions.assertThat(builder.getStoredSaltLength(1)).isEqualTo(4);
+        Assertions.assertThat(builder.getStoredSaltLength(4)).isEqualTo(1);
+        Assertions.assertThat(builder.getStoredSaltLength(5)).isEqualTo(0);
+        Assertions.assertThat(builder.getStoredSaltLength(7)).isEqualTo(-2);
+        Assertions.assertThat(builder.getStoredSaltLength(-3)).isEqualTo(8);
+    }
+
+    /**
+     * {@link InputStreamSimpleHashBuilder} class test.
+     */
+    @Test
+    public void getNullStoredHashStoredSaltLengthFailTest() {
+        try {
+            new InputStreamSimpleHashBuilder(null).getStoredSaltLength(1);
+            Assertions.fail("InputStreamSimpleHashBuilder test fail");
+        } catch (WrongArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Stored hash is null");
+        }
+    }
+
+    /**
+     * {@link InputStreamSimpleHashBuilder} class test.
+     */
+    @Test
     public void matchesTest() {
         InputStreamSimpleHashBuilder builder = new InputStreamSimpleHashBuilder(null);
         builder.setStoredHash(new byte[]{82, -119, -33, 115, 125, -11, 115, 38, -4, -35, 34, 89, 122, -5, 31, -84});
