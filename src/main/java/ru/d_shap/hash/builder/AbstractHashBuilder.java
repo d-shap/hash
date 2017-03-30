@@ -103,6 +103,13 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
         return (T) this;
     }
 
+    final int getStoredSaltLength(final int hashLength) {
+        if (_storedHash == null) {
+            throw new WrongArgumentException("Stored hash is null");
+        }
+        return _storedHash.length - hashLength;
+    }
+
     final boolean matches(final Hash hash) {
         if (hash == null) {
             throw new WrongArgumentException("Hash is null");
@@ -110,12 +117,12 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
         return hash.matches(_storedHash);
     }
 
-    final byte[] getHashFromStoredHash(final SaltStoreType saltStoreType, final int saltLength) {
-        return HashHelper.getHashBytes(_storedHash, saltStoreType, saltLength);
+    final byte[] getHashFromStoredHash(final SaltStoreType saltStoreType, final int storedSaltLength) {
+        return HashHelper.getHashBytes(_storedHash, saltStoreType, storedSaltLength);
     }
 
-    final byte[] getSaltFromStoredHash(final SaltStoreType saltStoreType, final int saltLength) {
-        return HashHelper.getSaltBytes(_storedHash, saltStoreType, saltLength);
+    final byte[] getSaltFromStoredHash(final SaltStoreType saltStoreType, final int storedSaltLength) {
+        return HashHelper.getSaltBytes(_storedHash, saltStoreType, storedSaltLength);
     }
 
     /**
