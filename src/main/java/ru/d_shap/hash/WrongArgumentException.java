@@ -20,7 +20,7 @@
 package ru.d_shap.hash;
 
 /**
- * Exception is thrown when the method argument is wrong - null, empty, etc.
+ * Exception is thrown when a method argument is wrong - null, empty, etc.
  *
  * @author Dmitry Shapovalov
  */

@@ -20,7 +20,7 @@
 package ru.d_shap.hash;
 
 /**
- * Enum defines how the salt is stored along with the hash.
+ * Enum defines how a salt is stored along with a hash.
  *
  * @author Dmitry Shapovalov
  */

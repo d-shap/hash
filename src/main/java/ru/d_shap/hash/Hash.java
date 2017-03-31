@@ -24,7 +24,7 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 
 /**
- * Class to perform hash computations.
+ * Class contains computed hash and provides methods to work with this hash.
  *
  * @author Dmitry Shapovalov
  */
@@ -68,8 +68,8 @@ public final class Hash {
     /**
      * Add the salt to the current hash.
      *
-     * @param salt     the string with salt.
-     * @param encoding the encoding of the string.
+     * @param salt     a string with the salt.
+     * @param encoding an encoding of the string.
      * @return current object for the chain call.
      */
     public Hash addSalt(final String salt, final String encoding) {

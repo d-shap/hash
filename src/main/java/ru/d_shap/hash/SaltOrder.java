@@ -20,7 +20,7 @@
 package ru.d_shap.hash;
 
 /**
- * Enum defines, how stored salt and fixed salt are processed.
+ * Enum defines the order, in which a stored salt and a fixed salt are processed.
  *
  * @author Dmitry Shapovalov
  */

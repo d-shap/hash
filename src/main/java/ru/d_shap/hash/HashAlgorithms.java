@@ -20,7 +20,9 @@
 package ru.d_shap.hash;
 
 /**
- * Hash algorithms.
+ * Hash algorithm names. This hash algorithms are supported by every java
+ * implementations. Additional security providers should be added for non-supported
+ * hash algorithms.
  *
  * @author Dmitry Shapovalov
  */

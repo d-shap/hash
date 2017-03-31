@@ -22,7 +22,7 @@ package ru.d_shap.hash;
 import java.io.IOException;
 
 /**
- * Exception is a runtime wrapper for {@link java.io.IOException}.
+ * Exception is thrown when an input stream can not be processed.
  *
  * @author Dmitry Shapovalov
  */
