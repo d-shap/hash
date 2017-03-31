@@ -33,7 +33,7 @@ public final class HashBuilder {
     }
 
     /**
-     * Create the simple hash builder.
+     * Create simple hash builder.
      *
      * @param bytes the byte array.
      * @return the simple hash builder.
@@ -43,7 +43,7 @@ public final class HashBuilder {
     }
 
     /**
-     * Create the simple hash builder.
+     * Create simple hash builder.
      *
      * @param str      the string.
      * @param encoding the string encoding.
@@ -54,7 +54,7 @@ public final class HashBuilder {
     }
 
     /**
-     * Create the simple hash builder.
+     * Create simple hash builder.
      *
      * @param stream the input stream.
      * @return the simple hash builder.
@@ -64,7 +64,7 @@ public final class HashBuilder {
     }
 
     /**
-     * Create the hash with the salt builder.
+     * Create hash with the salt builder.
      *
      * @param bytes the byte array.
      * @return the hash with the salt builder.
@@ -74,7 +74,7 @@ public final class HashBuilder {
     }
 
     /**
-     * Create the hash with the salt builder.
+     * Create hash with the salt builder.
      *
      * @param str      the string.
      * @param encoding the string encoding.
@@ -85,7 +85,7 @@ public final class HashBuilder {
     }
 
     /**
-     * Create the hash with the salt builder.
+     * Create hash with the salt builder.
      *
      * @param stream the input stream.
      * @return the hash with the salt builder.
@@ -95,31 +95,31 @@ public final class HashBuilder {
     }
 
     /**
-     * Create the hash with the fixed salt and the stored salt builder.
+     * Create hash with the stored salt and the fixed salt builder.
      *
      * @param bytes the byte array.
-     * @return the hash with the fixed salt and the stored salt builder.
+     * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final byte[] bytes) {
         return new ByteArrayHashWithSalt2Builder(bytes);
     }
 
     /**
-     * Create the hash with the fixed salt and the stored salt builder.
+     * Create hash with the stored salt and the fixed salt builder.
      *
      * @param str      the string.
      * @param encoding the string encoding.
-     * @return the hash with the fixed salt and the stored salt builder.
+     * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final String str, final String encoding) {
         return new StringHashWithSalt2Builder(str, encoding);
     }
 
     /**
-     * Create the hash with the fixed salt and the stored salt builder.
+     * Create hash with the stored salt and the fixed salt builder.
      *
      * @param stream the input stream.
-     * @return the hash with the fixed salt and the stored salt builder.
+     * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final InputStream stream) {
         return new InputStreamHashWithSalt2Builder(stream);

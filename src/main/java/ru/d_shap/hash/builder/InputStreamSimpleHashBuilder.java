@@ -24,7 +24,7 @@ import java.io.InputStream;
 import ru.d_shap.hash.HashHelper;
 
 /**
- * Hash builder for the string.
+ * Hash builder for the input stream.
  *
  * @author Dmitry Shapovalov
  */

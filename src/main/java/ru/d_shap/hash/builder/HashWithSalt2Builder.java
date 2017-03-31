@@ -26,7 +26,7 @@ import ru.d_shap.hash.SaltStoreType;
 import ru.d_shap.hash.WrongArgumentException;
 
 /**
- * Base class for all hash with the stored salt and the fixed salt builder classes.
+ * Hash with the stored salt and the fixed salt builder.
  *
  * @author Dmitry Shapovalov
  */

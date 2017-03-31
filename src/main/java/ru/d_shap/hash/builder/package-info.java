@@ -18,6 +18,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * Hash builder classes.
+ * Hash builder classes. This classes simplify hash computations.
  */
 package ru.d_shap.hash.builder;

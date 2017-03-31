@@ -24,7 +24,7 @@ import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltStoreType;
 
 /**
- * Hash builder for the input stream.
+ * Hash builder for the string.
  *
  * @author Dmitry Shapovalov
  */

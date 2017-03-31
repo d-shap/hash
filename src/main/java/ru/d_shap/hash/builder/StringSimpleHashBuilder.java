@@ -22,7 +22,7 @@ package ru.d_shap.hash.builder;
 import ru.d_shap.hash.HashHelper;
 
 /**
- * Hash builder for the input stream.
+ * Hash builder for the string.
  *
  * @author Dmitry Shapovalov
  */

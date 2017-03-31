@@ -20,7 +20,7 @@
 package ru.d_shap.hash.builder;
 
 /**
- * Base class for all simple hash builder classes.
+ * Simple hash builder class.
  *
  * @author Dmitry Shapovalov
  */

@@ -72,7 +72,7 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
     public abstract byte[] getHash();
 
     /**
-     * Get the stored hash to check if the current hash is valid.
+     * Get the stored hash.
      *
      * @return the stored hash.
      */
@@ -87,7 +87,7 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
     }
 
     /**
-     * Set the stored hash to check if the current hash is valid.
+     * Set the stored hash.
      *
      * @param storedHash the stored hash.
      * @return current object for the chain call.
