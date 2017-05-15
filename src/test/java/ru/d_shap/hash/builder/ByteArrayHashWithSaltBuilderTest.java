@@ -26,7 +26,6 @@ import ru.d_shap.hash.Hash;
 import ru.d_shap.hash.HashAlgorithms;
 import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltStoreType;
-import ru.d_shap.hash.WrongHashArgumentException;
 
 /**
  * Tests for {@link ByteArrayHashWithSaltBuilder}.
@@ -108,7 +107,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
             builder.setSalt(new byte[]{10, 11});
             builder.addSalt(null);
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -124,7 +123,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
             builder.setSalt(null);
             builder.addSalt(hash);
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
     }
@@ -162,7 +161,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
             builder.setSaltStoreType(SaltStoreType.AT_THE_BEGINNING);
             builder.addSaltBytes(null);
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -179,7 +178,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
             builder.setSaltStoreType(SaltStoreType.AT_THE_BEGINNING);
             builder.addSaltBytes(hash);
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
     }
@@ -196,7 +195,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
             builder.setSaltStoreType(null);
             builder.addSaltBytes(hash);
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -257,7 +256,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(null).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source byte array is null");
         }
     }
@@ -270,7 +269,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(null).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
     }
@@ -283,7 +282,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(null).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -296,7 +295,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm("wrong algorithm").setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -309,7 +308,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(null).getHash();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -388,7 +387,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(null).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source byte array is null");
         }
     }
@@ -401,7 +400,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(null).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
     }
@@ -414,7 +413,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(null).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -427,7 +426,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm("wrong algorithm").setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -440,7 +439,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(null).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -453,7 +452,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(null).isHashValid();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
         }
     }
@@ -466,7 +465,7 @@ public final class ByteArrayHashWithSaltBuilderTest {
         try {
             new ByteArrayHashWithSaltBuilder(new byte[]{1, 2, 3, 4, 5}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, 4, 5, 6}).isHashValid();
             Assertions.fail("ByteArrayHashWithSaltBuilder test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
         }
     }

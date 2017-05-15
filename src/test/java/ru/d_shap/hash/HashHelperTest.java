@@ -66,7 +66,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash((byte[]) null, HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source byte array is null");
         }
     }
@@ -79,7 +79,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, null);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -92,7 +92,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, "wrong algorithm");
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -114,7 +114,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash(null, "UTF-8", HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source string is null");
         }
     }
@@ -127,7 +127,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash("12345", null, HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source string encoding is null");
         }
     }
@@ -140,7 +140,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash("12345", "wrong encoding", HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
         }
     }
@@ -153,7 +153,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash("12345", "UTF-8", null);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -166,7 +166,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash("12345", "UTF-8", "wrong algorithm");
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -188,7 +188,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash((InputStream) null, HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source stream is null");
         }
     }
@@ -224,7 +224,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), null);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -237,7 +237,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHash(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5}), "wrong algorithm");
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -260,7 +260,7 @@ public final class HashHelperTest {
         try {
             HashHelper.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21}, SaltOrder.STORED_SALT_FIRST);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -274,7 +274,7 @@ public final class HashHelperTest {
             Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
             HashHelper.addSalt(hash, null, new byte[]{20, 21}, SaltOrder.STORED_SALT_FIRST);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Stored salt is null");
         }
     }
@@ -288,7 +288,7 @@ public final class HashHelperTest {
             Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
             HashHelper.addSalt(hash, new byte[]{10, 11}, null, SaltOrder.STORED_SALT_FIRST);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Fixed salt is null");
         }
     }
@@ -311,7 +311,7 @@ public final class HashHelperTest {
         try {
             HashHelper.addSalt(null, new byte[]{10, 11}, new byte[]{20, 21}, SaltOrder.FIXED_SALT_FIRST);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -325,7 +325,7 @@ public final class HashHelperTest {
             Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
             HashHelper.addSalt(hash, null, new byte[]{20, 21}, SaltOrder.FIXED_SALT_FIRST);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Stored salt is null");
         }
     }
@@ -339,7 +339,7 @@ public final class HashHelperTest {
             Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
             HashHelper.addSalt(hash, new byte[]{10, 11}, null, SaltOrder.FIXED_SALT_FIRST);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Fixed salt is null");
         }
     }
@@ -353,7 +353,7 @@ public final class HashHelperTest {
             Hash hash = HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5);
             HashHelper.addSalt(hash, new byte[]{10, 11}, new byte[]{20, 21}, null);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt order is null");
         }
     }
@@ -376,7 +376,7 @@ public final class HashHelperTest {
         try {
             HashHelper.addSaltBytes(null, new byte[]{10, 11, 12}, SaltStoreType.AT_THE_BEGINNING);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
         }
     }
@@ -389,7 +389,7 @@ public final class HashHelperTest {
         try {
             HashHelper.addSaltBytes(new byte[]{1, 2, 3}, null, SaltStoreType.AT_THE_BEGINNING);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
     }
@@ -402,7 +402,7 @@ public final class HashHelperTest {
         try {
             HashHelper.addSaltBytes(new byte[]{1, 2, 3}, new byte[]{10, 11, 12}, null);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -428,7 +428,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHashBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Byte array is null");
         }
     }
@@ -441,7 +441,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -454,7 +454,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
         }
     }
@@ -467,7 +467,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getHashBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 6);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
         }
     }
@@ -493,7 +493,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getSaltBytes(null, SaltStoreType.AT_THE_BEGINNING, 3);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Byte array is null");
         }
     }
@@ -506,7 +506,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, null, 3);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -519,7 +519,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, -1);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
         }
     }
@@ -532,7 +532,7 @@ public final class HashHelperTest {
         try {
             HashHelper.getSaltBytes(new byte[]{10, 11, 12, 1, 2, 3}, SaltStoreType.AT_THE_BEGINNING, 6);
             Assertions.fail("HashHelper test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
         }
     }

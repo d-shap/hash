@@ -80,7 +80,7 @@ public final class HashTest {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null);
             Assertions.fail("Hash test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
     }
@@ -104,7 +104,7 @@ public final class HashTest {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null, "UTF-8");
             Assertions.fail("Hash test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt string is null");
         }
     }
@@ -117,7 +117,7 @@ public final class HashTest {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", null);
             Assertions.fail("Hash test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt string encoding is null");
         }
     }
@@ -130,7 +130,7 @@ public final class HashTest {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
             Assertions.fail("Hash test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong salt string encoding: wrong encoding");
         }
     }
@@ -170,7 +170,7 @@ public final class HashTest {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).matches(null);
             Assertions.fail("Hash test fail");
-        } catch (WrongHashArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
         }
     }
