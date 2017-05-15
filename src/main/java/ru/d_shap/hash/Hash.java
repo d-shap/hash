@@ -57,7 +57,7 @@ public final class Hash {
      */
     public Hash addSalt(final byte[] salt) {
         if (salt == null) {
-            throw new WrongHashArgumentException("Salt byte array is null");
+            throw new IllegalArgumentException("Salt byte array is null");
         }
         _messageDigest.update(_currentHash);
         _messageDigest.update(salt);
@@ -74,16 +74,16 @@ public final class Hash {
      */
     public Hash addSalt(final String salt, final String encoding) {
         if (salt == null) {
-            throw new WrongHashArgumentException("Salt string is null");
+            throw new IllegalArgumentException("Salt string is null");
         }
         if (encoding == null) {
-            throw new WrongHashArgumentException("Salt string encoding is null");
+            throw new IllegalArgumentException("Salt string encoding is null");
         }
         try {
             byte[] saltBytes = salt.getBytes(encoding);
             return addSalt(saltBytes);
         } catch (UnsupportedEncodingException ex) {
-            throw new WrongHashArgumentException("Wrong salt string encoding: " + encoding, ex);
+            throw new IllegalArgumentException("Wrong salt string encoding: " + encoding, ex);
         }
     }
 
@@ -106,7 +106,7 @@ public final class Hash {
      */
     public boolean matches(final byte[] hash) {
         if (hash == null) {
-            throw new WrongHashArgumentException("Hash byte array is null");
+            throw new IllegalArgumentException("Hash byte array is null");
         }
         return Arrays.equals(_currentHash, hash);
     }

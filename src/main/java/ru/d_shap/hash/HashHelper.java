@@ -47,10 +47,10 @@ public final class HashHelper {
      */
     public static Hash getHash(final byte[] bytes, final String algorithm) {
         if (bytes == null) {
-            throw new WrongHashArgumentException("Source byte array is null");
+            throw new IllegalArgumentException("Source byte array is null");
         }
         if (algorithm == null) {
-            throw new WrongHashArgumentException("Algorithm is null");
+            throw new IllegalArgumentException("Algorithm is null");
         }
         MessageDigest messageDigest = createMessageDigest(algorithm);
         updateMessageDigest(messageDigest, bytes);
@@ -67,16 +67,16 @@ public final class HashHelper {
      */
     public static Hash getHash(final String str, final String encoding, final String algorithm) {
         if (str == null) {
-            throw new WrongHashArgumentException("Source string is null");
+            throw new IllegalArgumentException("Source string is null");
         }
         if (encoding == null) {
-            throw new WrongHashArgumentException("Source string encoding is null");
+            throw new IllegalArgumentException("Source string encoding is null");
         }
         try {
             byte[] strBytes = str.getBytes(encoding);
             return getHash(strBytes, algorithm);
         } catch (UnsupportedEncodingException ex) {
-            throw new WrongHashArgumentException("Wrong source string encoding: " + encoding, ex);
+            throw new IllegalArgumentException("Wrong source string encoding: " + encoding, ex);
         }
     }
 
@@ -89,10 +89,10 @@ public final class HashHelper {
      */
     public static Hash getHash(final InputStream stream, final String algorithm) {
         if (stream == null) {
-            throw new WrongHashArgumentException("Source stream is null");
+            throw new IllegalArgumentException("Source stream is null");
         }
         if (algorithm == null) {
-            throw new WrongHashArgumentException("Algorithm is null");
+            throw new IllegalArgumentException("Algorithm is null");
         }
         MessageDigest messageDigest = createMessageDigest(algorithm);
         updateMessageDigest(messageDigest, stream);
@@ -103,7 +103,7 @@ public final class HashHelper {
         try {
             return MessageDigest.getInstance(algorithm);
         } catch (NoSuchAlgorithmException ex) {
-            throw new WrongHashArgumentException("Wrong algorithm name: " + algorithm, ex);
+            throw new IllegalArgumentException("Wrong algorithm name: " + algorithm, ex);
         }
     }
 
@@ -141,16 +141,16 @@ public final class HashHelper {
      */
     public static void addSalt(final Hash hash, final byte[] storedSalt, final byte[] fixedSalt, final SaltOrder saltOrder) {
         if (hash == null) {
-            throw new WrongHashArgumentException("Hash is null");
+            throw new IllegalArgumentException("Hash is null");
         }
         if (storedSalt == null) {
-            throw new WrongHashArgumentException("Stored salt is null");
+            throw new IllegalArgumentException("Stored salt is null");
         }
         if (fixedSalt == null) {
-            throw new WrongHashArgumentException("Fixed salt is null");
+            throw new IllegalArgumentException("Fixed salt is null");
         }
         if (saltOrder == null) {
-            throw new WrongHashArgumentException("Salt order is null");
+            throw new IllegalArgumentException("Salt order is null");
         }
         saltOrder.addSalt(hash, storedSalt, fixedSalt);
     }
@@ -165,13 +165,13 @@ public final class HashHelper {
      */
     public static byte[] addSaltBytes(final byte[] hash, final byte[] salt, final SaltStoreType saltStoreType) {
         if (hash == null) {
-            throw new WrongHashArgumentException("Hash byte array is null");
+            throw new IllegalArgumentException("Hash byte array is null");
         }
         if (salt == null) {
-            throw new WrongHashArgumentException("Salt byte array is null");
+            throw new IllegalArgumentException("Salt byte array is null");
         }
         if (saltStoreType == null) {
-            throw new WrongHashArgumentException("Salt store type is null");
+            throw new IllegalArgumentException("Salt store type is null");
         }
         return saltStoreType.addSaltBytes(hash, salt);
     }
@@ -186,13 +186,13 @@ public final class HashHelper {
      */
     public static byte[] getHashBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
         if (bytes == null) {
-            throw new WrongHashArgumentException("Byte array is null");
+            throw new IllegalArgumentException("Byte array is null");
         }
         if (saltStoreType == null) {
-            throw new WrongHashArgumentException("Salt store type is null");
+            throw new IllegalArgumentException("Salt store type is null");
         }
         if (saltLength < 0 || saltLength >= bytes.length) {
-            throw new WrongHashArgumentException("Salt length is not within [0; " + bytes.length + ")");
+            throw new IllegalArgumentException("Salt length is not within [0; " + bytes.length + ")");
         }
         return saltStoreType.getHashBytes(bytes, saltLength);
     }
@@ -207,13 +207,13 @@ public final class HashHelper {
      */
     public static byte[] getSaltBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
         if (bytes == null) {
-            throw new WrongHashArgumentException("Byte array is null");
+            throw new IllegalArgumentException("Byte array is null");
         }
         if (saltStoreType == null) {
-            throw new WrongHashArgumentException("Salt store type is null");
+            throw new IllegalArgumentException("Salt store type is null");
         }
         if (saltLength < 0 || saltLength >= bytes.length) {
-            throw new WrongHashArgumentException("Salt length is not within [0; " + bytes.length + ")");
+            throw new IllegalArgumentException("Salt length is not within [0; " + bytes.length + ")");
         }
         return saltStoreType.getSaltBytes(bytes, saltLength);
     }
