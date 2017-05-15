@@ -28,7 +28,7 @@ import ru.d_shap.hash.Hash;
 import ru.d_shap.hash.HashAlgorithms;
 import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltStoreType;
-import ru.d_shap.hash.WrongArgumentException;
+import ru.d_shap.hash.WrongHashArgumentException;
 
 /**
  * Tests for {@link InputStreamSimpleHashBuilder}.
@@ -132,7 +132,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(null).getStoredSaltLength(1);
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Stored hash is null");
         }
     }
@@ -158,7 +158,7 @@ public final class InputStreamSimpleHashBuilderTest {
             builder.setStoredHash(new byte[]{82, -119, -33, 115, 125, -11, 115, 38, -4, -35, 34, 89, 122, -5, 31, -84});
             builder.matches(null);
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -174,7 +174,7 @@ public final class InputStreamSimpleHashBuilderTest {
             Hash hash = HashHelper.getHash(new byte[]{1, 2, 3}, HashAlgorithms.MD5);
             Assertions.assertThat(builder.matches(hash)).isTrue();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
         }
     }
@@ -204,7 +204,7 @@ public final class InputStreamSimpleHashBuilderTest {
             InputStreamSimpleHashBuilder builder = new InputStreamSimpleHashBuilder(null);
             builder.getHashFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Byte array is null");
         }
     }
@@ -234,7 +234,7 @@ public final class InputStreamSimpleHashBuilderTest {
             InputStreamSimpleHashBuilder builder = new InputStreamSimpleHashBuilder(null);
             builder.getSaltFromStoredHash(SaltStoreType.DO_NOT_STORE, 0);
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Byte array is null");
         }
     }
@@ -258,7 +258,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).getHash();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source stream is null");
         }
     }
@@ -271,7 +271,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm(null).getHash();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -284,7 +284,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm("wrong algorithm").getHash();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -315,7 +315,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(null).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source stream is null");
         }
     }
@@ -328,7 +328,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm(null).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -341,7 +341,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm("wrong algorithm").setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -354,7 +354,7 @@ public final class InputStreamSimpleHashBuilderTest {
         try {
             new InputStreamSimpleHashBuilder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setAlgorithm(HashAlgorithms.MD5).setStoredHash(null).isHashValid();
             Assertions.fail("InputStreamSimpleHashBuilder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
         }
     }

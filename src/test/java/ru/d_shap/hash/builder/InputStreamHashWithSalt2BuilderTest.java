@@ -29,7 +29,7 @@ import ru.d_shap.hash.HashAlgorithms;
 import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltOrder;
 import ru.d_shap.hash.SaltStoreType;
-import ru.d_shap.hash.WrongArgumentException;
+import ru.d_shap.hash.WrongHashArgumentException;
 
 /**
  * Tests for {@link InputStreamHashWithSalt2Builder}.
@@ -157,7 +157,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(SaltOrder.STORED_SALT_FIRST);
             builder.addSalt(null);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -175,7 +175,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(SaltOrder.STORED_SALT_FIRST);
             builder.addSalt(hash);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Stored salt is null");
         }
     }
@@ -193,7 +193,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(SaltOrder.STORED_SALT_FIRST);
             builder.addSalt(hash);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Fixed salt is null");
         }
     }
@@ -211,7 +211,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(null);
             builder.addSalt(hash);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt order is null");
         }
     }
@@ -242,7 +242,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(SaltOrder.STORED_SALT_FIRST);
             builder.addSalt(null, new byte[]{10, 11});
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -259,7 +259,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(SaltOrder.STORED_SALT_FIRST);
             builder.addSalt(hash, null);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Stored salt is null");
         }
     }
@@ -276,7 +276,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(SaltOrder.STORED_SALT_FIRST);
             builder.addSalt(hash, new byte[]{10, 11});
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Fixed salt is null");
         }
     }
@@ -293,7 +293,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltOrder(null);
             builder.addSalt(hash, new byte[]{10, 11});
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt order is null");
         }
     }
@@ -335,7 +335,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltStoreType(SaltStoreType.AT_THE_BEGINNING);
             builder.addSaltBytes(null);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash is null");
         }
     }
@@ -354,7 +354,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltStoreType(SaltStoreType.AT_THE_BEGINNING);
             builder.addSaltBytes(hash);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
         }
     }
@@ -373,7 +373,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
             builder.setSaltStoreType(null);
             builder.addSaltBytes(hash);
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -457,7 +457,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(null).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source stream is null");
         }
     }
@@ -470,7 +470,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(null).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Stored salt is null");
         }
     }
@@ -483,7 +483,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(null).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Fixed salt is null");
         }
     }
@@ -496,7 +496,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(null).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -509,7 +509,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm("wrong algorithm").setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -522,7 +522,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(null).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt order is null");
         }
     }
@@ -535,7 +535,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(null).getHash();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -659,7 +659,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(null).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{57, -18, 39, 38, 65, -20, 93, -36, -128, 110, 117, -30, 53, -12, -126, -92}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Source stream is null");
         }
     }
@@ -672,7 +672,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(null).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{57, -18, 39, 38, 65, -20, 93, -36, -128, 110, 117, -30, 53, -12, -126, -92}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Stored salt is null");
         }
     }
@@ -685,7 +685,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(null).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{57, -18, 39, 38, 65, -20, 93, -36, -128, 110, 117, -30, 53, -12, -126, -92}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Fixed salt is null");
         }
     }
@@ -698,7 +698,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(null).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{57, -18, 39, 38, 65, -20, 93, -36, -128, 110, 117, -30, 53, -12, -126, -92}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Algorithm is null");
         }
     }
@@ -711,7 +711,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm("wrong algorithm").setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{57, -18, 39, 38, 65, -20, 93, -36, -128, 110, 117, -30, 53, -12, -126, -92}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
         }
     }
@@ -724,7 +724,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(null).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{57, -18, 39, 38, 65, -20, 93, -36, -128, 110, 117, -30, 53, -12, -126, -92}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt order is null");
         }
     }
@@ -737,7 +737,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(null).setStoredHash(new byte[]{57, -18, 39, 38, 65, -20, 93, -36, -128, 110, 117, -30, 53, -12, -126, -92}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt store type is null");
         }
     }
@@ -750,7 +750,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(null).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Hash byte array is null");
         }
     }
@@ -763,7 +763,7 @@ public final class InputStreamHashWithSalt2BuilderTest {
         try {
             new InputStreamHashWithSalt2Builder(new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5})).setFixedSalt(new byte[]{100, 101, 102}).setAlgorithm(HashAlgorithms.MD5).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{1, 2, 3, 4, 5, 6}).isHashValid();
             Assertions.fail("InputStreamHashWithSalt2Builder test fail");
-        } catch (WrongArgumentException ex) {
+        } catch (WrongHashArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt length is not within [0; 6)");
         }
     }
