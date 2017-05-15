@@ -19,32 +19,24 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash;
 
+import java.io.IOException;
+
 /**
- * Exception is thrown when a method argument is wrong - null, empty, etc.
+ * Exception is thrown when an input stream can not be processed.
  *
  * @author Dmitry Shapovalov
  */
-public final class WrongArgumentException extends RuntimeException {
+public final class HashIOException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * Create new object.
      *
-     * @param message the exception message.
+     * @param ex the cause of the exception.
      */
-    public WrongArgumentException(final String message) {
-        super(message);
-    }
-
-    /**
-     * Create new object.
-     *
-     * @param message the exception message.
-     * @param ex      the cause of the exception.
-     */
-    public WrongArgumentException(final String message, final Exception ex) {
-        super(message, ex);
+    public HashIOException(final IOException ex) {
+        super(ex);
     }
 
 }

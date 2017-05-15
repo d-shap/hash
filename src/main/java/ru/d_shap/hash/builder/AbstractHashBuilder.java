@@ -23,7 +23,7 @@ import ru.d_shap.hash.Hash;
 import ru.d_shap.hash.HashAlgorithms;
 import ru.d_shap.hash.HashHelper;
 import ru.d_shap.hash.SaltStoreType;
-import ru.d_shap.hash.WrongArgumentException;
+import ru.d_shap.hash.WrongHashArgumentException;
 
 /**
  * Base class for all hash builder classes.
@@ -105,14 +105,14 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
 
     final int getStoredSaltLength(final int hashLength) {
         if (_storedHash == null) {
-            throw new WrongArgumentException("Stored hash is null");
+            throw new WrongHashArgumentException("Stored hash is null");
         }
         return _storedHash.length - hashLength;
     }
 
     final boolean matches(final Hash hash) {
         if (hash == null) {
-            throw new WrongArgumentException("Hash is null");
+            throw new WrongHashArgumentException("Hash is null");
         }
         return hash.matches(_storedHash);
     }
