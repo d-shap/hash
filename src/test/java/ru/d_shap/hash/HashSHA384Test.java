@@ -2,7 +2,7 @@
 // Hash library provides facilities for the hash computations.
 // Copyright (C) 2017 Dmitry Shapovalov.
 //
-// This file is part of Hash library.
+// This file is part of hash library.
 //
 // Hash library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
