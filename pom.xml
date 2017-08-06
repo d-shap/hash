@@ -7,6 +7,22 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
+    <name>Hash library</name>
+    <description>Hash library provides facilities for the hash computations</description>
+    <url>https://github.com/d-shap/hash</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 3</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/d-shap/hash</url>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -96,7 +112,7 @@
                     </rulesets>
                     <ignoreIdentifiers>false</ignoreIdentifiers>
                     <ignoreLiterals>true</ignoreLiterals>
-                    <minimumTokens>200</minimumTokens>
+                    <minimumTokens>500</minimumTokens>
                 </configuration>
             </plugin>
             <plugin>
