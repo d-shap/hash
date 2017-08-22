@@ -58,23 +58,39 @@ public final class HashHelper {
     }
 
     /**
-     * Create the hash object for the specified string.
+     * Create the hash object for the specified char sequence.
      *
-     * @param str       the specified string.
-     * @param encoding  the encoding of the string.
-     * @param algorithm the hash algorithm.
+     * @param charSequence the specified char sequence.
+     * @param algorithm    the hash algorithm.
      * @return the hash object.
      */
-    public static Hash getHash(final String str, final String encoding, final String algorithm) {
-        if (str == null) {
-            throw new IllegalArgumentException("Source string is null");
+    public static Hash getHash(final CharSequence charSequence, final String algorithm) {
+        return getHash(charSequence, DefaultEncoding.UTF8, algorithm);
+    }
+
+    /**
+     * Create the hash object for the specified char sequence.
+     *
+     * @param charSequence the specified char sequence.
+     * @param encoding     the encoding of the char sequence.
+     * @param algorithm    the hash algorithm.
+     * @return the hash object.
+     */
+    public static Hash getHash(final CharSequence charSequence, final String encoding, final String algorithm) {
+        if (charSequence == null) {
+            throw new IllegalArgumentException("Source char sequence is null");
         }
         if (encoding == null) {
             throw new IllegalArgumentException("Source string encoding is null");
         }
         try {
-            byte[] strBytes = str.getBytes(encoding);
-            return getHash(strBytes, algorithm);
+            if (charSequence instanceof String) {
+                byte[] strBytes = ((String) charSequence).getBytes(encoding);
+                return getHash(strBytes, algorithm);
+            } else {
+                byte[] strBytes = charSequence.toString().getBytes(encoding);
+                return getHash(strBytes, algorithm);
+            }
         } catch (UnsupportedEncodingException ex) {
             throw new IllegalArgumentException("Wrong source string encoding: " + encoding, ex);
         }
