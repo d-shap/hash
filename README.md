@@ -12,7 +12,6 @@ Hash library simplify usage of java.security package classes for the hash functi
 There are some common use-cases for the hash functions.
 
 To check data integrity for transmitted data (for example, some large file) the hash of this file can be computed and stored along with the file. After this file is obtained, the hash can be computed once again and if this hash is equal to the stored hash, then the file is not corrupted.
-
 ```
 // Obtain hash of the file
 File file = ...
@@ -39,7 +38,6 @@ A salt is used to complicate a password and to make the same clear passwords dif
 A salt is a public data.
 It can be stored as a clear text.
 A new salt should be generated for each new password.
-
 ```
 // Obtain hash of the password
 byte[] password = ...
@@ -64,7 +62,6 @@ The hash in the example above is secure enough, but the salt and the hash are st
 Another salt can be added, that is known to the application only.
 This salt is fixed, i.e. is not changed during application existance.
 But this salt is a peace of information, that is unknown to someone who has the stored hash.
-
 ```
 // Obtain hash of the password
 byte[] password = ...
