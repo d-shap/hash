@@ -26,26 +26,34 @@ import ru.d_shap.hash.HashHelper;
  *
  * @author Dmitry Shapovalov
  */
-final class StringSimpleHashBuilder extends SimpleHashBuilder {
+final class CharSequenceSimpleHashBuilder extends SimpleHashBuilder {
 
-    private final String _str;
+    private final CharSequence _charSequence;
 
     private final String _encoding;
 
-    StringSimpleHashBuilder(final String str, final String encoding) {
+    CharSequenceSimpleHashBuilder(final CharSequence charSequence, final String encoding) {
         super();
-        _str = str;
+        _charSequence = charSequence;
         _encoding = encoding;
     }
 
     @Override
     public byte[] getHash() {
-        return HashHelper.getHash(_str, _encoding, getAlgorithm()).getBytes();
+        if (_encoding == null) {
+            return HashHelper.getHash(_charSequence, getAlgorithm()).getBytes();
+        } else {
+            return HashHelper.getHash(_charSequence, _encoding, getAlgorithm()).getBytes();
+        }
     }
 
     @Override
     public boolean isHashValid() {
-        return matches(HashHelper.getHash(_str, _encoding, getAlgorithm()));
+        if (_encoding == null) {
+            return matches(HashHelper.getHash(_charSequence, getAlgorithm()));
+        } else {
+            return matches(HashHelper.getHash(_charSequence, _encoding, getAlgorithm()));
+        }
     }
 
 }

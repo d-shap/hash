@@ -28,30 +28,44 @@ import ru.d_shap.hash.SaltStoreType;
  *
  * @author Dmitry Shapovalov
  */
-final class StringHashWithSaltBuilder extends HashWithSaltBuilder {
+final class CharSequenceHashWithSaltBuilder extends HashWithSaltBuilder {
 
-    private final String _str;
+    private final CharSequence _charSequence;
 
     private final String _encoding;
 
-    StringHashWithSaltBuilder(final String str, final String encoding) {
+    CharSequenceHashWithSaltBuilder(final CharSequence charSequence, final String encoding) {
         super();
-        _str = str;
+        _charSequence = charSequence;
         _encoding = encoding;
     }
 
     @Override
     public byte[] getHash() {
-        Hash hash = addSalt(HashHelper.getHash(_str, _encoding, getAlgorithm()));
+        Hash hash;
+        if (_encoding == null) {
+            hash = addSalt(HashHelper.getHash(_charSequence, getAlgorithm()));
+        } else {
+            hash = addSalt(HashHelper.getHash(_charSequence, _encoding, getAlgorithm()));
+        }
         return addSaltBytes(hash);
     }
 
     @Override
     public boolean isHashValid() {
         if (getSaltStoreType() == SaltStoreType.DO_NOT_STORE) {
-            return matches(addSalt(HashHelper.getHash(_str, _encoding, getAlgorithm())));
+            if (_encoding == null) {
+                return matches(addSalt(HashHelper.getHash(_charSequence, getAlgorithm())));
+            } else {
+                return matches(addSalt(HashHelper.getHash(_charSequence, _encoding, getAlgorithm())));
+            }
         } else {
-            Hash hash = HashHelper.getHash(_str, _encoding, getAlgorithm());
+            Hash hash;
+            if (_encoding == null) {
+                hash = HashHelper.getHash(_charSequence, getAlgorithm());
+            } else {
+                hash = HashHelper.getHash(_charSequence, _encoding, getAlgorithm());
+            }
             int storedSaltLength = getStoredSaltLength(hash.getLength());
             byte[] storedHash = getHashFromStoredHash(getSaltStoreType(), storedSaltLength);
             byte[] storedSalt = getSaltFromStoredHash(getSaltStoreType(), storedSaltLength);
