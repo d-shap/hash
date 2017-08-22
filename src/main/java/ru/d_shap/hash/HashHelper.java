@@ -81,7 +81,7 @@ public final class HashHelper {
             throw new IllegalArgumentException("Source char sequence is null");
         }
         if (encoding == null) {
-            throw new IllegalArgumentException("Source string encoding is null");
+            throw new IllegalArgumentException("Source char sequence encoding is null");
         }
         try {
             if (charSequence instanceof String) {
@@ -92,7 +92,7 @@ public final class HashHelper {
                 return getHash(strBytes, algorithm);
             }
         } catch (UnsupportedEncodingException ex) {
-            throw new IllegalArgumentException("Wrong source string encoding: " + encoding, ex);
+            throw new IllegalArgumentException("Wrong source char sequence encoding: " + encoding, ex);
         }
     }
 
