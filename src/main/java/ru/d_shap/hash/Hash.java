@@ -84,10 +84,10 @@ public final class Hash {
      */
     public Hash addSalt(final CharSequence salt, final String encoding) {
         if (salt == null) {
-            throw new IllegalArgumentException("Salt string is null");
+            throw new IllegalArgumentException("Salt char sequence is null");
         }
         if (encoding == null) {
-            throw new IllegalArgumentException("Salt string encoding is null");
+            throw new IllegalArgumentException("Salt char sequence encoding is null");
         }
         try {
             if (salt instanceof String) {
@@ -98,7 +98,7 @@ public final class Hash {
                 return addSalt(saltBytes);
             }
         } catch (UnsupportedEncodingException ex) {
-            throw new IllegalArgumentException("Wrong salt string encoding: " + encoding, ex);
+            throw new IllegalArgumentException("Wrong salt char sequence encoding: " + encoding, ex);
         }
     }
 
