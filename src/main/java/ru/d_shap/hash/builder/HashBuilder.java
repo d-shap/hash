@@ -45,12 +45,22 @@ public final class HashBuilder {
     /**
      * Create simple hash builder.
      *
-     * @param str      the string.
-     * @param encoding the string encoding.
+     * @param charSequence the char sequence.
      * @return the simple hash builder.
      */
-    public static SimpleHashBuilder newSimpleHashBuilder(final String str, final String encoding) {
-        return new StringSimpleHashBuilder(str, encoding);
+    public static SimpleHashBuilder newSimpleHashBuilder(final CharSequence charSequence) {
+        return newSimpleHashBuilder(charSequence, null);
+    }
+
+    /**
+     * Create simple hash builder.
+     *
+     * @param charSequence the char sequence.
+     * @param encoding     the char sequence encoding.
+     * @return the simple hash builder.
+     */
+    public static SimpleHashBuilder newSimpleHashBuilder(final CharSequence charSequence, final String encoding) {
+        return new CharSequenceSimpleHashBuilder(charSequence, encoding);
     }
 
     /**
@@ -76,12 +86,22 @@ public final class HashBuilder {
     /**
      * Create hash with the salt builder.
      *
-     * @param str      the string.
-     * @param encoding the string encoding.
+     * @param charSequence the char sequence.
      * @return the hash with the salt builder.
      */
-    public static HashWithSaltBuilder newHashWithSaltBuilder(final String str, final String encoding) {
-        return new StringHashWithSaltBuilder(str, encoding);
+    public static HashWithSaltBuilder newHashWithSaltBuilder(final CharSequence charSequence) {
+        return newHashWithSaltBuilder(charSequence, null);
+    }
+
+    /**
+     * Create hash with the salt builder.
+     *
+     * @param charSequence the char sequence.
+     * @param encoding     the char sequence encoding.
+     * @return the hash with the salt builder.
+     */
+    public static HashWithSaltBuilder newHashWithSaltBuilder(final CharSequence charSequence, final String encoding) {
+        return new CharSequenceHashWithSaltBuilder(charSequence, encoding);
     }
 
     /**
@@ -107,12 +127,22 @@ public final class HashBuilder {
     /**
      * Create hash with the stored salt and the fixed salt builder.
      *
-     * @param str      the string.
-     * @param encoding the string encoding.
+     * @param charSequence the char sequence.
      * @return the hash with the stored salt and the fixed salt builder.
      */
-    public static HashWithSalt2Builder newHashWithSalt2Builder(final String str, final String encoding) {
-        return new StringHashWithSalt2Builder(str, encoding);
+    public static HashWithSalt2Builder newHashWithSalt2Builder(final CharSequence charSequence) {
+        return newHashWithSalt2Builder(charSequence, null);
+    }
+
+    /**
+     * Create hash with the stored salt and the fixed salt builder.
+     *
+     * @param charSequence the char sequence.
+     * @param encoding     the char sequence encoding.
+     * @return the hash with the stored salt and the fixed salt builder.
+     */
+    public static HashWithSalt2Builder newHashWithSalt2Builder(final CharSequence charSequence, final String encoding) {
+        return new CharSequenceHashWithSalt2Builder(charSequence, encoding);
     }
 
     /**
