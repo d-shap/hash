@@ -115,7 +115,7 @@ public final class HashHelperTest {
             HashHelper.getHash(null, "UTF-8", HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence is null");
         }
     }
 
@@ -128,7 +128,7 @@ public final class HashHelperTest {
             HashHelper.getHash("12345", null, HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence encoding is null");
         }
     }
 
@@ -141,7 +141,7 @@ public final class HashHelperTest {
             HashHelper.getHash("12345", "wrong encoding", HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+            Assertions.assertThat(ex).hasMessage("Wrong source char sequence encoding: wrong encoding");
         }
     }
 

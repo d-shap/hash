@@ -257,7 +257,7 @@ public final class StringHashWithSaltBuilderTest {
             new StringHashWithSaltBuilder(null, "UTF-8").setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("StringHashWithSaltBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence is null");
         }
     }
 
@@ -270,7 +270,7 @@ public final class StringHashWithSaltBuilderTest {
             new StringHashWithSaltBuilder("12345", null).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("StringHashWithSaltBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence encoding is null");
         }
     }
 
@@ -283,7 +283,7 @@ public final class StringHashWithSaltBuilderTest {
             new StringHashWithSaltBuilder("12345", "wrong encoding").setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).getHash();
             Assertions.fail("StringHashWithSaltBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+            Assertions.assertThat(ex).hasMessage("Wrong source char sequence encoding: wrong encoding");
         }
     }
 
@@ -414,7 +414,7 @@ public final class StringHashWithSaltBuilderTest {
             new StringHashWithSaltBuilder(null, "UTF-8").setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("StringHashWithSaltBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence is null");
         }
     }
 
@@ -427,7 +427,7 @@ public final class StringHashWithSaltBuilderTest {
             new StringHashWithSaltBuilder("12345", null).setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("StringHashWithSaltBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence encoding is null");
         }
     }
 
@@ -440,7 +440,7 @@ public final class StringHashWithSaltBuilderTest {
             new StringHashWithSaltBuilder("12345", "wrong encoding").setSalt(new byte[]{1, 2, 3}).setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.DO_NOT_STORE).setStoredHash(new byte[]{-2, 88, 67, -50, -104, -116, 105, 22, -83, 109, 34, 41, 79, 5, 43, -95}).isHashValid();
             Assertions.fail("StringHashWithSaltBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+            Assertions.assertThat(ex).hasMessage("Wrong source char sequence encoding: wrong encoding");
         }
     }
 

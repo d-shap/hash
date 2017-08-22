@@ -78,7 +78,7 @@ public final class HashTest {
     @Test
     public void addNullByteArraySaltFailTest() {
         try {
-            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null);
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt((byte[]) null);
             Assertions.fail("Hash test fail");
         } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt byte array is null");
@@ -105,7 +105,7 @@ public final class HashTest {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null, "UTF-8");
             Assertions.fail("Hash test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Salt string is null");
+            Assertions.assertThat(ex).hasMessage("Salt char sequence is null");
         }
     }
 
@@ -118,7 +118,7 @@ public final class HashTest {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", null);
             Assertions.fail("Hash test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Salt string encoding is null");
+            Assertions.assertThat(ex).hasMessage("Salt char sequence encoding is null");
         }
     }
 
@@ -131,7 +131,7 @@ public final class HashTest {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
             Assertions.fail("Hash test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Wrong salt string encoding: wrong encoding");
+            Assertions.assertThat(ex).hasMessage("Wrong salt char sequence encoding: wrong encoding");
         }
     }
 

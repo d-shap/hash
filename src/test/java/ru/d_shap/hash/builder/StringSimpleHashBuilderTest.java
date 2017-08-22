@@ -256,7 +256,7 @@ public final class StringSimpleHashBuilderTest {
             new StringSimpleHashBuilder(null, "UTF-8").setAlgorithm(HashAlgorithms.MD5).getHash();
             Assertions.fail("StringSimpleHashBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence is null");
         }
     }
 
@@ -269,7 +269,7 @@ public final class StringSimpleHashBuilderTest {
             new StringSimpleHashBuilder("12345", null).setAlgorithm(HashAlgorithms.MD5).getHash();
             Assertions.fail("StringSimpleHashBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence encoding is null");
         }
     }
 
@@ -282,7 +282,7 @@ public final class StringSimpleHashBuilderTest {
             new StringSimpleHashBuilder("12345", "wrong encoding").setAlgorithm(HashAlgorithms.MD5).getHash();
             Assertions.fail("StringSimpleHashBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+            Assertions.assertThat(ex).hasMessage("Wrong source char sequence encoding: wrong encoding");
         }
     }
 
@@ -339,7 +339,7 @@ public final class StringSimpleHashBuilderTest {
             new StringSimpleHashBuilder(null, "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
             Assertions.fail("StringSimpleHashBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence is null");
         }
     }
 
@@ -352,7 +352,7 @@ public final class StringSimpleHashBuilderTest {
             new StringSimpleHashBuilder("12345", null).setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
             Assertions.fail("StringSimpleHashBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Source string encoding is null");
+            Assertions.assertThat(ex).hasMessage("Source char sequence encoding is null");
         }
     }
 
@@ -365,7 +365,7 @@ public final class StringSimpleHashBuilderTest {
             new StringSimpleHashBuilder("12345", "wrong encoding").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104}).isHashValid();
             Assertions.fail("StringSimpleHashBuilder test fail");
         } catch (IllegalArgumentException ex) {
-            Assertions.assertThat(ex).hasMessage("Wrong source string encoding: wrong encoding");
+            Assertions.assertThat(ex).hasMessage("Wrong source char sequence encoding: wrong encoding");
         }
     }
 
