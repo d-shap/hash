@@ -68,11 +68,21 @@ public final class Hash {
     /**
      * Add the salt to the current hash.
      *
-     * @param salt     a string with the salt.
-     * @param encoding an encoding of the string.
+     * @param salt the salt.
      * @return current object for the chain call.
      */
-    public Hash addSalt(final String salt, final String encoding) {
+    public Hash addSalt(final CharSequence salt) {
+        return addSalt(salt, DefaultEncoding.UTF8);
+    }
+
+    /**
+     * Add the salt to the current hash.
+     *
+     * @param salt     the salt.
+     * @param encoding an encoding of the salt.
+     * @return current object for the chain call.
+     */
+    public Hash addSalt(final CharSequence salt, final String encoding) {
         if (salt == null) {
             throw new IllegalArgumentException("Salt string is null");
         }
@@ -80,8 +90,13 @@ public final class Hash {
             throw new IllegalArgumentException("Salt string encoding is null");
         }
         try {
-            byte[] saltBytes = salt.getBytes(encoding);
-            return addSalt(saltBytes);
+            if (salt instanceof String) {
+                byte[] saltBytes = ((String) salt).getBytes(encoding);
+                return addSalt(saltBytes);
+            } else {
+                byte[] saltBytes = salt.toString().getBytes(encoding);
+                return addSalt(saltBytes);
+            }
         } catch (UnsupportedEncodingException ex) {
             throw new IllegalArgumentException("Wrong salt string encoding: " + encoding, ex);
         }
