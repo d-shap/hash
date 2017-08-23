@@ -24,9 +24,9 @@ package ru.d_shap.hash;
  *
  * @author Dmitry Shapovalov
  */
-final class DefaultEncoding {
+public final class DefaultEncoding {
 
-    static final String UTF8 = "UTF-8";
+    public static final String UTF8 = "UTF-8";
 
     private DefaultEncoding() {
         super();
