@@ -84,8 +84,8 @@ public final class HashHelper {
             throw new IllegalArgumentException("Source char sequence encoding is null");
         }
         try {
-            byte[] strBytes = charSequence.toString().getBytes(encoding);
-            return getHash(strBytes, algorithm);
+            byte[] charSequenceBytes = charSequence.toString().getBytes(encoding);
+            return getHash(charSequenceBytes, algorithm);
         } catch (UnsupportedEncodingException ex) {
             throw new IllegalArgumentException("Wrong source char sequence encoding: " + encoding, ex);
         }
