@@ -598,7 +598,7 @@ public final class HashHelperTest {
     }
 
     /**
-     * Input stream implementation, that throws exceptions.
+     * Test class.
      *
      * @author Dmitry Shapovalov
      */
@@ -616,7 +616,7 @@ public final class HashHelperTest {
     }
 
     /**
-     * Input stream to test close method.
+     * Test class.
      *
      * @author Dmitry Shapovalov
      */
