@@ -89,18 +89,27 @@ public final class HashTest {
      * {@link Hash} class test.
      */
     @Test
-    public void addStringSaltTest() {
+    public void addCharSequenceSaltTest() {
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(124, -3, -48, 120, -119, -77, 41, 93, 106, 85, 9, 20, -85, 53, -32, 104);
-        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "UTF-8").getBytes()).containsExactlyInOrder(18, -111, 64, 32, 30, -51, 42, -70, 95, -77, 69, -34, 100, 100, 27, -115);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123").getBytes()).containsExactlyInOrder(18, -111, 64, 32, 30, -51, 42, -70, 95, -77, 69, -34, 100, 100, 27, -115);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new StringBuilder("123")).getBytes()).containsExactlyInOrder(18, -111, 64, 32, 30, -51, 42, -70, 95, -77, 69, -34, 100, 100, 27, -115);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("abc", "UTF-8").getBytes()).containsExactlyInOrder(97, 97, -128, 25, -70, -31, -76, -59, -121, 90, 86, -81, -84, 11, -124, -55);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new StringBuilder("abc"), "UTF-8").getBytes()).containsExactlyInOrder(97, 97, -128, 25, -70, -31, -76, -59, -121, 90, 86, -81, -84, 11, -124, -55);
         Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("abc", "UTF-8").addSalt("def", "UTF-8").getBytes()).containsExactlyInOrder(77, 15, 33, 109, -7, -43, -34, 2, -34, 26, -3, -2, 113, 2, 60, 24);
+        Assertions.assertThat(HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new StringBuilder("abc"), "UTF-8").addSalt(new StringBuilder("def"), "UTF-8").getBytes()).containsExactlyInOrder(77, 15, 33, 109, -7, -43, -34, 2, -34, 26, -3, -2, 113, 2, 60, 24);
     }
 
     /**
      * {@link Hash} class test.
      */
     @Test
-    public void addNullStringSaltFailTest() {
+    public void addNullCharSequenceSaltFailTest() {
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt((CharSequence) null);
+            Assertions.fail("Hash test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt char sequence is null");
+        }
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(null, "UTF-8");
             Assertions.fail("Hash test fail");
@@ -113,9 +122,15 @@ public final class HashTest {
      * {@link Hash} class test.
      */
     @Test
-    public void addNullEncodingStringSaltFailTest() {
+    public void addNullEncodingCharSequenceSaltFailTest() {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", null);
+            Assertions.fail("Hash test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Salt char sequence encoding is null");
+        }
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new StringBuilder("123"), null);
             Assertions.fail("Hash test fail");
         } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Salt char sequence encoding is null");
@@ -126,9 +141,15 @@ public final class HashTest {
      * {@link Hash} class test.
      */
     @Test
-    public void addWrongEncodingStringSaltFailTest() {
+    public void addWrongEncodingCharSequenceSaltFailTest() {
         try {
             HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt("123", "wrong encoding");
+            Assertions.fail("Hash test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong salt char sequence encoding: wrong encoding");
+        }
+        try {
+            HashHelper.getHash(new byte[]{1, 2, 3, 4, 5}, HashAlgorithms.MD5).addSalt(new StringBuilder("123"), "wrong encoding");
             Assertions.fail("Hash test fail");
         } catch (IllegalArgumentException ex) {
             Assertions.assertThat(ex).hasMessage("Wrong salt char sequence encoding: wrong encoding");
