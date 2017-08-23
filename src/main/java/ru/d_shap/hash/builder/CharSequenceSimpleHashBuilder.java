@@ -40,20 +40,12 @@ final class CharSequenceSimpleHashBuilder extends SimpleHashBuilder {
 
     @Override
     public byte[] getHash() {
-        if (_encoding == null) {
-            return HashHelper.getHash(_charSequence, getAlgorithm()).getBytes();
-        } else {
-            return HashHelper.getHash(_charSequence, _encoding, getAlgorithm()).getBytes();
-        }
+        return HashHelper.getHash(_charSequence, _encoding, getAlgorithm()).getBytes();
     }
 
     @Override
     public boolean isHashValid() {
-        if (_encoding == null) {
-            return matches(HashHelper.getHash(_charSequence, getAlgorithm()));
-        } else {
-            return matches(HashHelper.getHash(_charSequence, _encoding, getAlgorithm()));
-        }
+        return matches(HashHelper.getHash(_charSequence, _encoding, getAlgorithm()));
     }
 
 }

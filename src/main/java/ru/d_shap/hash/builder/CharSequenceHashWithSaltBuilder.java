@@ -42,30 +42,16 @@ final class CharSequenceHashWithSaltBuilder extends HashWithSaltBuilder {
 
     @Override
     public byte[] getHash() {
-        Hash hash;
-        if (_encoding == null) {
-            hash = addSalt(HashHelper.getHash(_charSequence, getAlgorithm()));
-        } else {
-            hash = addSalt(HashHelper.getHash(_charSequence, _encoding, getAlgorithm()));
-        }
+        Hash hash = addSalt(HashHelper.getHash(_charSequence, _encoding, getAlgorithm()));
         return addSaltBytes(hash);
     }
 
     @Override
     public boolean isHashValid() {
         if (getSaltStoreType() == SaltStoreType.DO_NOT_STORE) {
-            if (_encoding == null) {
-                return matches(addSalt(HashHelper.getHash(_charSequence, getAlgorithm())));
-            } else {
-                return matches(addSalt(HashHelper.getHash(_charSequence, _encoding, getAlgorithm())));
-            }
+            return matches(addSalt(HashHelper.getHash(_charSequence, _encoding, getAlgorithm())));
         } else {
-            Hash hash;
-            if (_encoding == null) {
-                hash = HashHelper.getHash(_charSequence, getAlgorithm());
-            } else {
-                hash = HashHelper.getHash(_charSequence, _encoding, getAlgorithm());
-            }
+            Hash hash = HashHelper.getHash(_charSequence, _encoding, getAlgorithm());
             int storedSaltLength = getStoredSaltLength(hash.getLength());
             byte[] storedHash = getHashFromStoredHash(getSaltStoreType(), storedSaltLength);
             byte[] storedSalt = getSaltFromStoredHash(getSaltStoreType(), storedSaltLength);
