@@ -102,9 +102,13 @@ public final class HashHelperTest {
      */
     @Test
     public void getCharSequenceHashTest() {
+        Assertions.assertThat(HashHelper.getHash("12345", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
+        Assertions.assertThat(HashHelper.getHash(new StringBuilder("12345"), HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
         Assertions.assertThat(HashHelper.getHash("12345", "UTF-8", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
-        Assertions.assertThat(HashHelper.getHash("abc", "UTF-8", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-112, 1, 80, -104, 60, -46, 79, -80, -42, -106, 63, 125, 40, -31, 127, 114);
         Assertions.assertThat(HashHelper.getHash(new StringBuilder("12345"), "UTF-8", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
+        Assertions.assertThat(HashHelper.getHash("abc", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-112, 1, 80, -104, 60, -46, 79, -80, -42, -106, 63, 125, 40, -31, 127, 114);
+        Assertions.assertThat(HashHelper.getHash(new StringBuilder("abc"), HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-112, 1, 80, -104, 60, -46, 79, -80, -42, -106, 63, 125, 40, -31, 127, 114);
+        Assertions.assertThat(HashHelper.getHash("abc", "UTF-8", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-112, 1, 80, -104, 60, -46, 79, -80, -42, -106, 63, 125, 40, -31, 127, 114);
         Assertions.assertThat(HashHelper.getHash(new StringBuilder("abc"), "UTF-8", HashAlgorithms.MD5).getBytes()).containsExactlyInOrder(-112, 1, 80, -104, 60, -46, 79, -80, -42, -106, 63, 125, 40, -31, 127, 114);
     }
 
@@ -113,6 +117,12 @@ public final class HashHelperTest {
      */
     @Test
     public void getNullCharSequenceHashFailTest() {
+        try {
+            HashHelper.getHash((CharSequence) null, HashAlgorithms.MD5);
+            Assertions.fail("HashHelper test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Source char sequence is null");
+        }
         try {
             HashHelper.getHash(null, "UTF-8", HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
@@ -165,6 +175,18 @@ public final class HashHelperTest {
     @Test
     public void getNullAlgorithmCharSequenceHashFailTest() {
         try {
+            HashHelper.getHash("12345", null);
+            Assertions.fail("HashHelper test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
+        try {
+            HashHelper.getHash(new StringBuilder("12345"), null);
+            Assertions.fail("HashHelper test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Algorithm is null");
+        }
+        try {
             HashHelper.getHash("12345", "UTF-8", null);
             Assertions.fail("HashHelper test fail");
         } catch (IllegalArgumentException ex) {
@@ -183,6 +205,18 @@ public final class HashHelperTest {
      */
     @Test
     public void getWrongAlgorithmCharSequenceHashFailTest() {
+        try {
+            HashHelper.getHash("12345", "wrong algorithm");
+            Assertions.fail("HashHelper test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
+        try {
+            HashHelper.getHash(new StringBuilder("12345"), "wrong algorithm");
+            Assertions.fail("HashHelper test fail");
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertThat(ex).hasMessage("Wrong algorithm name: wrong algorithm");
+        }
         try {
             HashHelper.getHash("12345", "UTF-8", "wrong algorithm");
             Assertions.fail("HashHelper test fail");
