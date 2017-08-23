@@ -21,6 +21,8 @@ package ru.d_shap.hash.builder;
 
 import java.io.InputStream;
 
+import ru.d_shap.hash.DefaultEncoding;
+
 /**
  * Hash builder entry point.
  *
@@ -49,7 +51,7 @@ public final class HashBuilder {
      * @return the simple hash builder.
      */
     public static SimpleHashBuilder newSimpleHashBuilder(final CharSequence charSequence) {
-        return newSimpleHashBuilder(charSequence, null);
+        return newSimpleHashBuilder(charSequence, DefaultEncoding.UTF8);
     }
 
     /**
@@ -90,7 +92,7 @@ public final class HashBuilder {
      * @return the hash with the salt builder.
      */
     public static HashWithSaltBuilder newHashWithSaltBuilder(final CharSequence charSequence) {
-        return newHashWithSaltBuilder(charSequence, null);
+        return newHashWithSaltBuilder(charSequence, DefaultEncoding.UTF8);
     }
 
     /**
@@ -131,7 +133,7 @@ public final class HashBuilder {
      * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final CharSequence charSequence) {
-        return newHashWithSalt2Builder(charSequence, null);
+        return newHashWithSalt2Builder(charSequence, DefaultEncoding.UTF8);
     }
 
     /**
