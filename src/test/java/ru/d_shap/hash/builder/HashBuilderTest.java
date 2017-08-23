@@ -63,8 +63,10 @@ public final class HashBuilderTest {
      * {@link HashBuilder} class test.
      */
     @Test
-    public void newStringSimpleHashBuilderTest() {
+    public void newCharSequenceSimpleHashBuilderTest() {
+        Assertions.assertThat(HashBuilder.newSimpleHashBuilder("12345").setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
         Assertions.assertThat(HashBuilder.newSimpleHashBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).getHash()).containsExactlyInOrder(-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123);
+        Assertions.assertThat(HashBuilder.newSimpleHashBuilder("12345").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid()).isTrue();
         Assertions.assertThat(HashBuilder.newSimpleHashBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredHash(new byte[]{-126, 124, -53, 14, -22, -118, 112, 108, 76, 52, -95, 104, -111, -8, 78, 123}).isHashValid()).isTrue();
     }
 
@@ -93,11 +95,15 @@ public final class HashBuilderTest {
      * {@link HashBuilder} class test.
      */
     @Test
-    public void newStringHashWithSaltBuilderTest() {
+    public void newCharSequenceHashWithSaltBuilderTest() {
+        Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345").setAlgorithm(HashAlgorithms.MD5).setSalt(new byte[]{10, 11}).getHash()).containsExactlyInOrder(-92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53);
         Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setSalt(new byte[]{10, 11}).getHash()).containsExactlyInOrder(-92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53);
+        Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345").setAlgorithm(HashAlgorithms.MD5).setSalt(new byte[]{10, 11}).setStoredHash(new byte[]{-92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53}).isHashValid()).isTrue();
         Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setSalt(new byte[]{10, 11}).setStoredHash(new byte[]{-92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53}).isHashValid()).isTrue();
 
+        Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345").setAlgorithm(HashAlgorithms.MD5).setSalt(new byte[]{10, 11}).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).getHash()).containsExactlyInOrder(10, 11, -92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53);
         Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setSalt(new byte[]{10, 11}).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).getHash()).containsExactlyInOrder(10, 11, -92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53);
+        Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345").setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{10, 11, -92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53}).isHashValid()).isTrue();
         Assertions.assertThat(HashBuilder.newHashWithSaltBuilder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setStoredHash(new byte[]{10, 11, -92, -92, -91, -78, -54, 57, 120, -113, -55, -39, 59, -51, 93, 51, -127, -53}).isHashValid()).isTrue();
     }
 
@@ -129,11 +135,15 @@ public final class HashBuilderTest {
      * {@link HashBuilder} class test.
      */
     @Test
-    public void newStringHashWithSalt2BuilderTest() {
+    public void newCharSequenceHashWithSalt2BuilderTest() {
+        Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345").setAlgorithm(HashAlgorithms.MD5).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{20, 30, 40}).getHash()).containsExactlyInOrder(70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86);
         Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{20, 30, 40}).getHash()).containsExactlyInOrder(70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86);
+        Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345").setAlgorithm(HashAlgorithms.MD5).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{20, 30, 40}).setStoredHash(new byte[]{70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86}).isHashValid()).isTrue();
         Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredSalt(new byte[]{10, 11}).setFixedSalt(new byte[]{20, 30, 40}).setStoredHash(new byte[]{70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86}).isHashValid()).isTrue();
 
+        Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345").setAlgorithm(HashAlgorithms.MD5).setStoredSalt(new byte[]{10, 11}).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setFixedSalt(new byte[]{20, 30, 40}).setSaltOrder(SaltOrder.STORED_SALT_FIRST).getHash()).containsExactlyInOrder(10, 11, 70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86);
         Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setStoredSalt(new byte[]{10, 11}).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setFixedSalt(new byte[]{20, 30, 40}).setSaltOrder(SaltOrder.STORED_SALT_FIRST).getHash()).containsExactlyInOrder(10, 11, 70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86);
+        Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345").setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setFixedSalt(new byte[]{20, 30, 40}).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setStoredHash(new byte[]{10, 11, 70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86}).isHashValid()).isTrue();
         Assertions.assertThat(HashBuilder.newHashWithSalt2Builder("12345", "UTF-8").setAlgorithm(HashAlgorithms.MD5).setSaltStoreType(SaltStoreType.AT_THE_BEGINNING).setFixedSalt(new byte[]{20, 30, 40}).setSaltOrder(SaltOrder.STORED_SALT_FIRST).setStoredHash(new byte[]{10, 11, 70, 73, 73, 69, 61, 71, 124, -14, -11, -84, -69, -7, -90, 59, 23, -86}).isHashValid()).isTrue();
     }
 
