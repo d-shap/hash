@@ -90,13 +90,8 @@ public final class Hash {
             throw new IllegalArgumentException("Salt char sequence encoding is null");
         }
         try {
-            if (salt instanceof String) {
-                byte[] saltBytes = ((String) salt).getBytes(encoding);
-                return addSalt(saltBytes);
-            } else {
-                byte[] saltBytes = salt.toString().getBytes(encoding);
-                return addSalt(saltBytes);
-            }
+            byte[] saltBytes = salt.toString().getBytes(encoding);
+            return addSalt(saltBytes);
         } catch (UnsupportedEncodingException ex) {
             throw new IllegalArgumentException("Wrong salt char sequence encoding: " + encoding, ex);
         }
