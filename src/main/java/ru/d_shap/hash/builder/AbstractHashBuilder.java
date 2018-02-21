@@ -30,7 +30,7 @@ import ru.d_shap.hash.SaltStoreType;
  * @param <T> type for the chain call.
  * @author Dmitry Shapovalov
  */
-abstract class AbstractHashBuilder<T extends AbstractHashBuilder> {
+abstract class AbstractHashBuilder<T extends AbstractHashBuilder<?>> {
 
     private String _algorithm;
 
