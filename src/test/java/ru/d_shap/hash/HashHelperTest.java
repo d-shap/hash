@@ -262,7 +262,7 @@ public final class HashHelperTest {
             HashHelper.getHash(new ErrorInputStream(), HashAlgorithms.MD5);
             Assertions.fail("HashHelper test fail");
         } catch (HashIOException ex) {
-            Assertions.assertThat(ex).isCauseInstanceOf(IOException.class);
+            Assertions.assertThat(ex).hasCause(IOException.class);
         }
     }
 
