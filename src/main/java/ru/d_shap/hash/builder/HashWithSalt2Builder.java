@@ -66,6 +66,7 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      * Set the stored salt.
      *
      * @param storedSalt the stored salt.
+     *
      * @return current object for the chain call.
      */
     public final HashWithSalt2Builder setStoredSalt(final byte[] storedSalt) {
@@ -97,6 +98,7 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      * Set the fixed salt.
      *
      * @param fixedSalt the fixed salt.
+     *
      * @return current object for the chain call.
      */
     public final HashWithSalt2Builder setFixedSalt(final byte[] fixedSalt) {
@@ -139,6 +141,7 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      * Set the salt order.
      *
      * @param saltOrder the salt order.
+     *
      * @return current object for the chain call.
      */
     public final HashWithSalt2Builder setSaltOrder(final SaltOrder saltOrder) {
@@ -159,6 +162,7 @@ public abstract class HashWithSalt2Builder extends AbstractHashBuilder<HashWithS
      * Set the salt store type.
      *
      * @param saltStoreType the salt store type.
+     *
      * @return current object for the chain call.
      */
     public final HashWithSalt2Builder setSaltStoreType(final SaltStoreType saltStoreType) {

@@ -53,6 +53,7 @@ public final class Hash {
      * Add the salt to the current hash.
      *
      * @param salt the salt.
+     *
      * @return current object for the chain call.
      */
     public Hash addSalt(final byte[] salt) {
@@ -69,6 +70,7 @@ public final class Hash {
      * Add the salt to the current hash.
      *
      * @param salt the salt.
+     *
      * @return current object for the chain call.
      */
     public Hash addSalt(final CharSequence salt) {
@@ -80,6 +82,7 @@ public final class Hash {
      *
      * @param salt     the salt.
      * @param encoding an encoding of the salt.
+     *
      * @return current object for the chain call.
      */
     public Hash addSalt(final CharSequence salt, final String encoding) {
@@ -112,6 +115,7 @@ public final class Hash {
      * Check if the current hash bytes are equal to the specified bytes.
      *
      * @param hash the specified bytes.
+     *
      * @return true if the current hash bytes are equal to the specified bytes.
      */
     public boolean matches(final byte[] hash) {

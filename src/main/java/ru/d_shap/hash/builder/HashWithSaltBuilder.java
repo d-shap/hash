@@ -59,6 +59,7 @@ public abstract class HashWithSaltBuilder extends AbstractHashBuilder<HashWithSa
      * Set the salt.
      *
      * @param salt the salt.
+     *
      * @return current object for the chain call.
      */
     public final HashWithSaltBuilder setSalt(final byte[] salt) {
@@ -99,6 +100,7 @@ public abstract class HashWithSaltBuilder extends AbstractHashBuilder<HashWithSa
      * Set the salt store type.
      *
      * @param saltStoreType the salt store type.
+     *
      * @return current object for the chain call.
      */
     public final HashWithSaltBuilder setSaltStoreType(final SaltStoreType saltStoreType) {

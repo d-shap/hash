@@ -38,6 +38,7 @@ public final class HashBuilder {
      * Create simple hash builder.
      *
      * @param bytes the byte array.
+     *
      * @return the simple hash builder.
      */
     public static SimpleHashBuilder newSimpleHashBuilder(final byte[] bytes) {
@@ -48,6 +49,7 @@ public final class HashBuilder {
      * Create simple hash builder.
      *
      * @param charSequence the char sequence.
+     *
      * @return the simple hash builder.
      */
     public static SimpleHashBuilder newSimpleHashBuilder(final CharSequence charSequence) {
@@ -59,6 +61,7 @@ public final class HashBuilder {
      *
      * @param charSequence the char sequence.
      * @param encoding     the char sequence encoding.
+     *
      * @return the simple hash builder.
      */
     public static SimpleHashBuilder newSimpleHashBuilder(final CharSequence charSequence, final String encoding) {
@@ -69,6 +72,7 @@ public final class HashBuilder {
      * Create simple hash builder.
      *
      * @param stream the input stream.
+     *
      * @return the simple hash builder.
      */
     public static SimpleHashBuilder newSimpleHashBuilder(final InputStream stream) {
@@ -79,6 +83,7 @@ public final class HashBuilder {
      * Create hash with the salt builder.
      *
      * @param bytes the byte array.
+     *
      * @return the hash with the salt builder.
      */
     public static HashWithSaltBuilder newHashWithSaltBuilder(final byte[] bytes) {
@@ -89,6 +94,7 @@ public final class HashBuilder {
      * Create hash with the salt builder.
      *
      * @param charSequence the char sequence.
+     *
      * @return the hash with the salt builder.
      */
     public static HashWithSaltBuilder newHashWithSaltBuilder(final CharSequence charSequence) {
@@ -100,6 +106,7 @@ public final class HashBuilder {
      *
      * @param charSequence the char sequence.
      * @param encoding     the char sequence encoding.
+     *
      * @return the hash with the salt builder.
      */
     public static HashWithSaltBuilder newHashWithSaltBuilder(final CharSequence charSequence, final String encoding) {
@@ -110,6 +117,7 @@ public final class HashBuilder {
      * Create hash with the salt builder.
      *
      * @param stream the input stream.
+     *
      * @return the hash with the salt builder.
      */
     public static HashWithSaltBuilder newHashWithSaltBuilder(final InputStream stream) {
@@ -120,6 +128,7 @@ public final class HashBuilder {
      * Create hash with the stored salt and the fixed salt builder.
      *
      * @param bytes the byte array.
+     *
      * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final byte[] bytes) {
@@ -130,6 +139,7 @@ public final class HashBuilder {
      * Create hash with the stored salt and the fixed salt builder.
      *
      * @param charSequence the char sequence.
+     *
      * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final CharSequence charSequence) {
@@ -141,6 +151,7 @@ public final class HashBuilder {
      *
      * @param charSequence the char sequence.
      * @param encoding     the char sequence encoding.
+     *
      * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final CharSequence charSequence, final String encoding) {
@@ -151,6 +162,7 @@ public final class HashBuilder {
      * Create hash with the stored salt and the fixed salt builder.
      *
      * @param stream the input stream.
+     *
      * @return the hash with the stored salt and the fixed salt builder.
      */
     public static HashWithSalt2Builder newHashWithSalt2Builder(final InputStream stream) {

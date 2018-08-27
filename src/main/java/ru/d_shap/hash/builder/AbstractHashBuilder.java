@@ -28,6 +28,7 @@ import ru.d_shap.hash.SaltStoreType;
  * Base class for all hash builder classes.
  *
  * @param <T> type for the chain call.
+ *
  * @author Dmitry Shapovalov
  */
 abstract class AbstractHashBuilder<T extends AbstractHashBuilder<?>> {
@@ -55,6 +56,7 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder<?>> {
      * Set the algorithm name.
      *
      * @param algorithm the algorithm name.
+     *
      * @return current object for the chain call.
      */
     @SuppressWarnings("unchecked")
@@ -89,6 +91,7 @@ abstract class AbstractHashBuilder<T extends AbstractHashBuilder<?>> {
      * Set the stored hash.
      *
      * @param storedHash the stored hash.
+     *
      * @return current object for the chain call.
      */
     @SuppressWarnings("unchecked")

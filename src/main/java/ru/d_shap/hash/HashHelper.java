@@ -43,6 +43,7 @@ public final class HashHelper {
      *
      * @param bytes     the specified bytes.
      * @param algorithm the hash algorithm.
+     *
      * @return the hash object.
      */
     public static Hash getHash(final byte[] bytes, final String algorithm) {
@@ -62,6 +63,7 @@ public final class HashHelper {
      *
      * @param charSequence the specified char sequence.
      * @param algorithm    the hash algorithm.
+     *
      * @return the hash object.
      */
     public static Hash getHash(final CharSequence charSequence, final String algorithm) {
@@ -74,6 +76,7 @@ public final class HashHelper {
      * @param charSequence the specified char sequence.
      * @param encoding     the encoding of the char sequence.
      * @param algorithm    the hash algorithm.
+     *
      * @return the hash object.
      */
     public static Hash getHash(final CharSequence charSequence, final String encoding, final String algorithm) {
@@ -96,6 +99,7 @@ public final class HashHelper {
      *
      * @param stream    the specified stream of bytes.
      * @param algorithm the hash algorithm.
+     *
      * @return the hash object.
      */
     public static Hash getHash(final InputStream stream, final String algorithm) {
@@ -172,6 +176,7 @@ public final class HashHelper {
      * @param hash          the hash bytes.
      * @param salt          the salt bytes.
      * @param saltStoreType how to store the salt bytes.
+     *
      * @return the result array of bytes.
      */
     public static byte[] addSaltBytes(final byte[] hash, final byte[] salt, final SaltStoreType saltStoreType) {
@@ -193,6 +198,7 @@ public final class HashHelper {
      * @param bytes         the array of bytes.
      * @param saltStoreType how the salt bytes are stored.
      * @param saltLength    the number of the salt bytes.
+     *
      * @return the hash bytes.
      */
     public static byte[] getHashBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
@@ -214,6 +220,7 @@ public final class HashHelper {
      * @param bytes         the array of bytes.
      * @param saltStoreType how the salt bytes are stored.
      * @param saltLength    the number of the salt bytes.
+     *
      * @return the salt bytes.
      */
     public static byte[] getSaltBytes(final byte[] bytes, final SaltStoreType saltStoreType, final int saltLength) {
