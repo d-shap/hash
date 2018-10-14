@@ -312,7 +312,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <keyname>maven signature - hash</keyname>
+                            <keyname>(maven signature - hash)</keyname>
                         </configuration>
                     </plugin>
                 </plugins>
