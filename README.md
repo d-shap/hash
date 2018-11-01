@@ -88,11 +88,11 @@ HashBuilder.newHashWithSalt2Builder(password)
            .isHashValid();
 ```
 
-Maven artifact
+Latest release
 ==============
-* **groupId**: ru.d-shap
-* **artifactId**: hash
-* **version**: 1.0
+* **&lt;groupId&gt;**: ru.d-shap
+* **&lt;artifactId&gt;**: hash
+* **&lt;version&gt;**: 1.0
 
 Donation
 ========
