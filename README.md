@@ -1,5 +1,4 @@
-Hash library
-============
+# Hash library
 Hash library provides facilities for the hash computations.
 
 A hash function is any function that can be used to map data of arbitrary size to data of fixed size.
@@ -88,12 +87,10 @@ HashBuilder.newHashWithSalt2Builder(password)
            .isHashValid();
 ```
 
-Latest release
-==============
+# Latest release
 * **&lt;groupId&gt;**: ru.d-shap
 * **&lt;artifactId&gt;**: hash
 * **&lt;version&gt;**: 1.0
 
-Donation
-========
+# Donation
 If you find my code useful, you can [bye me a coffee](https://www.paypal.me/dshapovalov)
