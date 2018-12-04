@@ -88,6 +88,7 @@ HashBuilder.newHashWithSalt2Builder(password)
 ```
 
 # Latest release
+Hash library:
 * **&lt;groupId&gt;**: ru.d-shap
 * **&lt;artifactId&gt;**: hash
 * **&lt;version&gt;**: 1.0
