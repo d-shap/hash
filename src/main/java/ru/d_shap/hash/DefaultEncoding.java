@@ -19,6 +19,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 package ru.d_shap.hash;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * String encoding constants.
  *
@@ -26,7 +28,7 @@ package ru.d_shap.hash;
  */
 public final class DefaultEncoding {
 
-    public static final String UTF8 = "UTF-8";
+    public static final String UTF8 = StandardCharsets.UTF_8.name();
 
     private DefaultEncoding() {
         super();
