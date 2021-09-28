@@ -57,10 +57,10 @@ HashBuilder.newHashWithSaltBuilder(password)
            .isHashValid();
 ```
 
-The hash in the example above is secure enough, but the salt and the hash are stored together.
+The hash in the example above is secure enough. The salt is stored together with the hash.
 Another salt can be added, that is known to the application only.
 This salt is fixed, i.e. is not changed during application existance.
-But this salt is a peace of information, that is unknown to someone who has the stored hash.
+But this salt is a piece of information, that is unknown to someone who has the stored hash.
 ```
 // Obtain hash of the password
 byte[] password = ...
@@ -87,7 +87,7 @@ HashBuilder.newHashWithSalt2Builder(password)
            .isHashValid();
 ```
 
-# Latest release
+# The latest release
 Hash library:
 * **&lt;groupId&gt;**: ru.d-shap
 * **&lt;artifactId&gt;**: hash
