@@ -21,7 +21,6 @@ package ru.d_shap.hash;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 /**
  * Class contains computed hash and provides methods to work with this hash.
@@ -122,7 +121,7 @@ public final class Hash {
         if (hash == null) {
             throw new IllegalArgumentException("Hash byte array is null");
         }
-        return Arrays.equals(_currentHash, hash);
+        return MessageDigest.isEqual(_currentHash, hash);
     }
 
 }
