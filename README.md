@@ -86,12 +86,3 @@ HashBuilder.newHashWithSalt2Builder(password)
            .setStoredHash(storedHash)
            .isHashValid();
 ```
-
-# The latest release
-Hash library:
-* **&lt;groupId&gt;**: ru.d-shap
-* **&lt;artifactId&gt;**: hash
-* **&lt;version&gt;**: 1.0
-
-# Donation
-If you find my code useful, you can [bye me a coffee](https://www.paypal.me/dshapovalov)
